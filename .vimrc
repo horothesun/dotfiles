@@ -15,8 +15,9 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set nu
+set number
 set nowrap
+set ignorecase
 set smartcase
 set noswapfile
 set nobackup
@@ -29,14 +30,14 @@ set incsearch
 set termguicolors
 set scrolloff=8
 
-" Give more space for displaying messages.
+" Give more space for displaying messages
 set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
+" delays and poor user experience
 set updatetime=50
 
-" Don't pass messages to |ins-completion-menu|.
+" Don't pass messages to |ins-completion-menu|
 set shortmess+=c
 
 set colorcolumn=100
@@ -44,14 +45,17 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-system-copy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tweekmonster/gofmt.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
@@ -84,14 +88,22 @@ nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :Rg<SPACE>
+" nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <leader>pv :NERDTree<CR>
+nnoremap <leader>ps :Rg<SPACE>
+
+" fzf
 nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>pf :Files<CR>
-" nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>- :vertical resize -5<CR>
-nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
+nnoremap <leader>pf :Files<CR>
+nnoremap <leader>pF :Locate<CR>
+nnoremap <leader>pb :Buffers<CR>
+nnoremap <leader>pl :Lines<CR>
+nnoremap <leader>a :Ag<CR>
+nnoremap <leader>w :Windows<CR>
+
+nnoremap <leader>+ :vertical resize +5<CR>
+nnoremap <leader>- :vertical resize -5<CR>
+nnoremap <leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
@@ -111,13 +123,13 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <C-space> coc#refresh()
 
-" Disable arrow keys.
+" Disable arrow keys
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" GoTo code navigation.
+" GoTo code navigation
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
@@ -129,7 +141,7 @@ nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
-" Sweet Sweet FuGITive
+" FuGITive
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gs :G<CR>
@@ -141,3 +153,9 @@ fun! TrimWhitespace()
 endfun
 
 autocmd BufWritePre * :call TrimWhitespace()
+
+" iamcco/markdown-preview
+" CSS: https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css
+let g:mkdp_auto_close=0
+let g:mkdp_refresh_slow=1
+" let g:mkdp_markdown_css=expand('~/github-markdown.css')
