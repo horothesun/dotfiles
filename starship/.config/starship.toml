@@ -1,0 +1,27 @@
+format = """
+$username\
+$hostname\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$docker_context\
+$package\
+$nix_shell\
+$conda\
+$line_break\
+$status\
+$shell\
+$character"""
+
+add_newline = false
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+
+[git_status]
+ahead = "⇡${count}($style)"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}($style)"
+behind = "⇣${count}($style)"
