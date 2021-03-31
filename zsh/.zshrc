@@ -134,27 +134,28 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # powerline-shell
-function powerline_precmd() {
-    PS1="$(/Users/ndipol/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
-}
+#function powerline_precmd() {
+#    PS1="$(/Users/ndipol/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
+#}
+#
+#function install_powerline_precmd() {
+#  for s in "${precmd_functions[@]}"; do
+#    if [ "$s" = "powerline_precmd" ]; then
+#      return
+#    fi
+#  done
+#  precmd_functions+=(powerline_precmd)
+#}
+#
+#if [ "$TERM" != "linux" ]; then
+#    install_powerline_precmd
+#fi
 
-function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
-fi
-
+# starship
+eval "$(starship init zsh)"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 # pyenv
 function initPyenv() {
@@ -198,6 +199,11 @@ function initConda() {
   unset __conda_setup
 }
 # <<< conda initialize <<<
+
+
+function gd() {
+  git diff $@ --name-only | fzf -m --ansi --preview "git diff $@ --color=always -- {-1}"
+}
 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
