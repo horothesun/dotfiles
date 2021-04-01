@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 17.0
+  size: 20.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -175,12 +175,107 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night)
-colors:
+schemes:
+
+  ayu_mirage: &ayu_mirage
+    primary:
+      background: '#202734'
+      foreground: '#CBCCC6'
+    normal:
+      black: '#191E2A'
+      red: '#FF3333'
+      green: '#BAE67E'
+      yellow: '#FFA759'
+      blue: '#73D0FF'
+      magenta: '#FFD580'
+      cyan: '#95E6CB'
+      white: '#C7C7C7'
+    bright:
+      black: '#686868'
+      red: '#F27983'
+      green: '#A6CC70'
+      yellow: '#FFCC66'
+      blue: '#5CCFE6'
+      magenta: '#FFEE99'
+      cyan: '#95E6CB'
+      white: '#FFFFFF'
+
+  ayu_dark: &ayu_dark
+    primary:
+      background: '#0A0E14'
+      foreground: '#B3B1AD'
+    normal:
+      black: '#01060E'
+      red: '#EA6C73'
+      green: '#91B362'
+      yellow: '#F9AF4F'
+      blue: '#53BDFA'
+      magenta: '#FAE994'
+      cyan: '#90E1C6'
+      white: '#C7C7C7'
+    bright:
+      black: '#686868'
+      red: '#F07178'
+      green: '#C2D94C'
+      yellow: '#FFB454'
+      blue: '#59C2FF'
+      magenta: '#FFEE99'
+      cyan: '#95E6CB'
+      white: '#FFFFFF'
+
+  dracula: &dracula
+    primary:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+    normal:
+      black:   '#000000'
+      red:     '#ff5555'
+      green:   '#50fa7b'
+      yellow:  '#f1fa8c'
+      blue:    '#caa9fa'
+      magenta: '#ff79c6'
+      cyan:    '#8be9fd'
+      white:   '#bfbfbf'
+    bright:
+      black:   '#575b70'
+      red:     '#ff6e67'
+      green:   '#5af78e'
+      yellow:  '#f4f99d'
+      blue:    '#caa9fa'
+      magenta: '#ff92d0'
+      cyan:    '#9aedfe'
+      white:   '#e6e6e6'
+
+  new_moon: &new_moon
+    primary:
+      background: '#2D2D2D'
+      foreground: '#B3B9C5'
+    normal:
+      black: '#2D2D2D'
+      red: '#F2777A'
+      green: '#92D192'
+      yellow: '#FFD479'
+      blue: '#6AB0F3'
+      magenta: '#E1A6F2'
+      cyan: '#76D4D6'
+      white: '#B3B9C5'
+    bright:
+      black: '#777C85'
+      red: '#F2777A'
+      green: '#76D4D6'
+      yellow: '#FFEEA6'
+      blue: '#6AB0F3'
+      magenta: '#E1A6F2'
+      cyan: '#76D4D6'
+      white: '#FFFFFF'
+
+# Colors
+colors: *new_moon
+
   # Default colors
-  primary:
-    background: '#202734'
-    foreground: '#CBCCC6'
+  #primary:
+  #  background: '#202734'
+  #  foreground: '#CBCCC6'
 
     # Bright and dim foreground colors
     #
@@ -249,26 +344,26 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-  normal:
-    black: '#191E2A'
-    red: '#FF3333'
-    green: '#BAE67E'
-    yellow: '#FFA759'
-    blue: '#73D0FF'
-    magenta: '#FFD580'
-    cyan: '#95E6CB'
-    white: '#C7C7C7'
+  #normal:
+  #  black: '#191E2A'
+  #  red: '#FF3333'
+  #  green: '#BAE67E'
+  #  yellow: '#FFA759'
+  #  blue: '#73D0FF'
+  #  magenta: '#FFD580'
+  #  cyan: '#95E6CB'
+  #  white: '#C7C7C7'
 
   # Bright colors
-  bright:
-    black: '#686868'
-    red: '#F27983'
-    green: '#A6CC70'
-    yellow: '#FFCC66'
-    blue: '#5CCFE6'
-    magenta: '#FFEE99'
-    cyan: '#95E6CB'
-    white: '#FFFFFF'
+  #bright:
+  #  black: '#686868'
+  #  red: '#F27983'
+  #  green: '#A6CC70'
+  #  yellow: '#FFCC66'
+  #  blue: '#5CCFE6'
+  #  magenta: '#FFEE99'
+  #  cyan: '#95E6CB'
+  #  white: '#FFFFFF'
 
   # Dim colors
   #
