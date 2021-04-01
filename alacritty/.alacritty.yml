@@ -829,7 +829,10 @@ alt_send_esc: false
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
+  - { key: Left,  mods: Alt, chars: "\x1bb" } # Option + Left-Arrow: previous word
+  - { key: Right, mods: Alt, chars: "\x1bf" } # Option + Right-Arrow: next word
+
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
