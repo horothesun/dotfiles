@@ -270,7 +270,7 @@ schemes:
       white: '#FFFFFF'
 
 # Colors
-colors: *new_moon
+colors: *ayu_dark
 
   # Default colors
   #primary:
