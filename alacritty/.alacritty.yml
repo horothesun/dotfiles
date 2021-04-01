@@ -111,10 +111,10 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: CodeNewRoman Nerd Font Mono
+    family: FiraCode Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Book
+    style: Regular
 
   # Bold font face
   #bold:
@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 20.0
+  size: 18.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -173,7 +173,7 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: false
 
 schemes:
 
@@ -223,6 +223,33 @@ schemes:
       cyan: '#95E6CB'
       white: '#FFFFFF'
 
+  base16_flat: &base16_flat
+    primary:
+      background: '0x2c3e50'
+      foreground: '0xe0e0e0'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x2c3e50'
+      cursor: '0xe0e0e0'
+    normal:
+      black:   '0x2c3e50'
+      red:     '0xe74c3c'
+      green:   '0x2ecc71'
+      yellow:  '0xf1c40f'
+      blue:    '0x3498db'
+      magenta: '0x9b59b6'
+      cyan:    '0x1abc9c'
+      white:   '0xe0e0e0'
+    bright:
+      black:   '0x95a5a6'
+      red:     '0xe67e22'
+      green:   '0x34495e'
+      yellow:  '0x7f8c8d'
+      blue:    '0xbdc3c7'
+      magenta: '0xf5f5f5'
+      cyan:    '0xbe643c'
+      white:   '0xecf0f1'
+
   dracula: &dracula
     primary:
       background: '#282a36'
@@ -270,7 +297,7 @@ schemes:
       white: '#FFFFFF'
 
 # Colors
-colors: *ayu_dark
+colors: *base16_flat
 
   # Default colors
   #primary:
