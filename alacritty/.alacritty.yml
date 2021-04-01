@@ -223,6 +223,33 @@ schemes:
       cyan: '#95E6CB'
       white: '#FFFFFF'
 
+  base16_dracula: &base16_dracula
+    primary:
+      background: '0x282936'
+      foreground: '0xe9e9f4'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x282936'
+      cursor: '0xe9e9f4'
+    normal:
+      black:   '0x282936'
+      red:     '0xea51b2'
+      green:   '0xebff87'
+      yellow:  '0x00f769'
+      blue:    '0x62d6e8'
+      magenta: '0xb45bcf'
+      cyan:    '0xa1efe4'
+      white:   '0xe9e9f4'
+    bright:
+      black:   '0x626483'
+      red:     '0xb45bcf'
+      green:   '0x3a3c4e'
+      yellow:  '0x4d4f68'
+      blue:    '0x62d6e8'
+      magenta: '0xf1f2f8'
+      cyan:    '0x00f769'
+      white:   '0xf7f7fb'
+
   base16_flat: &base16_flat
     primary:
       background: '0x2c3e50'
@@ -297,7 +324,7 @@ schemes:
       white: '#FFFFFF'
 
 # Colors
-colors: *base16_flat
+colors: *base16_dracula
 
   # Default colors
   #primary:
