@@ -85,12 +85,12 @@ setopt share_history
 export JAVA_HOME=$(/usr/libexec/java_home -v1.8.0_282)
 
 
-# key binding
+# key bindings
 # https://coderwall.com/p/a8uxma/zsh-iterm2-osx-shortcuts
-bindkey "[D" backward-word
-bindkey "[C" forward-word
-bindkey "^[a" beginning-of-line
-bindkey "^[e" end-of-line
+#bindkey "[D" backward-word
+#bindkey "[C" forward-word
+#bindkey "^[a" beginning-of-line
+#bindkey "^[e" end-of-line
 
 
 # rbenv
