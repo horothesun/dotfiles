@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 18.0
+  size: 19.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -300,6 +300,33 @@ schemes:
       cyan:    '#9aedfe'
       white:   '#e6e6e6'
 
+  base16_material_palenight: &base16_material_palenight
+    primary:
+      background: '0x292d3e'
+      foreground: '0x959dcb'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x292d3e'
+      cursor: '0x959dcb'
+    normal:
+      black:   '0x292d3e'
+      red:     '0xf07178'
+      green:   '0xc3e88d'
+      yellow:  '0xffcb6b'
+      blue:    '0x82aaff'
+      magenta: '0xc792ea'
+      cyan:    '0x89ddff'
+      white:   '0x959dcb'
+    bright:
+      black:   '0x676e95'
+      red:     '0xf78c6c'
+      green:   '0x444267'
+      yellow:  '0x32374d'
+      blue:    '0x8796b0'
+      magenta: '0x959dcb'
+      cyan:    '0xff5370'
+      white:   '0xffffff'
+
   new_moon: &new_moon
     primary:
       background: '#2D2D2D'
@@ -324,7 +351,7 @@ schemes:
       white: '#FFFFFF'
 
 # Colors
-colors: *base16_dracula
+colors: *base16_material_palenight
 
   # Default colors
   #primary:
