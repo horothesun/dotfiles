@@ -172,9 +172,6 @@ font:
   # it is recommended to set `use_thin_strokes` to `false`.
   #use_thin_strokes: true
 
-# If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
-
 schemes:
 
   ayu_mirage: &ayu_mirage
@@ -222,6 +219,114 @@ schemes:
       magenta: '#FFEE99'
       cyan: '#95E6CB'
       white: '#FFFFFF'
+
+  base16_black_metal_bathory: &base16_black_metal_bathory
+    primary:
+      background: '0x000000'
+      foreground: '0xc1c1c1'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x000000'
+      cursor: '0xc1c1c1'
+    normal:
+      black:   '0x000000'
+      red:     '0x5f8787'
+      green:   '0xfbcb97'
+      yellow:  '0xe78a53'
+      blue:    '0x888888'
+      magenta: '0x999999'
+      cyan:    '0xaaaaaa'
+      white:   '0xc1c1c1'
+    bright:
+      black:   '0x333333'
+      red:     '0xaaaaaa'
+      green:   '0x121212'
+      yellow:  '0x222222'
+      blue:    '0x999999'
+      magenta: '0x999999'
+      cyan:    '0x444444'
+      white:   '0xc1c1c1'
+
+  base16_brewer: &base16_brewer
+    primary:
+      background: '0x0c0d0e'
+      foreground: '0xb7b8b9'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x0c0d0e'
+      cursor: '0xb7b8b9'
+    normal:
+      black:   '0x0c0d0e'
+      red:     '0xe31a1c'
+      green:   '0x31a354'
+      yellow:  '0xdca060'
+      blue:    '0x3182bd'
+      magenta: '0x756bb1'
+      cyan:    '0x80b1d3'
+      white:   '0xb7b8b9'
+    bright:
+      black:   '0x737475'
+      red:     '0xe6550d'
+      green:   '0x2e2f30'
+      yellow:  '0x515253'
+      blue:    '0x959697'
+      magenta: '0xdadbdc'
+      cyan:    '0xb15928'
+      white:   '0xfcfdfe'
+
+  base16_bright: &base16_bright
+    primary:
+      background: '0x000000'
+      foreground: '0xe0e0e0'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x000000'
+      cursor: '0xe0e0e0'
+    normal:
+      black:   '0x000000'
+      red:     '0xfb0120'
+      green:   '0xa1c659'
+      yellow:  '0xfda331'
+      blue:    '0x6fb3d2'
+      magenta: '0xd381c3'
+      cyan:    '0x76c7b7'
+      white:   '0xe0e0e0'
+    bright:
+      black:   '0xb0b0b0'
+      red:     '0xfc6d24'
+      green:   '0x303030'
+      yellow:  '0x505050'
+      blue:    '0xd0d0d0'
+      magenta: '0xf5f5f5'
+      cyan:    '0xbe643c'
+      white:   '0xffffff'
+
+  base16_chalk: &base16_chalk
+    primary:
+      background: '0x151515'
+      foreground: '0xd0d0d0'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x151515'
+      cursor: '0xd0d0d0'
+    normal:
+      black:   '0x151515'
+      red:     '0xfb9fb1'
+      green:   '0xacc267'
+      yellow:  '0xddb26f'
+      blue:    '0x6fc2ef'
+      magenta: '0xe1a3ee'
+      cyan:    '0x12cfc0'
+      white:   '0xd0d0d0'
+    bright:
+      black:   '0x505050'
+      red:     '0xeda987'
+      green:   '0x202020'
+      yellow:  '0x303030'
+      blue:    '0xb0b0b0'
+      magenta: '0xe0e0e0'
+      cyan:    '0xdeaf8f'
+      white:   '0xf5f5f5'
 
   base16_dracula: &base16_dracula
     primary:
@@ -276,29 +381,6 @@ schemes:
       magenta: '0xf5f5f5'
       cyan:    '0xbe643c'
       white:   '0xecf0f1'
-
-  dracula: &dracula
-    primary:
-      background: '#282a36'
-      foreground: '#f8f8f2'
-    normal:
-      black:   '#000000'
-      red:     '#ff5555'
-      green:   '#50fa7b'
-      yellow:  '#f1fa8c'
-      blue:    '#caa9fa'
-      magenta: '#ff79c6'
-      cyan:    '#8be9fd'
-      white:   '#bfbfbf'
-    bright:
-      black:   '#575b70'
-      red:     '#ff6e67'
-      green:   '#5af78e'
-      yellow:  '#f4f99d'
-      blue:    '#caa9fa'
-      magenta: '#ff92d0'
-      cyan:    '#9aedfe'
-      white:   '#e6e6e6'
 
   base16_material_palenight: &base16_material_palenight
     primary:
@@ -381,6 +463,83 @@ schemes:
       cyan:    '0xb08060'
       white:   '0xffffff'
 
+  base16_rebecca: &base16_rebecca
+    primary:
+      background: '0x292a44'
+      foreground: '0xf1eff8'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x292a44'
+      cursor: '0xf1eff8'
+    normal:
+      black:   '0x292a44'
+      red:     '0xa0a0c5'
+      green:   '0x6dfedf'
+      yellow:  '0xae81ff'
+      blue:    '0x2de0a7'
+      magenta: '0x7aa5ff'
+      cyan:    '0x8eaee0'
+      white:   '0xf1eff8'
+    bright:
+      black:   '0x666699'
+      red:     '0xefe4a1'
+      green:   '0x663399'
+      yellow:  '0x383a62'
+      blue:    '0xa0a0c5'
+      magenta: '0xccccff'
+      cyan:    '0xff79c6'
+      white:   '0x53495d'
+
+  base16_solarized_dark: &base16_solarized_dark
+    primary:
+      background: '0x002b36'
+      foreground: '0x93a1a1'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x002b36'
+      cursor: '0x93a1a1'
+    normal:
+      black:   '0x002b36'
+      red:     '0xdc322f'
+      green:   '0x859900'
+      yellow:  '0xb58900'
+      blue:    '0x268bd2'
+      magenta: '0x6c71c4'
+      cyan:    '0x2aa198'
+      white:   '0x93a1a1'
+    bright:
+      black:   '0x657b83'
+      red:     '0xcb4b16'
+      green:   '0x073642'
+      yellow:  '0x586e75'
+      blue:    '0x839496'
+      magenta: '0xeee8d5'
+      cyan:    '0xd33682'
+      white:   '0xfdf6e3'
+
+  dracula: &dracula
+    primary:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+    normal:
+      black:   '#000000'
+      red:     '#ff5555'
+      green:   '#50fa7b'
+      yellow:  '#f1fa8c'
+      blue:    '#caa9fa'
+      magenta: '#ff79c6'
+      cyan:    '#8be9fd'
+      white:   '#bfbfbf'
+    bright:
+      black:   '#575b70'
+      red:     '#ff6e67'
+      green:   '#5af78e'
+      yellow:  '#f4f99d'
+      blue:    '#caa9fa'
+      magenta: '#ff92d0'
+      cyan:    '#9aedfe'
+      white:   '#e6e6e6'
+
   new_moon: &new_moon
     primary:
       background: '#2D2D2D'
@@ -404,8 +563,80 @@ schemes:
       cyan: '#76D4D6'
       white: '#FFFFFF'
 
+  nord: &nord
+    primary:
+      background: '0x2E3440'
+      foreground: '0xD8DEE9'
+    normal:
+      black:   '0x3B4252'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x88C0D0'
+      white:   '0xE5E9F0'
+    bright:
+      black:   '0x4C566A'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x8FBCBB'
+      white:   '0xECEFF4'
+
+  tokyo_night: &tokyo_night
+    primary:
+      background: '0x1a1b26'
+      foreground: '0xa9b1d6'
+    normal:
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x787c99'
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
+
+  tokyo_night_storm: &tokyo_night_storm
+    primary:
+      background: '0x24283b'
+      foreground: '0xa9b1d6'
+    normal:
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x9699a8'
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
+
+# If `true`, bold text is drawn using the bright color variants.
+draw_bold_text_with_bright_colors: true
+
 # Colors
-colors: *base16_phd
+colors: *nord
 
   # Default colors
   #primary:
