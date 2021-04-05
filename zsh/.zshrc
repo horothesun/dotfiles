@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ndipol/.oh-my-zsh"
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -135,7 +135,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # powerline-shell
 #function powerline_precmd() {
-#    PS1="$(/Users/ndipol/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
+#    PS1="$(/Users/nicola/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
 #}
 #
 #function install_powerline_precmd() {
