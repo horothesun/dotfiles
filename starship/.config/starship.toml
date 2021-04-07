@@ -8,7 +8,6 @@ $git_commit\
 $git_state\
 $git_status\
 $docker_context\
-$package\
 $nix_shell\
 $conda\
 $line_break\
