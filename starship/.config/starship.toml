@@ -9,7 +9,6 @@ $git_state\
 $git_status\
 $docker_context\
 $nix_shell\
-$conda\
 $line_break\
 $status\
 $shell\
