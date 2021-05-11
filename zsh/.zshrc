@@ -206,5 +206,8 @@ function gd() {
 }
 
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
 
