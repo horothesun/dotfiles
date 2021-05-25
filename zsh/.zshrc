@@ -208,6 +208,19 @@ function gd() {
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+function updateGems() {
+  initRbenv && time ( gem update && gem cleanup )
+}
+
+function updateBrew() {
+  initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup )
+}
 
 alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
+
+
+# heroku autocomplete setup
+function initHeroku() {
+  HEROKU_AC_ZSH_SETUP_PATH=/Users/ndipol/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+}
 
