@@ -151,17 +151,20 @@ export NVM_DIR="$HOME/.nvm"
 #    install_powerline_precmd
 #fi
 
+
 # starship
 eval "$(starship init zsh)"
+
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
 # pyenv
 function initPyenv() {
-  if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-  fi
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
 }
 
 
@@ -212,8 +215,12 @@ function updateGems() {
   initRbenv && time ( gem update && gem cleanup )
 }
 
-function updateBrew() {
+function updateBrews() {
   initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup )
+}
+
+function updateAll() {
+  updateGems && updateBrews
 }
 
 alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
