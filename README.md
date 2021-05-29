@@ -19,13 +19,13 @@ cd dotfiles
 stow --simulate --verbose --target ~ alacritty
 ```
 
-## Unstow
+### Unstow
 
 ```bash
 stow --simulate --verbose --delete --target ~ alacritty
 ```
 
-## Adopt
+### Adopt
 
 First create same `~`-based `<APP>` folder _and file structure_ in `dotfiles/`, then
 
