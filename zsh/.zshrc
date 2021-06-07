@@ -132,6 +132,8 @@ export NVM_DIR="$HOME/.nvm"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# for Homebrew's formulae installed in /usr/local/sbin
+export PATH=/usr/local/sbin:$PATH
 
 # powerline-shell
 #function powerline_precmd() {
