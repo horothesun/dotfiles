@@ -137,7 +137,7 @@ export PATH=/usr/local/sbin:$PATH
 
 # powerline-shell
 #function powerline_precmd() {
-#    PS1="$(/Users/nicola/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
+#    PS1="$($HOME/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
 #}
 #
 #function install_powerline_precmd() {
@@ -230,6 +230,6 @@ alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
 
 # heroku autocomplete setup
 function initHeroku() {
-  HEROKU_AC_ZSH_SETUP_PATH=/Users/ndipol/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+  HEROKU_AC_ZSH_SETUP_PATH=$HOME/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 }
 
