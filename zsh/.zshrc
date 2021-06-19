@@ -206,6 +206,12 @@ function initConda() {
 # <<< conda initialize <<<
 
 
+# bat plain style
+function batp() {
+  bat --style=plain $@
+}
+
+
 function gd() {
   git diff $@ --name-only | fzf -m --ansi --preview "git diff $@ --color=always -- {-1}"
 }
