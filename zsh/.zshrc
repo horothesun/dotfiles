@@ -135,6 +135,9 @@ export NVM_DIR="$HOME/.nvm"
 # for Homebrew's formulae installed in /usr/local/sbin
 export PATH=/usr/local/sbin:$PATH
 
+# lynx
+export WWW_HOME=https://google.com/
+
 # powerline-shell
 #function powerline_precmd() {
 #    PS1="$($HOME/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
