@@ -136,7 +136,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH=/usr/local/sbin:$PATH
 
 # lynx
-export WWW_HOME=https://google.com/
+export WWW_HOME=https://duckduckgo.com/
 
 # powerline-shell
 #function powerline_precmd() {
