@@ -6,10 +6,10 @@
   environment.systemPackages = with pkgs;
     [
 #      wget
-#      htop
-#      jq
-#      fzf
-#      ripgrep
+      htop
+      jq
+      fzf
+      ripgrep
 #      git
 #      awscli
 #      (sbt.override { jre = pkgs.jdk11; })
@@ -32,7 +32,7 @@
 #     gradle
 #      apacheHttpd
       k9s
-#      yq
+      yq
 #      rnix-lsp
 #      postgresql
 #      coreutils
