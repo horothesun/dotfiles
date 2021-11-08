@@ -11,6 +11,7 @@
       jq
       yq
       bat
+      ncdu
       htop
       gh
       tldr
