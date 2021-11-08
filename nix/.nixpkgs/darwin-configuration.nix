@@ -10,10 +10,12 @@
       ripgrep
       jq
       yq
+      bat
       htop
       tldr
       lynx
       awscli
+      dive
       k9s
 #      wget
 #      git
