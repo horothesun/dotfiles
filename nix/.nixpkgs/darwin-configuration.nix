@@ -7,26 +7,29 @@
     [
       starship
       fzf
+      pass
+      browserpass
       ripgrep
       jq
       yq
+      tree
       bat
       ncdu
       htop
+      wget
       gh
       tldr
       lynx
       awscli
       dive
       k9s
-#      wget
+      neofetch
 #      git
 #      (sbt.override { jre = pkgs.jdk11; })
 #      vim
 #      stow
 #      terraform
 #      tmux
-#      tree
 #      unzip
 #      curl
 #      neovim
@@ -56,7 +59,6 @@
 
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;  # default shell on catalina
-  # programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
