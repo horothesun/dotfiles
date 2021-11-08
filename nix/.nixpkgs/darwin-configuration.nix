@@ -12,6 +12,7 @@
       yq
       bat
       htop
+      gh
       tldr
       lynx
       awscli
