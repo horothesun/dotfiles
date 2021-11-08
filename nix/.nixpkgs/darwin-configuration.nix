@@ -11,11 +11,12 @@
       jq
       yq
       htop
+      tldr
       lynx
+      awscli
       k9s
 #      wget
 #      git
-#      awscli
 #      (sbt.override { jre = pkgs.jdk11; })
 #      vim
 #      stow
