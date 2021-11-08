@@ -5,11 +5,13 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs;
     [
+      starship
       fzf
       ripgrep
       jq
       yq
       htop
+      lynx
       k9s
 #      wget
 #      git
