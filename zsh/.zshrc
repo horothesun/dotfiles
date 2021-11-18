@@ -82,7 +82,7 @@ setopt share_history
 # export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
 
-export JAVA_HOME=$(/usr/libexec/java_home -v1.8.0_282)
+#export JAVA_HOME=$(/usr/libexec/java_home -v1.8.0_282)
 
 
 # key bindings
@@ -162,11 +162,11 @@ eval "$(starship init zsh)"
 
 
 # fzf
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [ -n "${commands[fzf-share]}" ]; then
-  source "$(fzf-share)/key-bindings.zsh"
-  source "$(fzf-share)/completion.zsh"
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#if [ -n "${commands[fzf-share]}" ]; then
+#  source "$(fzf-share)/key-bindings.zsh"
+#  source "$(fzf-share)/completion.zsh"
+#fi
 
 
 # pyenv
@@ -191,26 +191,26 @@ function initJenv() {
 
 
 # groovy
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
+#export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-function initConda() {
-  __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-          . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-      else
-          export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-}
-# <<< conda initialize <<<
+## >>> conda initialize >>>
+## !! Contents within this block are managed by 'conda init' !!
+#function initConda() {
+#  __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#  if [ $? -eq 0 ]; then
+#      eval "$__conda_setup"
+#  else
+#      if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+#          . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+#      else
+#          export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+#      fi
+#  fi
+#  unset __conda_setup
+#}
+## <<< conda initialize <<<
 
 
 # bat plain style
@@ -219,8 +219,13 @@ function batp() {
 }
 
 
-function gd() {
-  git diff $@ --name-only | fzf -m --ansi --preview "git diff $@ --color=always -- {-1}"
+function gdh() {
+  gdiff HEAD
+}
+
+function gdiff() {
+  GDIFF_PREVIEW="git diff $@ --color=always -- {-1}"
+  git diff $@ --name-only | fzf -m --ansi --preview-window 'top,85%,wrap' --preview $GDIFF_PREVIEW
 }
 
 
@@ -238,15 +243,15 @@ function updateAll() {
   updateGems && updateBrews
 }
 
-alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
+#alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
 
 
 # heroku autocomplete setup
-function initHeroku() {
-  HEROKU_AC_ZSH_SETUP_PATH=$HOME/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
-}
+#function initHeroku() {
+#  HEROKU_AC_ZSH_SETUP_PATH=$HOME/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+#}
 
 # Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
+#if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+#  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+#fi
