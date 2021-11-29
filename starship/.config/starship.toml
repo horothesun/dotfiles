@@ -3,6 +3,7 @@ $username\
 $hostname\
 $shlvl\
 $directory\
+$java\
 $git_branch\
 $git_commit\
 $git_state\
@@ -30,3 +31,9 @@ modified   = "!${count}"
 staged     = "+${count}"
 renamed    = "»${count}"
 deleted    = "✘${count}"
+
+[java]
+format         = "[${symbol}(${version} )]($style)"
+version_format = "$major.$minor"
+symbol         = " "
+style          = "yellow dimmed"
