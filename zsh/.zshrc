@@ -102,13 +102,14 @@ function initRbenv() {
 }
 
 
-# NVM
+# nvm
 function initNvm() {
   export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
 }
 
+initNvm
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -241,9 +242,15 @@ function updateBrews() {
   initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup )
 }
 
-function updateAll() {
-  updateGems && updateBrews
+function updateNode() {
+  initNvm && time ( npm update --global )
 }
+
+function updateAll() {
+  updateGems && updateBrews && updateNode
+}
+
+alias ncdu="ncdu --color off"
 
 #alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
 
