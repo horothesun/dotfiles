@@ -7,8 +7,7 @@
 ## Setup
 
 ```bash
-git clone git@github.com:horothesun/dotfiles.git
-cd dotfiles
+cd ~ ; git clone git@github.com:horothesun/dotfiles.git ; cd dotfiles
 ```
 
 ## Examples
