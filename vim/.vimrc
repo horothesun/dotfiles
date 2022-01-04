@@ -1,6 +1,22 @@
 " Reference: https://github.com/erkrnt/awesome-streamerrc/blob/master/ThePrimeagen/init.vim
 
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" Enable file detection, plugin and indentation
+filetype plugin indent on
+
+" Switch syntax highlighting on (requires filetype detection on)
 syntax on
+
+" Optimize for fast terminal connections
+set ttyfast
+
+" performance improvements when syntax on in vim 8+
+if v:version >= 800
+    syntax sync minlines=256
+endif
 
 set term=xterm-256color
 set noeol
@@ -10,7 +26,7 @@ set noshowmatch
 set relativenumber
 set nohlsearch
 set hidden
-set noerrorbells
+set noerrorbells belloff=all
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -20,7 +36,13 @@ set nowrap
 set ignorecase
 set smartcase
 set noswapfile
+
+" disable unsafe commands
+set secure
+
+" do not keep a backup file (some LSP don't work well in coc with backup files)
 set nobackup
+set nowritebackup
 
 " ~/.vim/undodir must be manually created
 set undodir=~/.vim/undodir
@@ -66,6 +88,10 @@ Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
+" Help Vim recognize *.sbt and *.sc as Scala files
+au BufRead,BufNewFile *.sbt,*.sc,*.scala set filetype=scala
+
+
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 set background=dark
@@ -86,8 +112,8 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>u :UndotreeShow<CR>
-" nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <leader>u :UndotreeShow<CR>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :NERDTree<CR>
 nnoremap <leader>ps :Rg<CR>
 
@@ -95,9 +121,9 @@ nnoremap <leader>ps :Rg<CR>
 " fzf
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>pf :Files<CR>
-nnoremap <leader>pF :Locate<CR>
 nnoremap <leader>pb :Buffers<CR>
-nnoremap <leader>pl :Lines<CR>
+"nnoremap <leader>pF :Locate<CR>
+"nnoremap <leader>pl :Lines<CR>
 "nnoremap <leader>a :Ag<CR>
 "nnoremap <leader>w :Windows<CR>
 
@@ -105,10 +131,10 @@ nnoremap <leader>pl :Lines<CR>
 nnoremap <leader>+ :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
 nnoremap <leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+"vnoremap J :m '>+1<CR>gv=gv
+"vnoremap K :m '<-2<CR>gv=gv
 
-vnoremap X "_d
+"vnoremap X "_d
 inoremap <C-c> <esc>
 
 function! s:check_back_space() abort
@@ -140,17 +166,17 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
+"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf <Plug>(coc-fix-current)
 
 " Remap for do codeAction of current line
 xmap <leader>a <Plug>(coc-codeaction-line)
 nmap <leader>a <Plug>(coc-codeaction-line)
 
-"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
-"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-nnoremap <leader>cr :CocRestart
+nnoremap <leader>cr :CocRestart<CR>
 
 
 fun! TrimWhitespace()
@@ -158,8 +184,8 @@ fun! TrimWhitespace()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfun
-
 autocmd BufWritePre * :call TrimWhitespace()
+
 
 " iamcco/markdown-preview
 " CSS: https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css
