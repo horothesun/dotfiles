@@ -46,11 +46,10 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
-Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-system-copy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -66,8 +65,8 @@ Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
-let g:gruvbox_contrast_dark = 'hard'
 
+let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 set background=dark
 
@@ -90,7 +89,8 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
 " nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :NERDTree<CR>
-nnoremap <leader>ps :Rg<SPACE>
+nnoremap <leader>ps :Rg<CR>
+
 
 " fzf
 nnoremap <C-p> :GFiles<CR>
@@ -98,8 +98,9 @@ nnoremap <leader>pf :Files<CR>
 nnoremap <leader>pF :Locate<CR>
 nnoremap <leader>pb :Buffers<CR>
 nnoremap <leader>pl :Lines<CR>
-nnoremap <leader>a :Ag<CR>
-nnoremap <leader>w :Windows<CR>
+"nnoremap <leader>a :Ag<CR>
+"nnoremap <leader>w :Windows<CR>
+
 
 nnoremap <leader>+ :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
@@ -123,28 +124,34 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <C-space> coc#refresh()
 
+
 " Disable arrow keys
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+
 " GoTo code navigation
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> g] <Plug>(coc-diagnostic-next)
+
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap for do codeAction of current line
+xmap <leader>a <Plug>(coc-codeaction-line)
+nmap <leader>a <Plug>(coc-codeaction-line)
+
+"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
-" FuGITive
-nmap <leader>gh :diffget //3<CR>
-nmap <leader>gu :diffget //2<CR>
-nmap <leader>gs :G<CR>
 
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -160,3 +167,35 @@ let g:mkdp_auto_close=0
 let g:mkdp_refresh_slow=1
 " let g:mkdp_markdown_css=expand('~/github-markdown.css')
 
+
+" NERDCommenter
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 0
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+nmap <leader>cc <Plug>NERDCommenterToggle
+vmap <leader>cc <Plug>NERDCommenterToggle
