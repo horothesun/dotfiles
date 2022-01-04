@@ -19,12 +19,6 @@
   "signature.target": "float",
 
   "languageserver": {
-    "haskell": {
-      "command": "haskell-language-server-wrapper",
-      "args": ["--lsp", "--logfile=hls.log", "--debug"],
-      "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
-      "filetypes": ["haskell", "lhaskell"]
-    },
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
