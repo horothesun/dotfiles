@@ -88,6 +88,14 @@ Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
+let g:coc_global_extensions = [
+    \ 'coc-sh',
+    \ 'coc-json',
+    \ 'coc-markdownlint',
+    \ 'coc-metals'
+    \ ]
+
+
 " Help Vim recognize *.sbt and *.sc as Scala files
 au BufRead,BufNewFile *.sbt,*.sc,*.scala set filetype=scala
 
