@@ -55,14 +55,13 @@ set scrolloff=8
 " Give more space for displaying messages
 set cmdheight=2
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
 set updatetime=50
 
 " Don't pass messages to |ins-completion-menu|
 set shortmess+=c
 
-set colorcolumn=100
+set colorcolumn=110
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
@@ -126,6 +125,8 @@ nnoremap <leader>pv :NERDTree<CR>
 nnoremap <C-p> :Rg<CR>
 nnoremap <leader>ff :GFiles --cached --others --exclude-standard<CR>
 nnoremap <leader>fb :Buffers<CR>
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.94, 'relative': v:true, 'yoffset': 0.9 } }
+let g:fzf_preview_window = ['right:50%']
 
 
 nnoremap <leader>h :wincmd h<CR>
