@@ -18,7 +18,7 @@ if v:version >= 800
     syntax sync minlines=256
 endif
 
-set term=xterm-256color
+" set term=xterm-256color
 set noeol
 set encoding=utf-8 nobomb
 set guicursor=
@@ -68,14 +68,21 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-system-copy'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mbbill/undotree'
-Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+
+" Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+
+" Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+" Plug 'lotabout/skim.vim'
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
@@ -115,18 +122,49 @@ let g:vrfr_rg = 'true'
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
-"nnoremap <leader>u :UndotreeShow<CR>
-
 "nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :NERDTree<CR>
 
 
 " fzf
-nnoremap <C-p> :Rg<CR>
-nnoremap <leader>ff :GFiles --cached --others --exclude-standard<CR>
-nnoremap <leader>fb :Buffers<CR>
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.94, 'relative': v:true, 'yoffset': 0.9 } }
-let g:fzf_preview_window = ['right:50%']
+" nnoremap <C-p> :Rg<CR>
+" nnoremap <leader>ff :GFiles --cached --others --exclude-standard<CR>
+" nnoremap <leader>fb :Buffers<CR>
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.94, 'relative': v:true, 'yoffset': 0.9 } }
+" let g:fzf_preview_window = ['right:50%']
+
+" Telescope
+lua <<EOF
+require('telescope').setup({
+    defaults = {
+        file_sorter = require('telescope.sorters').get_fzy_sorter,
+        prompt_prefix = '> ',
+        color_devicons = true,
+        file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+        grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+        qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+        layout_config = { width = 0.9, height = 0.9 },
+        mappings = {
+            i = {
+                ['<esc>'] = require('telescope.actions').close,
+            }
+        }
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true
+        }
+    }
+})
+require('telescope').load_extension('fzy_native')
+EOF
+
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope live_grep<CR>
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fb <cmd>Telescope buffers<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
