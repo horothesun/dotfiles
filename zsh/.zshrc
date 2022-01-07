@@ -78,6 +78,21 @@ setopt share_history
 
 # User configuration
 
+# HOMEBREW_OPT_DIR: different values between Intel and Apple Silicon (arm64)
+if [ "`arch`" = arm64 ]; then
+  export HOMEBREW_OPT_DIR=/opt/homebrew/opt
+else
+  export HOMEBREW_OPT_DIR=/usr/local/opt
+fi
+
+# Homebrew's distribution of Alacritty is still Intel-only.
+# Temporary solution: Alacritty Apple Silicon (arm64) native build.
+# Reference: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#macos
+if [ "`arch`" = arm64 ]; then
+  alias alacritty=/Applications/Alacritty.app/Contents/MacOS/alacritty
+fi
+
+
 # Android SDK
 # export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
@@ -105,8 +120,8 @@ function initRbenv() {
 # nvm
 function initNvm() {
   export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+  [ -s "$HOMEBREW_OPT_DIR/nvm/nvm.sh" ] && . "$HOMEBREW_OPT_DIR/nvm/nvm.sh"
+  [ -s "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm"
 }
 
 initNvm
@@ -165,12 +180,13 @@ export WWW_HOME=https://duckduckgo.com/
 eval "$(starship init zsh)"
 
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#if [ -n "${commands[fzf-share]}" ]; then
-#  source "$(fzf-share)/key-bindings.zsh"
-#  source "$(fzf-share)/completion.zsh"
-#fi
+# fzf: different configuration between Intel and Apple Silicon (arm64)
+if [ "`arch`" = arm64 ]; then
+  source $HOMEBREW_OPT_DIR/fzf/shell/key-bindings.zsh
+  source $HOMEBREW_OPT_DIR/fzf/shell/completion.zsh
+else
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
 
 
 # pyenv
@@ -195,9 +211,9 @@ function initJenv() {
 
 
 # groovy
-#export GROOVY_HOME=/usr/local/opt/groovy/libexec
+#export GROOVY_HOME=$HOMEBREW_OPT_DIR/groovy/libexec
 
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+export PATH="$HOMEBREW_OPT_DIR/imagemagick@6/bin:$PATH"
 
 ## >>> conda initialize >>>
 ## !! Contents within this block are managed by 'conda init' !!
