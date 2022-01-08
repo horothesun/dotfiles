@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -10,58 +7,6 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -70,7 +15,19 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+
+# Homebrew autocomplete
+# Must be done before `compinit` gets called (i.e.: `oh-my-zsh.sh`)
+# Reference: https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
+
+
 source $ZSH/oh-my-zsh.sh
+
 
 # unsetopt inc_append_history
 setopt share_history
@@ -78,12 +35,9 @@ setopt share_history
 
 # User configuration
 
+
 # HOMEBREW_OPT_DIR: different values between Intel and Apple Silicon (arm64)
-if [ "`arch`" = arm64 ]; then
-  export HOMEBREW_OPT_DIR=/opt/homebrew/opt
-else
-  export HOMEBREW_OPT_DIR=/usr/local/opt
-fi
+export HOMEBREW_OPT_DIR=$(brew --prefix)/opt
 
 # Homebrew's distribution of Alacritty is still Intel-only.
 # Temporary solution: Alacritty Apple Silicon (arm64) native build.
@@ -91,13 +45,6 @@ fi
 if [ "`arch`" = arm64 ]; then
   alias alacritty=/Applications/Alacritty.app/Contents/MacOS/alacritty
 fi
-
-
-# Android SDK
-# export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
-
-
-#export JAVA_HOME=$(/usr/libexec/java_home -v1.8.0_282)
 
 
 # key bindings
@@ -126,10 +73,6 @@ function initNvm() {
 
 initNvm
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -139,41 +82,12 @@ else
 fi
 export EDITOR=$VISUAL
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # for Homebrew's formulae installed in /usr/local/sbin
 export PATH=/usr/local/sbin:$PATH
 
 # lynx
 export WWW_HOME=https://duckduckgo.com/
-
-# powerline-shell
-#function powerline_precmd() {
-#    PS1="$($HOME/Library/Python/2.7/bin/powerline-shell --shell zsh $?)"
-#}
-#
-#function install_powerline_precmd() {
-#  for s in "${precmd_functions[@]}"; do
-#    if [ "$s" = "powerline_precmd" ]; then
-#      return
-#    fi
-#  done
-#  precmd_functions+=(powerline_precmd)
-#}
-#
-#if [ "$TERM" != "linux" ]; then
-#    install_powerline_precmd
-#fi
 
 
 # starship
@@ -210,10 +124,8 @@ function initJenv() {
 }
 
 
-# groovy
-#export GROOVY_HOME=$HOMEBREW_OPT_DIR/groovy/libexec
-
 export PATH="$HOMEBREW_OPT_DIR/imagemagick@6/bin:$PATH"
+
 
 ## >>> conda initialize >>>
 ## !! Contents within this block are managed by 'conda init' !!
@@ -233,6 +145,13 @@ export PATH="$HOMEBREW_OPT_DIR/imagemagick@6/bin:$PATH"
 ## <<< conda initialize <<<
 
 
+# New Alacritty window on current working directory
+function na() {
+  alacritty --working-directory `pwd` &
+  disown
+}
+
+
 # bat plain style
 function batp() {
   bat --style=plain $@
@@ -248,8 +167,6 @@ function gdiff() {
   git diff $@ --name-only | fzf -m --ansi --preview-window 'top,85%,wrap' --preview $GDIFF_PREVIEW
 }
 
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 function updateGems() {
   initRbenv && time ( gem update && gem cleanup )
@@ -267,17 +184,7 @@ function updateAll() {
   updateGems && updateBrews && updateNode
 }
 
+
 alias ncdu="ncdu --color off"
 
 #alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
-
-
-# heroku autocomplete setup
-#function initHeroku() {
-#  HEROKU_AC_ZSH_SETUP_PATH=$HOME/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
-#}
-
-# Nix
-#if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-#  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-#fi
