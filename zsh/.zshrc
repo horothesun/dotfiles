@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation
 export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
@@ -12,7 +12,7 @@ ZSH_THEME="robbyrussell"
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Add wisely, as too many plugins slow down shell startup
 plugins=(git)
 
 
@@ -33,21 +33,25 @@ source $ZSH/oh-my-zsh.sh
 setopt share_history
 
 
-# User configuration
-
-
 # HOMEBREW_OPT_DIR: different values between Intel and Apple Silicon (arm64)
 export HOMEBREW_OPT_DIR=$(brew --prefix)/opt
 
-# Homebrew's distribution of Alacritty is still Intel-only.
-# Temporary solution: Alacritty Apple Silicon (arm64) native build.
+# for Homebrew's formulae installed in /usr/local/sbin
+export PATH=/usr/local/sbin:$PATH
+
+
+# Homebrew's distribution of Alacritty is still Intel-only
+# Temporary solution: Alacritty Apple Silicon (arm64) native build
 # Reference: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#macos
 if [ "`arch`" = arm64 ]; then
   alias alacritty=/Applications/Alacritty.app/Contents/MacOS/alacritty
 fi
 
 
-# key bindings
+alias ncdu="ncdu --color off"
+
+
+# iTerm2 key bindings
 # https://coderwall.com/p/a8uxma/zsh-iterm2-osx-shortcuts
 #bindkey "[D" backward-word
 #bindkey "[C" forward-word
@@ -55,11 +59,18 @@ fi
 #bindkey "^[e" end-of-line
 
 
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export VISUAL='vim'
+else
+  export VISUAL='nvim'
+fi
+export EDITOR=$VISUAL
+
+
 # rbenv
 function initRbenv() {
   eval "$(rbenv init -)"
-
-  # ruby
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 }
 
@@ -73,18 +84,6 @@ function initNvm() {
 
 initNvm
 
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export VISUAL='vim'
-else
-  export VISUAL='nvim'
-fi
-export EDITOR=$VISUAL
-
-
-# for Homebrew's formulae installed in /usr/local/sbin
-export PATH=/usr/local/sbin:$PATH
 
 # lynx
 export WWW_HOME=https://duckduckgo.com/
@@ -122,27 +121,6 @@ function initJenv() {
   # make Maven aware of the Java version in use (and switch when your project does)
   #jenv enable-plugin maven
 }
-
-
-export PATH="$HOMEBREW_OPT_DIR/imagemagick@6/bin:$PATH"
-
-
-## >>> conda initialize >>>
-## !! Contents within this block are managed by 'conda init' !!
-#function initConda() {
-#  __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#  if [ $? -eq 0 ]; then
-#      eval "$__conda_setup"
-#  else
-#      if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-#          . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-#      else
-#          export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
-#      fi
-#  fi
-#  unset __conda_setup
-#}
-## <<< conda initialize <<<
 
 
 # New Alacritty window on current working directory
@@ -185,6 +163,19 @@ function updateAll() {
 }
 
 
-alias ncdu="ncdu --color off"
-
-#alias networkSpeed="NODE_NO_WARNINGS=1 fast --upload --single-line"
+## >>> conda initialize >>>
+## !! Contents within this block are managed by 'conda init' !!
+#function initConda() {
+#  __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#  if [ $? -eq 0 ]; then
+#      eval "$__conda_setup"
+#  else
+#      if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+#          . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+#      else
+#          export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+#      fi
+#  fi
+#  unset __conda_setup
+#}
+## <<< conda initialize <<<
