@@ -50,6 +50,8 @@ fi
 
 alias ncdu="ncdu --color off"
 
+alias vi=nvim
+
 
 # iTerm2 key bindings
 # https://coderwall.com/p/a8uxma/zsh-iterm2-osx-shortcuts
