@@ -161,7 +161,7 @@ function updateNode() {
 }
 
 function updateAll() {
-  updateGems && updateBrews && updateNode
+  updateGems && updateBrews && updateNode && omz update
 }
 
 
