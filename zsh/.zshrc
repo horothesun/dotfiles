@@ -84,6 +84,7 @@ function initNvm() {
   [ -s "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm"
 }
 
+# vim/neovim's CoC plugin requires Node.js
 initNvm
 
 
@@ -163,7 +164,6 @@ function updateNode() {
 function updateAll() {
   updateGems && updateBrews && updateNode && omz update
 }
-
 
 ## >>> conda initialize >>>
 ## !! Contents within this block are managed by 'conda init' !!
