@@ -10,12 +10,28 @@
 cd ~ ; git clone git@github.com:horothesun/dotfiles.git ; cd dotfiles
 ```
 
+## Alacritty specific
+
+After using `stow`, run
+
+```bash
+cp alacritty/alacritty_new_window_same_dir.sh /usr/local/bin/alacritty_new_window_same_dir.sh
+```
+
+> Note: creating a symbolic link to the bash script doesn't work.
+
 ## Examples
 
 ### Stow
 
 ```bash
-stow --simulate --verbose --target ~ alacritty
+stow --simulate --no-folding --verbose --target ~ alacritty
+```
+
+### Re-stow
+
+```bash
+stow --simulate --no-folding --restow --verbose --target ~ alacritty
 ```
 
 ### Unstow
