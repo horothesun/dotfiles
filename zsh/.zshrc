@@ -126,13 +126,6 @@ function initJenv() {
 }
 
 
-# New Alacritty window on current working directory
-function na() {
-  alacritty --working-directory `pwd` &
-  disown
-}
-
-
 # bat plain style
 function batp() {
   bat --style=plain $@
