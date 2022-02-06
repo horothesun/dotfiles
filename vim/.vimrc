@@ -101,6 +101,7 @@ call plug#end()
 let g:coc_global_extensions = [
     \ 'coc-sh',
     \ 'coc-json',
+    \ 'coc-tsserver',
     \ 'coc-markdownlint',
     \ 'coc-metals'
     \ ]
