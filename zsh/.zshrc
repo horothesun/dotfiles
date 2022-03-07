@@ -40,6 +40,10 @@ export HOMEBREW_OPT_DIR=$(brew --prefix)/opt
 export PATH=/usr/local/sbin:$PATH
 
 
+# tfswitch global terraform version
+export PATH=$HOME/bin:$PATH
+
+
 alias ncdu="ncdu --color off"
 
 alias vi=nvim
