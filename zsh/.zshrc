@@ -40,25 +40,9 @@ export HOMEBREW_OPT_DIR=$(brew --prefix)/opt
 export PATH=/usr/local/sbin:$PATH
 
 
-# Homebrew's distribution of Alacritty is still Intel-only
-# Temporary solution: Alacritty Apple Silicon (arm64) native build
-# Reference: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#macos
-if [ "`arch`" = arm64 ]; then
-  alias alacritty=/Applications/Alacritty.app/Contents/MacOS/alacritty
-fi
-
-
 alias ncdu="ncdu --color off"
 
 alias vi=nvim
-
-
-# iTerm2 key bindings
-# https://coderwall.com/p/a8uxma/zsh-iterm2-osx-shortcuts
-#bindkey "[D" backward-word
-#bindkey "[C" forward-word
-#bindkey "^[a" beginning-of-line
-#bindkey "^[e" end-of-line
 
 
 # Preferred editor for local and remote sessions
