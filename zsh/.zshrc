@@ -110,6 +110,36 @@ function initJenv() {
 # for JVM-based workflow convenience
 initJenv
 
+function resetJenv() {
+  echo resetJenv START
+
+  echo
+  echo jenv versions \# old
+  jenv versions
+
+  echo
+  for JENV_VER in `ls $HOME/.jenv/versions`; do
+    jenv remove $JENV_VER
+  done
+
+  echo
+  JVM_LIBRARY_BASE_DIR=/Library/Java/JavaVirtualMachines
+  for JVM_VER in `ls $JVM_LIBRARY_BASE_DIR`; do
+    jenv add $JVM_LIBRARY_BASE_DIR/$JVM_VER/Contents/Home
+  done
+
+  echo
+  echo jenv versions \# new
+  jenv versions
+
+  echo
+  echo jenv doctor
+  jenv doctor
+
+  echo
+  echo resetJenv END
+}
+
 
 # bat plain style
 function batp() {
@@ -132,7 +162,7 @@ function updateGems() {
 }
 
 function updateBrews() {
-  initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup )
+  initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup; resetJenv )
 }
 
 function updateNode() {
