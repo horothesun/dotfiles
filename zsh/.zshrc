@@ -111,7 +111,7 @@ function initJenv() {
 initJenv
 
 function resetJenv() {
-  echo resetJenv START
+  echo resetJenv BEGIN
 
   echo
   echo jenv versions \# old
@@ -121,6 +121,9 @@ function resetJenv() {
   for JENV_VER in `ls $HOME/.jenv/versions`; do
     jenv remove $JENV_VER
   done
+
+  echo
+  /usr/libexec/java_home -V
 
   echo
   JVM_LIBRARY_BASE_DIR=/Library/Java/JavaVirtualMachines
