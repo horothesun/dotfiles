@@ -10,6 +10,8 @@ $git_state\
 $git_status\
 $docker_context\
 $nix_shell\
+$conda\
+$cmd_duration\
 $line_break\
 $status\
 $shell\
@@ -37,3 +39,7 @@ format         = "[${symbol}(${version} )]($style)"
 version_format = "$major.$minor"
 symbol         = " "
 style          = "yellow dimmed"
+
+[conda]
+ignore_base = false
+format      = "[$symbol$environment]($style) "
