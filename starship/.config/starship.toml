@@ -9,9 +9,7 @@ $git_commit\
 $git_state\
 $git_status\
 $docker_context\
-$nix_shell\
 $conda\
-$cmd_duration\
 $line_break\
 $status\
 $shell\
