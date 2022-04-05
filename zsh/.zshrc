@@ -100,6 +100,9 @@ function initPyenv() {
   eval "$(pyenv init --path)"
 }
 
+# macOS 12.3 removed system Python
+initPyenv
+
 
 # jenv
 function initJenv() {
