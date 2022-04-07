@@ -40,16 +40,21 @@ export HOMEBREW_OPT_DIR=$(brew --prefix)/opt
 export PATH=/usr/local/sbin:$PATH
 
 
+# ~/bin for custom automation scripts and
 # tfswitch global terraform version
 export PATH=$HOME/bin:$PATH
 
 
 alias ncdu="ncdu --color off"
 
+
 alias vi=nvim
 
 
-# Preferred editor for local and remote sessions
+alias bat="bat --style=plain"
+
+
+# preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export VISUAL='vim'
 else
@@ -100,7 +105,7 @@ function initPyenv() {
   eval "$(pyenv init --path)"
 }
 
-# macOS 12.3 removed system Python
+# required after macOS 12.3 removed system Python
 initPyenv
 
 
@@ -115,47 +120,26 @@ initJenv
 
 function resetJenv() {
   echo resetJenv BEGIN
-
-  echo
   echo jenv versions \# old
   jenv versions
-
   echo
-  for JENV_VER in `ls $HOME/.jenv/versions`; do
-    jenv remove $JENV_VER
-  done
-
+  ls $HOME/.jenv/versions | xargs -n 1 jenv remove
   echo
   /usr/libexec/java_home -V
-
   echo
   JVM_LIBRARY_BASE_DIR=/Library/Java/JavaVirtualMachines
-  for JVM_VER in `ls $JVM_LIBRARY_BASE_DIR`; do
-    jenv add $JVM_LIBRARY_BASE_DIR/$JVM_VER/Contents/Home
-  done
-
+  ls $JVM_LIBRARY_BASE_DIR | xargs -n 1 -I ^ jenv add $JVM_LIBRARY_BASE_DIR/^/Contents/Home
   echo
   echo jenv versions \# new
   jenv versions
-
   echo
   echo jenv doctor
   jenv doctor
-
-  echo
   echo resetJenv END
 }
 
 
-# bat plain style
-function batp() {
-  bat --style=plain $@
-}
-
-
-function gdh() {
-  gdiff HEAD
-}
+alias gdh="gdiff HEAD"
 
 function gdiff() {
   GDIFF_PREVIEW="git diff $@ --color=always -- {-1}"
@@ -164,19 +148,25 @@ function gdiff() {
 
 
 function updateGems() {
+  echo updateGems BEGIN
   initRbenv && time ( gem update && gem cleanup )
+  echo updateGems END
 }
 
 function updateBrews() {
+  echo updateBrews BEGIN
   initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup; resetJenv )
+  echo updateBrews END
 }
 
 function updateNode() {
+  echo updateNode BEGIN
   initNvm && time ( npm update --global )
+  echo updateNode END
 }
 
 function updateAll() {
-  updateGems && updateBrews && updateNode && omz update
+  updateGems && echo && updateBrews && echo && updateNode && echo && omz update
 }
 
 
