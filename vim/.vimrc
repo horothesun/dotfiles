@@ -30,9 +30,7 @@ set relativenumber
 set nohlsearch
 set hidden
 set noerrorbells belloff=all
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set smartindent
 set number
 set nowrap
