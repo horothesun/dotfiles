@@ -129,6 +129,23 @@ let g:netrw_winsize = 25
 nnoremap <leader>pv :NERDTree<CR>
 
 
+" make Y behave like C and D
+nnoremap Y y$
+
+
+" keeping it centered
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap J mzJ`z
+
+
+" undo break points
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+
+
 " fzf
 " nnoremap <C-p> :Rg<CR>
 " nnoremap <leader>ff :GFiles --cached --others --exclude-standard<CR>
