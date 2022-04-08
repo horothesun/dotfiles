@@ -138,28 +138,35 @@ nnoremap <leader>pv :NERDTree<CR>
 
 " Telescope
 lua <<EOF
-require('telescope').setup({
-    defaults = {
-        file_sorter = require('telescope.sorters').get_fzy_sorter,
-        prompt_prefix = '> ',
-        color_devicons = true,
-        file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-        grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-        qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-        layout_config = { width = 0.9, height = 0.9 },
-        mappings = {
-            i = {
-                ['<esc>'] = require('telescope.actions').close,
-            }
-        }
+require('telescope').setup {
+  defaults = {
+    file_sorter = require('telescope.sorters').get_fzy_sorter,
+    prompt_prefix = '> ',
+    color_devicons = true,
+    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+    layout_config = { width = 0.9, height = 0.9 },
+    mappings = {
+      i = {
+        ['<esc>'] = require('telescope.actions').close,
+      }
     },
-    extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true
-        }
+    file_ignore_patterns = {
+      ".git",
+      "node_modules"
     }
-})
+  },
+  pickers = {
+    find_files = { hidden = true }
+  },
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true
+    }
+  }
+}
 require('telescope').load_extension('fzy_native')
 EOF
 
