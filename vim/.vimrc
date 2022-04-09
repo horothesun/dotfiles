@@ -81,7 +81,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-" Plug 'nvim-telescope/telescope-symbols.nvim'
 
 " Spelunker spell checker
 " Plug 'kamykn/spelunker.vim'
@@ -196,7 +195,7 @@ nnoremap <C-p> <cmd>Telescope live_grep<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-" nnoremap <leader>fe <cmd>lua require('telescope.builtin').symbols{ sources = {'emoji'} }<CR>
+nnoremap <leader>fe <cmd>luafile ~/.vim/colors.lua<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
