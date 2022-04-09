@@ -45,13 +45,16 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/bin:$PATH
 
 
-alias ncdu="ncdu --color off"
-
-
 alias vi=nvim
 
 
+alias ncdu="ncdu --color off"
+
+
 alias bat="bat --style=plain"
+
+
+alias uni=~/uni/uni
 
 
 # preferred editor for local and remote sessions
