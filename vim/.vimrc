@@ -137,9 +137,9 @@ nnoremap Y y$
 
 
 " keeping it centered
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap J mzJ`z
+" nnoremap n nzz
+" nnoremap N Nzz
+" nnoremap J mzJ`z
 
 
 " undo break points
