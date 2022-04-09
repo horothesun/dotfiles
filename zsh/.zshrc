@@ -54,7 +54,7 @@ alias ncdu="ncdu --color off"
 alias bat="bat --style=plain"
 
 
-alias uni=~/uni/uni
+alias uni=~/arp242-uni/uni
 
 
 # preferred editor for local and remote sessions
