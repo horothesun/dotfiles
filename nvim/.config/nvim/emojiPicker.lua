@@ -26,7 +26,7 @@ local function extractFirstWord(str)
 end
 
 -- our picker function
-local emojis = function(opts)
+local emojiPicker = function(opts)
   local uniOutput = vim.fn.system("uni e all")
 
   local multilineUniOutput = lines(uniOutput)
@@ -54,5 +54,5 @@ local emojis = function(opts)
 end
 
 -- launch the picker
-emojis()
--- emojis(require("telescope.themes").get_dropdown{})
+emojiPicker()
+-- emojiPicker(require("telescope.themes").get_dropdown{})
