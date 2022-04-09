@@ -18,7 +18,7 @@ set ttyfast
 
 " performance improvements when syntax on in vim 8+
 if v:version >= 800
-    syntax sync minlines=256
+  syntax sync minlines=256
 endif
 
 " set term=xterm-256color
@@ -49,6 +49,9 @@ set nowritebackup
 set undodir=~/.vim/undodir
 set undofile
 
+" Spelunker: disable vim's spell check
+" set nospell
+
 set incsearch
 set termguicolors
 set scrolloff=8
@@ -77,14 +80,14 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+" Plug 'nvim-telescope/telescope-symbols.nvim'
 
-" Plug 'christoomey/vim-system-copy'
+" Spelunker spell checker
+" Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/popup-menu.nvim'
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
-
-" Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-" Plug 'lotabout/skim.vim'
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
@@ -97,12 +100,12 @@ call plug#end()
 
 
 let g:coc_global_extensions = [
-    \ 'coc-sh',
-    \ 'coc-json',
-    \ 'coc-tsserver',
-    \ 'coc-markdownlint',
-    \ 'coc-metals'
-    \ ]
+  \ 'coc-sh',
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-markdownlint',
+  \ 'coc-metals'
+  \ ]
 
 
 " Help Vim recognize *.sbt and *.sc as Scala files
@@ -114,7 +117,7 @@ colorscheme gruvbox
 set background=dark
 
 if executable('rg')
-    let g:rg_derive_root='true'
+  let g:rg_derive_root='true'
 endif
 
 let loaded_matchparen = 1
@@ -187,11 +190,12 @@ require('telescope').setup {
 require('telescope').load_extension('fzy_native')
 EOF
 
-" Find files using Telescope command-line sugar.
+" Telescope remaps
 nnoremap <C-p> <cmd>Telescope live_grep<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+" nnoremap <leader>fe <cmd>lua require('telescope.builtin').symbols{ sources = {'emoji'} }<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
@@ -204,17 +208,17 @@ nnoremap <leader>- :vertical resize -5<CR>
 inoremap <C-c> <esc>
 
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Used in the tab autocompletion for coc
@@ -262,7 +266,7 @@ endfunction
 " Notify coc.nvim that <enter> has been pressed.
 " Currently used for the formatOnType feature.
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nnoremap <leader>cr :CocRestart<CR>
 
@@ -276,9 +280,9 @@ noremap <Right> <Nop>
 
 " White-space auto-trimming
 fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
 endfun
 autocmd BufWritePre * :call TrimWhitespace()
 
