@@ -45,6 +45,10 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/bin:$PATH
 
 
+# uni Unicode query CLI tool
+export PATH=$HOME/arp242-uni:$PATH
+
+
 alias vi=nvim
 
 
@@ -52,9 +56,6 @@ alias ncdu="ncdu --color off"
 
 
 alias bat="bat --style=plain"
-
-
-alias uni=~/arp242-uni/uni
 
 
 # preferred editor for local and remote sessions
