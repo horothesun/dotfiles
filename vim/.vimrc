@@ -195,7 +195,7 @@ nnoremap <C-p> <cmd>Telescope live_grep<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-nnoremap <leader>fe <cmd>luafile ~/.vim/colors.lua<CR>
+nnoremap <leader>fe <cmd>luafile ~/.config/nvim/emojiPicker.lua<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
