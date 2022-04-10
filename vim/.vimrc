@@ -126,6 +126,10 @@ let g:netrw_winsize = 25
 nnoremap <leader>pv :NERDTree<CR>
 
 
+" replace all
+nnoremap S :%s//gcI<Left><Left><Left><Left>
+
+
 " make Y behave like C and D
 nnoremap Y y$
 
