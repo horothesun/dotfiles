@@ -127,7 +127,7 @@ nnoremap <leader>pv :NERDTree<CR>
 
 
 " replace all
-nnoremap S :%s//gcI<Left><Left><Left><Left>
+nnoremap <leader>s :%s//gc<Left><Left><Left>
 
 
 " make Y behave like C and D
