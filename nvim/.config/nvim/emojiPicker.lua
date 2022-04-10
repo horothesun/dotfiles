@@ -27,7 +27,7 @@ end
 
 -- our picker function
 local emojiPicker = function(opts)
-  local uniOutput = vim.fn.system("uni e all")
+  local uniOutput = vim.fn.system("uni emoji all")
 
   local multilineUniOutput = lines(uniOutput)
   table.remove(multilineUniOutput, 1) -- remove 'name (cldr)' header
@@ -45,7 +45,12 @@ local emojiPicker = function(opts)
           actions.close(prompt_bufnr)
           local selection = action_state.get_selected_entry()
           local emoji = extractFirstWord(selection[1])
-          vim.api.nvim_put({ emoji }, "", false, true)
+          vim.api.nvim_put(
+            { emoji }, -- lines
+            "",        -- type: edit behavior
+            true,      -- after: insert after cursor
+            true       -- follow: place cursor at end of inserted text
+          )
         end
       )
       return true
