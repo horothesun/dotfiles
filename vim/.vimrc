@@ -104,6 +104,7 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-tsserver',
   \ 'coc-markdownlint',
+  \ 'coc-sumneko-lua',
   \ 'coc-metals'
   \ ]
 
@@ -195,7 +196,8 @@ nnoremap <C-p> <cmd>Telescope live_grep<CR>
 nnoremap <leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-nnoremap <leader>fe <cmd>luafile ~/.config/nvim/emojiPicker.lua<CR>
+nnoremap <leader>fe <cmd>luafile ~/.config/nvim/pickers/emoji_picker.lua<CR>
+nnoremap <leader>fs <cmd>luafile ~/.config/nvim/pickers/symbol_picker.lua<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
