@@ -49,9 +49,6 @@ set nowritebackup
 set undodir=~/.vim/undodir
 set undofile
 
-" Spelunker: disable vim's spell check
-" set nospell
-
 set incsearch
 set termguicolors
 set scrolloff=8
@@ -75,19 +72,15 @@ Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+
 " Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-
-" Spelunker spell checker
-" Plug 'kamykn/spelunker.vim'
-" Plug 'kamykn/popup-menu.nvim'
-
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
