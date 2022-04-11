@@ -25,6 +25,7 @@ endif
 set noeol
 set encoding=utf-8 nobomb
 set guicursor=
+set cursorline
 set noshowmatch
 set relativenumber
 set nohlsearch
