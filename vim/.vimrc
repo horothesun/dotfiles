@@ -39,6 +39,8 @@ set ignorecase
 set smartcase
 set noswapfile
 
+set splitbelow splitright
+
 " disable unsafe commands
 set secure
 
