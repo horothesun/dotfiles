@@ -58,6 +58,9 @@ alias ncdu="ncdu --color off"
 alias bat="bat --style=plain"
 
 
+alias tf="terraform"
+
+
 # preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export VISUAL='vim'
