@@ -167,17 +167,17 @@ require('telescope').setup {
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--unrestricted', -- disable .gitignore handling
-      '--unrestricted'  -- search hidden files and directories
-    },
+    -- vimgrep_arguments = {
+    --   'rg',
+    --   '--color=never',
+    --   '--no-heading',
+    --   '--with-filename',
+    --   '--line-number',
+    --   '--column',
+    --   '--smart-case',
+    --   '--unrestricted', -- disable .gitignore handling
+    --   '--unrestricted'  -- search hidden files and directories
+    -- },
     layout_config = { width = 0.9, height = 0.9 },
     mappings = {
       i = {
