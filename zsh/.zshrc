@@ -58,7 +58,11 @@ alias ncdu="ncdu --color off"
 alias bat="bat --style=plain"
 
 
+alias tfs="tfswitch"
 alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
 
 
 # preferred editor for local and remote sessions
