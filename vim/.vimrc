@@ -186,6 +186,9 @@ require('telescope').setup {
     },
     file_ignore_patterns = {
       ".git",
+      ".idea",
+      ".metals",
+      ".bloop",
       "node_modules"
     }
   },
