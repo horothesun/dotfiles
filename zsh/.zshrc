@@ -75,21 +75,21 @@ export EDITOR=$VISUAL
 
 
 # rbenv
-function initRbenv() {
+function init_rbenv() {
   eval "$(rbenv init -)"
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 }
 
 
 # nvm
-function initNvm() {
+function init_nvm() {
   export NVM_DIR="$HOME/.nvm"
   [ -s "$HOMEBREW_OPT_DIR/nvm/nvm.sh" ] && . "$HOMEBREW_OPT_DIR/nvm/nvm.sh"
   [ -s "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_OPT_DIR/nvm/etc/bash_completion.d/nvm"
 }
 
 # vim/neovim's CoC plugin requires Node.js
-initNvm
+init_nvm
 
 
 # lynx
@@ -110,27 +110,27 @@ fi
 
 
 # pyenv
-function initPyenv() {
+function init_pyenv() {
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
 }
 
 # required after macOS 12.3 removed system Python
-initPyenv
+init_pyenv
 
 
 # jenv
-function initJenv() {
+function init_jenv() {
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
 }
 
 # for JVM-based workflow convenience
-initJenv
+init_jenv
 
-function resetJenv() {
-  echo resetJenv BEGIN
+function reset_jenv() {
+  echo reset_jenv BEGIN
   echo jenv versions \# old
   jenv versions
   echo
@@ -146,7 +146,7 @@ function resetJenv() {
   echo
   echo jenv doctor
   jenv doctor
-  echo resetJenv END
+  echo reset_jenv END
 }
 
 
@@ -158,37 +158,43 @@ function gdiff() {
 }
 
 
-function updateGems() {
-  echo updateGems BEGIN
-  initRbenv && time ( gem update && gem cleanup )
-  echo updateGems END
+function update_gems() {
+  echo update_gems BEGIN
+  init_rbenv && time ( gem update && gem cleanup )
+  echo update_gems END
 }
 
-function updateBrews() {
-  echo updateBrews BEGIN
-  initJenv && initPyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup; resetJenv )
-  echo updateBrews END
+function update_brews() {
+  echo update_brews BEGIN
+  init_jenv && init_pyenv && time ( brew update && brew upgrade && brew upgrade --cask; brew cleanup; reset_jenv )
+  echo update_brews END
 }
 
-function updateNode() {
-  echo updateNode BEGIN
-  initNvm && time ( npm update --global )
-  echo updateNode END
+function update_node() {
+  echo update_node BEGIN
+  init_nvm && time ( npm update --global )
+  echo update_node END
 }
 
-function updateAll() {
-  updateGems && echo && updateBrews && echo && updateNode && echo && omz update
+function update_tldr() {
+  echo update_tldr BEGIN
+  tldr --update
+  echo update_tldr END
+}
+
+function update_all() {
+  update_gems && echo && update_brews && echo && update_node && echo && update_tldr && echo && omz update
 }
 
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-function __condaSetupScript() {
+function __conda_setup_script() {
   "$(brew --prefix)/Caskroom/miniconda/base/bin/conda" 'shell.zsh' 'hook' 2> /dev/null
 }
 
-function initConda() {
-  __conda_setup="$( __condaSetupScript )"
+function init_conda() {
+  __conda_setup="$( __conda_setup_script )"
   if [ $? -eq 0 ]; then
     eval "$__conda_setup"
   else
