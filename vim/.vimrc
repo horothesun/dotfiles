@@ -97,6 +97,7 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-json',
   \ 'coc-tsserver',
+  \ 'coc-go',
   \ 'coc-markdownlint',
   \ 'coc-sumneko-lua',
   \ 'coc-metals'
