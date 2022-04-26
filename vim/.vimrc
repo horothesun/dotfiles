@@ -93,14 +93,14 @@ Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
+"  \ 'coc-tsserver',
 let g:coc_global_extensions = [
-  \ 'coc-sh',
-  \ 'coc-json',
-  \ 'coc-tsserver',
   \ 'coc-go',
+  \ 'coc-json',
   \ 'coc-markdownlint',
-  \ 'coc-sumneko-lua',
-  \ 'coc-metals'
+  \ 'coc-metals',
+  \ 'coc-sh',
+  \ 'coc-sumneko-lua'
   \ ]
 
 
