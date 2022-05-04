@@ -65,6 +65,19 @@ alias tfp="terraform plan"
 alias tfa="terraform apply"
 
 
+function show_all_branches() {
+  ls | xargs -n 1 -P 1 -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
+}
+
+function pull_all_repos() {
+  time ( \
+    ls | \
+    xargs -n 1 -P 128 -I ^ \
+      /bin/bash -c 'echo "⏳ Processing ^..." && cd ^ && git status && git fetch --all --prune --jobs=10 && git pull && echo' \
+  )
+}
+
+
 # preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export VISUAL='vim'
