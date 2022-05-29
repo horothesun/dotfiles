@@ -184,7 +184,7 @@ function update_brews() {
 
 function update_node() {
   echo "update_node BEGIN"
-  init_nvm && time ( npm update --location=global )
+  init_nvm && time ( npm update --location=global --no-package-lock )
   echo "update_node END"
 }
 
