@@ -96,8 +96,8 @@ function init_rbenv() {
 # nvm
 function init_nvm() {
   export NVM_DIR="${HOME}/.nvm"
-  [ -s "${HOMEBREW_OPT_DIR}/nvm/nvm.sh" ] && . "${HOMEBREW_OPT_DIR}/nvm/nvm.sh"
-  [ -s "${HOMEBREW_OPT_DIR}/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_OPT_DIR}/nvm/etc/bash_completion.d/nvm"
+  [[ -s "${HOMEBREW_OPT_DIR}/nvm/nvm.sh" ]] && source "${HOMEBREW_OPT_DIR}/nvm/nvm.sh"
+  [[ -s "${HOMEBREW_OPT_DIR}/nvm/etc/bash_completion.d/nvm" ]] && source "${HOMEBREW_OPT_DIR}/nvm/etc/bash_completion.d/nvm"
 }
 
 # vim/neovim's CoC plugin requires Node.js
@@ -202,7 +202,7 @@ function update_all() {
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 function __conda_setup_script() {
-  "$(brew --prefix)/Caskroom/miniconda/base/bin/conda" 'shell.zsh' 'hook' 2> /dev/null
+  "$(brew --prefix)/Caskroom/miniconda/base/bin/conda" "shell.zsh" "hook" 2> /dev/null
 }
 
 function init_conda() {
@@ -211,7 +211,7 @@ function init_conda() {
     eval "$__conda_setup"
   else
     if [[ -f "$(brew --prefix)/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]]; then
-      . "$(brew --prefix)/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+      source "$(brew --prefix)/Caskroom/miniconda/base/etc/profile.d/conda.sh"
     else
       export PATH="$(brew --prefix)/Caskroom/miniconda/base/bin:${PATH}"
     fi
