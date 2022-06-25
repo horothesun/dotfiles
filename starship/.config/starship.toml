@@ -3,7 +3,6 @@ $username\
 $hostname\
 $shlvl\
 $directory\
-$java\
 $git_branch\
 $git_commit\
 $git_state\
