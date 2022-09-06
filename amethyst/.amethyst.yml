@@ -1,0 +1,32 @@
+layouts:
+  - tall
+  - fullscreen
+  - wide
+
+mod1:
+  - option
+  - shift
+mod2:
+  - option
+  - shift
+  - control
+
+relaunch-amethyst:
+  mod: mod2
+  key: z
+
+mouse-follows-focus: false
+focus-follows-mouse: false
+
+window-margins: false
+window-margin-size: 0
+
+# Floating windows
+#
+# Float small windows: true
+#
+# Automatically float application listed
+#   - "com.apple.systempreferences"
+#   - "com.apple.calculator"
+#   - "com.utmapp.UTM"
+#   - "com.wulkano.kap"
