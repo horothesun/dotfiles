@@ -64,6 +64,9 @@ set updatetime=50
 " Don't pass messages to |ins-completion-menu|
 set shortmess+=c
 
+" Disable mouse integration
+set mouse=
+
 set colorcolumn=110
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
