@@ -87,7 +87,7 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 " Plug 'sainnhe/gruvbox-material'
 " Plug 'phanviet/vim-monokai-pro'
 " Plug 'flazz/vim-colorschemes'
@@ -104,6 +104,22 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-sumneko-lua'
   \ ]
+
+
+" statusline
+set statusline=
+set statusline+=%#PmenuSel#
+" set statusline+=%{mode()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c\ |
 
 
 " Help Vim recognize *.sbt and *.sc as Scala files
