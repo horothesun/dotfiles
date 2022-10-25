@@ -87,10 +87,10 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Color schemes
 Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/gruvbox-material'
-Plug 'phanviet/vim-monokai-pro'
 Plug 'vim-airline/vim-airline'
-Plug 'flazz/vim-colorschemes'
+" Plug 'sainnhe/gruvbox-material'
+" Plug 'phanviet/vim-monokai-pro'
+" Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
@@ -256,9 +256,10 @@ function! s:show_documentation()
 endfunction
 
 
-" Confirm the selected popup menu choice using Enter
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
+" Customise autocomplete popup menu behaviour
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 nnoremap <leader>cr :CocRestart<CR>
 
