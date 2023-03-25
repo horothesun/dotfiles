@@ -23,7 +23,9 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
+  option_as_alt: Both
+
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -633,10 +635,10 @@ schemes:
       white:   '0xacb0d0'
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 # Colors
-colors: *ayu_mirage
+colors: *base16_dracula
 
   # Default colors
   #primary:
@@ -874,7 +876,7 @@ live_config_reload: true
 #working_directory: None
 
 # Send ESC (\x1b) before characters when alt is pressed.
-alt_send_esc: false
+# alt_send_esc: false
 
 #mouse:
   # Click settings
