@@ -1146,6 +1146,8 @@ live_config_reload: true
 key_bindings:
   - { key: Left,  mods: Alt, chars: "\x1bb" } # Option + Left-Arrow: previous word
   - { key: Right, mods: Alt, chars: "\x1bf" } # Option + Right-Arrow: next word
+  - { key: Key2,  mods: Alt, chars: "€"     } # Option + 2: €
+  - { key: Key3,  mods: Alt, chars: "#"     } # Option + 3: #
 
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
