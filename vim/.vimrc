@@ -94,7 +94,6 @@ Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 
-"  \ 'coc-tsserver',
 let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-json',
@@ -210,7 +209,12 @@ require('telescope').setup {
     }
   },
   pickers = {
-    find_files = { hidden = true }
+    find_files = { hidden = true },
+    live_grep = {
+      additional_args = function(opts)
+        return {"--hidden"}
+      end
+    }
   },
   extensions = {
     fzy_native = {
