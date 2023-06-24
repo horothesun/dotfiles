@@ -49,6 +49,9 @@ export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/arp242-uni:${PATH}"
 
 
+alias rg="rg --hidden"
+
+
 alias vi=nvim
 
 
