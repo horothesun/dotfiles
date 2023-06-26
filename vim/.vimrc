@@ -201,18 +201,18 @@ require('telescope').setup {
       }
     },
     file_ignore_patterns = {
-      ".git",
-      ".idea",
-      ".metals",
-      ".bloop",
-      "node_modules"
+      ".git/",
+      ".idea/",
+      ".metals/",
+      ".bloop/",
+      "node_modules/"
     }
   },
   pickers = {
     find_files = { hidden = true },
     live_grep = {
       additional_args = function(opts)
-        return {"--hidden"}
+        return { "--hidden" }
       end
     }
   },
