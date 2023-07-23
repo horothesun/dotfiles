@@ -75,6 +75,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'vimwiki/vimwiki'
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -102,6 +103,15 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-sumneko-lua'
   \ ]
+
+" VimWiki
+let g:vimwiki_list = [
+  \ { 'path': '~/vimwiki/personal/', 'syntax': 'markdown', 'ext': '.md' },
+  \ { 'path': '~/vimwiki/work/',     'syntax': 'markdown', 'ext': '.md' }
+  \ ]
+let g:vimwiki_global_ext = 0
+let g:vimwiki_markdown_link_ext = 1
+
 
 
 " https://shapeshed.com/vim-statuslines/
