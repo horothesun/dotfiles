@@ -49,6 +49,17 @@ export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/arp242-uni:${PATH}"
 
 
+# curl: using Homebrew's version
+export PATH="${HOMEBREW_OPT_DIR}/curl/bin:${PATH}"
+
+# For compilers to find curl you may need to set:
+# export LDFLAGS="-L${HOMEBREW_OPT_DIR}/curl/lib"
+# export CPPFLAGS="-I${HOMEBREW_OPT_DIR}/curl/include"
+
+# For pkg-config to find curl you may need to set:
+# export PKG_CONFIG_PATH="${HOMEBREW_OPT_DIR}/curl/lib/pkgconfig"
+
+
 alias rg="rg --hidden"
 
 
