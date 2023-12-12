@@ -25,10 +25,16 @@
       "filetypes": ["sh"]
     },
     "terraform": {
-	  "command": "terraform-ls",
+      "command": "terraform-ls",
       "args": ["serve"],
       "filetypes": ["terraform", "tf"],
       "initializationOptions": {}
+    },
+    "unison": {
+      "filetypes": ["unison"],
+      "host": "127.0.0.1",
+      "port": 5757,
+      "settings": {}
     }
   }
 }
