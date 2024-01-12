@@ -21,7 +21,7 @@ myConfig = def
     , layoutHook = myLayout  -- Use custom layouts
     , handleEventHook = handleEventHook def <+> fullscreenEventHook
     , startupHook = myStartupHook
-    , manageHook = myManageHook
+    , manageHook = myManageHook -- Match on certain windows
     }
   `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")
@@ -32,6 +32,12 @@ myConfig = def
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "xrandr --output \"eDP-1\" --mode \"1920x1200\" --rate \"60\" --scale \"1x1\""
+
+myManageHook :: ManageHook
+myManageHook = composeAll
+    [ className =? "Gimp" --> doFloat
+    , isDialog            --> doFloat
+    ]
 
 main :: IO ()
 main = xmonad . ewmh =<< xmobar myConfig
