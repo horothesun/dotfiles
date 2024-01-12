@@ -1,19 +1,13 @@
 import XMonad
 
-import XMonad.Util.EZConfig
-import XMonad.Util.Ungrab
-
-import XMonad.Util.EZConfig (additionalKeysP)
-
-import XMonad.Layout.ThreeColumns
-
 import XMonad.Hooks.EwmhDesktops
-
 import XMonad.Hooks.DynamicLog
-
+import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.ThreeColumns
+import XMonad.Util.EZConfig
+import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Ungrab
 import XMonad.Util.SpawnOnce
-
-myTerminal = "alacritty"
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
@@ -27,6 +21,7 @@ myConfig = def
     , layoutHook = myLayout  -- Use custom layouts
     , handleEventHook = handleEventHook def <+> fullscreenEventHook
     , startupHook = myStartupHook
+    , manageHook = myManageHook
     }
   `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")
