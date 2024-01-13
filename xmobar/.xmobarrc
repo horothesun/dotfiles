@@ -1,9 +1,10 @@
 Config
   { overrideRedirect = False
-  , font     = "xft:FiraMono Nerd Font-14"
-  , bgColor  = "#202020"
-  , fgColor  = "#f8f8f2"
-  , position = TopW L 90
+  , font       = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
+  , bgColor    = "#202020"
+  , fgColor    = "#f8f8f2"
+  , position   = TopW L 100
+  , persistent = False
   , commands = [ Run StdinReader
                , Run Cpu
                    [ "-L", "3"
@@ -19,9 +20,32 @@ Config
                    , "--"
                    , "--on", ""
                    ]
+               , Run CoreTemp
+                   [ "--template" , "<core0><fc=#aaaaaa>󰔄</fc>"
+                   , "--Low"      , "55"        -- units: °C
+                   , "--High"     , "75"        -- units: °C
+                   , "--low"      , "darkgreen"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkred"
+                   ] 50
+               , Run Battery
+                   [ "--template" , "<acstatus>"
+                   , "--Low"      , "25"        -- units: %
+                   , "--High"     , "80"        -- units: %
+                   , "--low"      , "darkred"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkgreen"
+                   , "--" -- battery specific options
+                             -- discharging status
+                             , "-o"	, "<left>  "
+                             -- AC "on" status
+                             , "-O"	, "<left>  "
+                             -- charged status
+                             , "-i"	, "Full 󰂅 "
+                   ] 50
                , Run Date "%a %d %b <fc=#8be9fd>%H:%M:%S</fc>" "date" 10
                ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %date% "
+  , template = "%StdinReader% }{ %coretemp%  %battery%  %date% "
   }
