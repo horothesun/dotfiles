@@ -29,7 +29,7 @@ myManageHook = composeAll
 
 myKeys :: [(String, X ())]
 myKeys =
-  [ ("M-S-w", spawn "brave &" )
+  [ ("M-w", spawn "brave &" )
   ]
 
 myXmobarPP :: PP
