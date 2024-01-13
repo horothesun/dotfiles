@@ -3,7 +3,7 @@ Config
   , font       = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
   , bgColor    = "#202020"
   , fgColor    = "#f8f8f2"
-  , position   = TopW L 100
+  , position   = TopW L 97
   , persistent = True
   , commands = [ Run StdinReader
                , Run Cpu [ "-L", "3", "-H", "50", "--high"  , "red", "--normal", "green" ] 10
