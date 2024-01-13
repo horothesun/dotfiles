@@ -22,16 +22,16 @@ Config
                    ]
                , Run CoreTemp
                    [ "--template" , "<core0><fc=#aaaaaa>󰔄</fc>"
-                   , "--Low"      , "55"        -- units: °C
-                   , "--High"     , "75"        -- units: °C
+                   , "--Low"      , "55" -- units: °C
+                   , "--High"     , "75" -- units: °C
                    , "--low"      , "darkgreen"
                    , "--normal"   , "darkorange"
                    , "--high"     , "darkred"
                    ] 50
                , Run Battery
                    [ "--template" , "<acstatus>"
-                   , "--Low"      , "25"        -- units: %
-                   , "--High"     , "80"        -- units: %
+                   , "--Low"      , "25" -- units: %
+                   , "--High"     , "60" -- units: %
                    , "--low"      , "darkred"
                    , "--normal"   , "darkorange"
                    , "--high"     , "darkgreen"
