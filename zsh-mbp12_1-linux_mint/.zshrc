@@ -22,7 +22,7 @@ alias rg="rg --hidden"
 # alias ncdu="ncdu --color off"
 
 
-# alias bat="bat --style=plain"
+alias bat="batcat --style=plain"
 
 
 function show_all_branches() {
@@ -90,9 +90,16 @@ function update_appimages() {
   echo "update_appimages END"
 }
 
+function update_alacritty() {
+  echo "update_alacritty BEGIN"
+  cargo install alacritty
+  echo "update_alacritty END"
+}
+
 function update_all() {
   update_apt && \
     echo && omz update && \
     echo && update_flatpaks && \
-    echo && update_appimages
+    echo && update_appimages && \
+    echo && update_alacritty
 }
