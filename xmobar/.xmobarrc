@@ -36,6 +36,7 @@ Config
                    , "--normal"   , "darkorange"
                    , "--high"     , "darkred"
                    ] 50
+               , Run DiskU [ ("/", "<fc=#aaaaaa><free></fc>") ] [] 60
                , Run Battery
                    [ "--template" , "<acstatus>"
                    , "--Low"      , "25" -- units: %
@@ -55,5 +56,5 @@ Config
                ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  %battery%  %date% "
+  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  %disku%  %battery%  %date% "
   }
