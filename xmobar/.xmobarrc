@@ -4,7 +4,7 @@ Config
   , bgColor    = "#202020"
   , fgColor    = "#f8f8f2"
   , position   = TopW L 100
-  , persistent = False
+  , persistent = True
   , commands = [ Run StdinReader
                , Run Cpu
                    [ "-L", "3"
