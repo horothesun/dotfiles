@@ -20,6 +20,14 @@ Config
                    , "--"
                    , "--on", ""
                    ]
+               , Run DynNetwork
+                   [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
+                   , "--Low"      , "3000"    -- units: B/s
+                   , "--High"     , "1500000" -- units: B/s
+                   , "--low"      , "darkgreen"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkred"
+                   ] 10
                , Run CoreTemp
                    [ "--template" , "<core0><fc=#aaaaaa>󰔄</fc>"
                    , "--Low"      , "55" -- units: °C
@@ -47,5 +55,5 @@ Config
                ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %coretemp%  %battery%  %date% "
+  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  %battery%  %date% "
   }
