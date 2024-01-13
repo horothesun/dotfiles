@@ -1,0 +1,72 @@
+live_config_reload = true
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = '0x626483'
+blue = '0x62d6e8'
+cyan = '0x00f769'
+green = '0x3a3c4e'
+magenta = '0xf1f2f8'
+red = '0xb45bcf'
+white = '0xf7f7fb'
+yellow = '0x4d4f68'
+
+[colors.cursor]
+cursor = '0xe9e9f4'
+text = '0x282936'
+
+[colors.normal]
+black = '0x282936'
+blue = '0x62d6e8'
+cyan = '0xa1efe4'
+green = '0xebff87'
+magenta = '0xb45bcf'
+red = '0xea51b2'
+white = '0xe9e9f4'
+yellow = '0x00f769'
+
+[colors.primary]
+background = '0x282936'
+foreground = '0xe9e9f4'
+
+[font]
+size = 8.0
+
+[font.normal]
+family = 'FiraMono Nerd Font'
+style = 'Retina'
+
+[keyboard]
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = 'Left'
+mods = 'Alt'
+
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = 'Right'
+mods = 'Alt'
+
+[[keyboard.bindings]]
+chars = '€'
+key = 'Key2'
+mods = 'Alt'
+
+[[keyboard.bindings]]
+chars = '#'
+key = 'Key3'
+mods = 'Alt'
+
+[[keyboard.bindings]]
+key = 'N'
+mods = 'Command'
+
+[keyboard.bindings.command]
+program = '/usr/local/bin/alacritty_new_window_same_dir.sh'
+
+[selection]
+save_to_clipboard = true
+
+[window]
