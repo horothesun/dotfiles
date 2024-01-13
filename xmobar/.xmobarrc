@@ -6,23 +6,12 @@ Config
   , position   = TopW L 100
   , persistent = True
   , commands = [ Run StdinReader
-               , Run Cpu
-                   [ "-L", "3"
-                   , "-H", "50"
-                   , "--high"  , "red"
-                   , "--normal", "green"
-                   ] 10
-               , Run Memory ["--template", "Mem <usedratio>%"] 10
-               , Run Swap ["--template", "Swap <usedratio>%"] 10
-               , Run Alsa "default" "Master"
-                   [ "--template", "<volumestatus>"
-                   , "--suffix"  , "True"
-                   , "--"
-                   , "--on", ""
-                   ]
+               , Run Cpu [ "-L", "3", "-H", "50", "--high"  , "red", "--normal", "green" ] 10
+               , Run Memory ["--template", "󰍛 <usedratio>%"] 10
+               , Run Swap ["--template", " <usedratio>%"] 20
                , Run DynNetwork
                    [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
-                   , "--Low"      , "3000"    -- units: B/s
+                   , "--Low"      , "300000"  -- units: B/s
                    , "--High"     , "1500000" -- units: B/s
                    , "--low"      , "darkgreen"
                    , "--normal"   , "darkorange"
@@ -36,7 +25,7 @@ Config
                    , "--normal"   , "darkorange"
                    , "--high"     , "darkred"
                    ] 50
-               , Run DiskU [ ("/", "<fc=#aaaaaa><free></fc>") ] [] 60
+               , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 60
                , Run Battery
                    [ "--template" , "<acstatus>"
                    , "--Low"      , "25" -- units: %
@@ -56,5 +45,5 @@ Config
                ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  %disku%  %battery%  %date% "
+  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  %battery%  %date% "
   }
