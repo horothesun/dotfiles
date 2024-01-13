@@ -78,9 +78,21 @@ function update_tldr() {
   echo "update_tldr END"
 }
 
+function update_flatpaks() {
+  echo "update_flatpaks BEGIN"
+  flatpak update
+  echo "update_flatpaks END"
+}
+
+function update_appimages() {
+  echo "update_appimages BEGIN"
+  am -u
+  echo "update_appimages END"
+}
+
 function update_all() {
   update_apt && \
     echo && omz update && \
-    echo && flatpak update && \
-    echo && am -u
+    echo && update_flatpaks && \
+    echo && update_appimages
 }
