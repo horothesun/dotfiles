@@ -37,7 +37,7 @@ Config
           , "--" -- battery specific options
           -- discharging status
           , "-o"	 , "  <left>" -- AC "on" status
-          , "-O"	 , " <left>"  -- charged status
+          , "-O"	 , "  <left>"  -- charged status
           , "-i"	 , "󰂅 Full"
           ] 50
       , Run Date "%a %d %b <fc=#8be9fd>%H:%M:%S</fc>" "date" 10
