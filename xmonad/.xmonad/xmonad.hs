@@ -1,5 +1,6 @@
 import XMonad
 
+import Graphics.X11.ExtraTypes.XF86
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
@@ -32,6 +33,8 @@ myManageHook = composeAll
 myKeys :: [(String, X ())]
 myKeys =
   [ ("M-w", spawn "brave &" )
+  , ("<XF86MonBrightnessUp>", spawn "brightnessctl --quiet --device intel_backlight set 5%+")
+  , ("<XF86MonBrightnessDown>", spawn "brightnessctl --quiet --device intel_backlight set 5%-")
   ]
 
 myXmobarPP :: PP
