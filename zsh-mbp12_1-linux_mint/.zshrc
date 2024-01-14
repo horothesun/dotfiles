@@ -13,6 +13,10 @@ source "${ZSH}/oh-my-zsh.sh"
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
+alias pbcopy="xclip -rmlastnl -selection clipboard"
+alias pbpaste="xsel --clipboard"
+
+
 alias rg="rg --hidden"
 
 
