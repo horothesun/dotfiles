@@ -11,7 +11,8 @@ import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
-monitorBacklightDeviceName = "intel_backlight"
+internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
+internalMonitorBacklightDeviceName = "intel_backlight"
 audioCardId = "1"
 
 myLayout = tiled ||| Mirror tiled ||| Full
@@ -23,7 +24,7 @@ myLayout = tiled ||| Mirror tiled ||| Full
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawnOnce "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
+  spawnOnce internalMonitorSetResolutionCommand
   spawnOnce "volumeicon &"
   spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22 &"
 
@@ -36,8 +37,8 @@ myManageHook = composeAll
 myKeys :: [(String, X ())]
 myKeys =
   [ ("M-w", spawn "brave &")
-  , ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ monitorBacklightDeviceName ++ " set 5%+")
-  , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ monitorBacklightDeviceName ++ " set 5%-")
+  , ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 5%+")
+  , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 5%-")
   , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
   , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
