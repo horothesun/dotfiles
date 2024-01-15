@@ -90,7 +90,7 @@ function update_flatpaks() {
 
 function update_appimages() {
   echo "update_appimages BEGIN"
-  am -u
+  am update
   echo "update_appimages END"
 }
 
