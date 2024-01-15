@@ -40,7 +40,7 @@ Config
           , "-O"	 , "  <left>" -- charged status
           , "-i"	 , "󰂅 <left>"  -- full status
           ] 50
-      , Run Date "%a %d %b <fc=#8be9fd>%H:%M:%S</fc>" "date" 10
+      , Run Date "%a %d %b %H:%M:%S" "date" 10
       ]
   , sepChar  = "%"
   , alignSep = "}{"
