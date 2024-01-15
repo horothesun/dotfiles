@@ -8,8 +8,10 @@ Config
   , commands         =
       [ Run StdinReader
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
-      , Run Memory ["--template", "󰍛 <usedratio>%"] 10
-      , Run Swap ["--template", " <usedratio>%"] 20
+      , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
+      -- , Run Swap [ "--template", " <usedratio>%" ] 20
+      -- get wi-fi SSID by running: inxi --network-advanced
+      , Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <quality></fc>" ] 40
       , Run DynNetwork
           [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
           , "--Low"      , "300000"  -- units: B/s
@@ -35,14 +37,14 @@ Config
           , "--normal"   , "darkorange"
           , "--high"     , "darkgreen"
           , "--" -- battery specific options
-          -- discharging status
-          , "-o"	 , "  <left>" -- AC "on" status
-          , "-O"	 , "  <left>" -- charged status
-          , "-i"	 , "󰂅 <left>"  -- full status
+          , "-o"	 , "󰁹 <left>"  -- discharging status
+          , "-O"	 , "  <left>" -- AC "on" status
+          , "-i"	 , "󰂅 <left>"  -- charged status
           ] 50
       , Run Date "%a %d %b %H:%M:%S" "date" 10
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %dynnetwork% %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  %battery%  %date% "
+  -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  %battery%  %date% "
+  , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% "
   }
