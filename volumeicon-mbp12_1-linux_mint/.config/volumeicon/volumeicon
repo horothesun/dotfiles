@@ -9,7 +9,7 @@ notification_type=1
 
 [StatusIcon]
 stepsize=5
-onclick=alacritty --command alsamixer -c 1
+onclick=alacritty --command alsamixer --card 1
 theme=White Gnome
 use_panel_specific_icons=false
 reverse_scroll_direction=false
@@ -20,7 +20,6 @@ show_sound_level=true
 use_transparent_background=false
 
 [Hotkeys]
-up_enabled=true
-down_enabled=true
-up=XF86AudioRaiseVolume
-down=XF86AudioLowerVolume
+up_enabled=false
+down_enabled=false
+mute_enabled=false
