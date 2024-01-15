@@ -35,6 +35,9 @@ myKeys =
   [ ("M-w", spawn "brave &" )
   , ("<XF86MonBrightnessUp>", spawn "brightnessctl --quiet --device intel_backlight set 5%+")
   , ("<XF86MonBrightnessDown>", spawn "brightnessctl --quiet --device intel_backlight set 5%-")
+  , ("<XF86AudioMute>", spawn "toggle_audio.sh")
+  , ("<XF86AudioRaiseVolume>", spawn "amixer --card 1 sset Master 5%+")
+  , ("<XF86AudioLowerVolume>", spawn "amixer --card 1 sset Master 5%-")
   ]
 
 myXmobarPP :: PP
