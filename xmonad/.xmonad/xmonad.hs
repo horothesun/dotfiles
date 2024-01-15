@@ -11,6 +11,9 @@ import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
+monitorBacklightDeviceName = "intel_backlight"
+audioCardId = "1"
+
 myLayout = tiled ||| Mirror tiled ||| Full
   where
     tiled   = Tall nmaster delta ratio
@@ -32,12 +35,14 @@ myManageHook = composeAll
 
 myKeys :: [(String, X ())]
 myKeys =
-  [ ("M-w", spawn "brave &" )
-  , ("<XF86MonBrightnessUp>", spawn "brightnessctl --quiet --device intel_backlight set 5%+")
-  , ("<XF86MonBrightnessDown>", spawn "brightnessctl --quiet --device intel_backlight set 5%-")
-  , ("<XF86AudioMute>", spawn "toggle_audio.sh")
-  , ("<XF86AudioRaiseVolume>", spawn "amixer --card 1 sset Master 5%+")
-  , ("<XF86AudioLowerVolume>", spawn "amixer --card 1 sset Master 5%-")
+  [ ("M-w", spawn "brave &")
+  , ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ monitorBacklightDeviceName ++ " set 5%+")
+  , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ monitorBacklightDeviceName ++ " set 5%-")
+  , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
+  , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
+  , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
+  , ("<XF86KbdBrightnessUp>",   spawn "brightnessctl --quiet --device intel_backlight set 5%+") -- TODO: set proper command
+  , ("<XF86KbdBrightnessDown>", spawn "brightnessctl --quiet --device intel_backlight set 5%-") -- TODO: set proper command
   ]
 
 myXmobarPP :: PP
