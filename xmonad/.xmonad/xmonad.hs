@@ -12,8 +12,9 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
-internalMonitorBacklightDeviceName = "intel_backlight"
 audioCardId = "1"
+internalMonitorBacklightDeviceName = "intel_backlight"
+internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
@@ -42,8 +43,8 @@ myKeys =
   , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
   , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
-  , ("<XF86KbdBrightnessUp>",   spawn "brightnessctl --quiet --device intel_backlight set 5%+") -- TODO: set proper command
-  , ("<XF86KbdBrightnessDown>", spawn "brightnessctl --quiet --device intel_backlight set 5%-") -- TODO: set proper command
+  , ("<XF86KbdBrightnessUp>",   spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%+")
+  , ("<XF86KbdBrightnessDown>",   spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%-")
   ]
 
 myXmobarPP :: PP
