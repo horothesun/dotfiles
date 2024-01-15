@@ -11,7 +11,7 @@ Config
       , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
       -- , Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
-      , Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <quality></fc>" ] 40
+      , Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <quality>%</fc>" ] 40
       , Run DynNetwork
           [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
           , "--Low"      , "300000"  -- units: B/s
@@ -46,5 +46,5 @@ Config
   , sepChar  = "%"
   , alignSep = "}{"
   -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  %battery%  %date% "
-  , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% "
+  , template = "%StdinReader% }{ %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  %wlp3s0wi%  %battery%  %date% "
   }
