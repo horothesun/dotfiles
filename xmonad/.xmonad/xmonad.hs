@@ -16,6 +16,7 @@ audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
+setKeyboardRepeatDelayAndRateCommand = "xset r rate 300 100"
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
@@ -29,6 +30,7 @@ myStartupHook = do
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce "volumeicon &"
   spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22 &"
+  spawnOnce setKeyboardRepeatDelayAndRateCommand
 
 myManageHook :: ManageHook
 myManageHook = composeAll
