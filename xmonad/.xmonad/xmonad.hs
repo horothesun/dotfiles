@@ -11,6 +11,7 @@ import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
+myTerminal = "alacritty"
 audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
@@ -68,20 +69,16 @@ myXmobarPP = def
     lowWhite = xmobarColor "#bbbbbb" ""
 
 myConfig = def
-  { modMask     = mod4Mask      -- Rebind Mod to the Super key
-  , terminal    = "alacritty"
-  , layoutHook  = myLayout      -- Use custom layouts
+  { modMask     = mod4Mask -- Rebind Mod to the Super key
+  , terminal    = myTerminal
+  , layoutHook  = myLayout
   , startupHook = myStartupHook
-  , manageHook  = myManageHook  -- Match on certain windows
+  , manageHook  = myManageHook -- Match on certain windows
   , handleEventHook = handleEventHook def <+> fullscreenEventHook
   } `additionalKeysP` myKeys
 
 main :: IO ()
--- main = xmonad . ewmh =<< xmobar myConfig
-
-main = xmonad
-     . ewmh
-   =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
+main = xmonad . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
   where
     toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
     toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
