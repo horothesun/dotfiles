@@ -3,7 +3,7 @@ Config
   , font             = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
   , bgColor          = "#202020"
   , fgColor          = "#f8f8f2"
-  , position         = TopW L 97
+  , position         = TopW L 96
   , persistent       = True
   , commands         =
       [ Run StdinReader
