@@ -16,7 +16,7 @@ audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
-setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 60"
+setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
