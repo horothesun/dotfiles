@@ -51,11 +51,20 @@ myKeys =
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
   , ("<XF86KbdBrightnessUp>",   spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%+")
   , ("<XF86KbdBrightnessDown>", spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%-")
-  , ("M-C-3",   spawn $ "maim " ++ bashScreenshotName ++ " &")
-  , ("M-C-S-3", spawn "maim | xclip -selection clipboard -target image/png &")
-  , ("M-C-4",   spawn $ "maim --noopengl --select " ++ bashScreenshotName ++ " &")
-  , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
+  -- launch browser
   , ("M-w",     spawn "brave &")
+  -- screenshot fullscreen to file
+  , ("M-C-3",   spawn $ "maim " ++ bashScreenshotName ++ " &")
+  -- screenshot fullscreen to clipboard
+  , ("M-C-S-3", spawn "maim | xclip -selection clipboard -target image/png &")
+  -- screenshot from selection to file
+  , ("M-C-4",   spawn $ "maim --noopengl --select " ++ bashScreenshotName ++ " &")
+  -- screenshot from selection to clipboard
+  , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
+  -- screenshot from current window to file
+  -- ...
+  -- screenshot from current window to clipboard
+  -- ...
   ]
 
 myXmobarPP :: PP
