@@ -20,13 +20,26 @@ alias xpaste="xsel --clipboard"
 alias rg="rg --hidden"
 
 
-# alias vi=nvim
+function nvim_nix_shell() {
+  NEOVIM_ARGS="$@"
+  nix-shell -p neovim nodejs --run "nvim ${NEOVIM_ARGS}"
+}
+alias nvim="nvim_nix_shell"
 
 
-# alias ncdu="ncdu --color off"
+alias ncdu="nix-shell -p ncdu --run \"ncdu --color off\""
 
 
 alias bat="batcat --style=plain"
+
+
+# preferred editor for local and remote sessions
+if [[ -n "${SSH_CONNECTION}" ]]; then
+  export VISUAL="vi"
+else
+  export VISUAL="vi"
+fi
+export EDITOR="${VISUAL}"
 
 
 function show_all_branches() {
