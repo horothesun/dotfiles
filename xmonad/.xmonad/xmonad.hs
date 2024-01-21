@@ -53,6 +53,10 @@ myKeys =
   , ("<XF86KbdBrightnessDown>", spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%-")
   -- launch browser
   , ("M-w",     spawn "brave &")
+  -- screenshot from current window to file
+  , ("M-C-2",   spawn $ "maim --window $(xdotool getactivewindow) " ++ bashScreenshotName ++ " &")
+  -- screenshot from current window to clipboard
+  , ("M-C-S-2", spawn "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -target image/png &")
   -- screenshot fullscreen to file
   , ("M-C-3",   spawn $ "maim " ++ bashScreenshotName ++ " &")
   -- screenshot fullscreen to clipboard
@@ -61,10 +65,6 @@ myKeys =
   , ("M-C-4",   spawn $ "maim --noopengl --select " ++ bashScreenshotName ++ " &")
   -- screenshot from selection to clipboard
   , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
-  -- screenshot from current window to file
-  -- ...
-  -- screenshot from current window to clipboard
-  -- ...
   ]
 
 myXmobarPP :: PP
