@@ -17,6 +17,7 @@ internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
+bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H.%M.%S\").png\""
 
 myLayout = tiled ||| Mirror tiled ||| Full
   where
@@ -43,14 +44,17 @@ myManageHook = composeAll
 
 myKeys :: [(String, X ())]
 myKeys =
-  [ ("M-w", spawn "brave &")
-  , ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 5%+")
+  [ ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 5%+")
   , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 5%-")
   , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
   , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
   , ("<XF86KbdBrightnessUp>",   spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%+")
   , ("<XF86KbdBrightnessDown>", spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 5%-")
+  , ("M-C-3",   spawn $ "maim  " ++ bashScreenshotName ++ " &")
+  , ("M-C-4",   spawn $ "maim --noopengl --select " ++ bashScreenshotName ++ " &")
+  , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
+  , ("M-w",     spawn "brave &")
   ]
 
 myXmobarPP :: PP
