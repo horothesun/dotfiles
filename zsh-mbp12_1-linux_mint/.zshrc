@@ -20,11 +20,7 @@ alias xpaste="xsel --clipboard"
 alias rg="rg --hidden"
 
 
-function nvim_nix_shell() {
-  NEOVIM_ARGS="$@"
-  nix-shell -p neovim nodejs --run "nvim ${NEOVIM_ARGS}"
-}
-alias nvim="nvim_nix_shell"
+alias vi=nvim
 
 
 alias ncdu="nix-shell -p ncdu --run \"ncdu --color off\""
@@ -37,7 +33,7 @@ alias bat="batcat --style=plain"
 if [[ -n "${SSH_CONNECTION}" ]]; then
   export VISUAL="vi"
 else
-  export VISUAL="vi"
+  export VISUAL="nvim"
 fi
 export EDITOR="${VISUAL}"
 

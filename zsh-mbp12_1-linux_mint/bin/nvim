@@ -1,0 +1,4 @@
+#!/bin/bash
+
+NEOVIM_ARGS="$@" 
+nix-shell -p neovim nodejs yarn --run "nvim ${NEOVIM_ARGS}"
