@@ -114,9 +114,13 @@ function update_alacritty() {
 }
 
 function update_all() {
-  update_apt && \
-    echo && omz update && \
-    echo && update_flatpaks && \
-    echo && update_appimages && \
-    echo && update_alacritty
+  update_apt
+  echo
+  omz update
+  echo
+  update_flatpaks
+  echo
+  update_appimages
+  echo
+  update_alacritty
 }
