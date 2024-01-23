@@ -23,10 +23,32 @@ alias rg="rg --hidden"
 alias vi=nvim
 
 
-alias ncdu="nix-shell -p ncdu --run \"ncdu --color off\""
+function ncdu() {
+  NCDU_ARGS="$@"
+  nix-shell -p ncdu --run "ncdu --color off ${NCDU_ARGS}"
+}
 
 
-alias bat="batcat --style=plain"
+function bat() {
+  bat_ --style=plain "$@"
+}
+
+function bat_() {
+  BAT_ARGS="$@"
+  nix-shell -p bat --run "bat ${BAT_ARGS}"
+}
+
+
+function tldr() {
+  TLDR_ARGS="$@"
+  nix-shell -p tldr --run "tldr ${TLDR_ARGS}"
+}
+
+
+function aws() {
+  AWS_CLI_ARGS="$@"
+  nix-shell -p awscli2 --run "aws ${AWS_CLI_ARGS}"
+}
 
 
 # preferred editor for local and remote sessions
