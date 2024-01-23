@@ -1,4 +1,11 @@
 #!/bin/bash
 
-NEOVIM_ARGS="$@" 
-nix-shell -p neovim nodejs yarn --run "nvim ${NEOVIM_ARGS}"
+if [[ -x "$(command -v cached-nix-shell)" ]]; then
+  NIX_SHELL_COMMAND="cached-nix-shell"
+else
+  NIX_SHELL_COMMAND="nix-shell"
+fi
+
+NEOVIM_ARGS="$@"
+"${NIX_SHELL_COMMAND}" --packages nodejs yarn nodePackages.bash-language-server neovim \
+  --run "nvim ${NEOVIM_ARGS}"

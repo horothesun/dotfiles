@@ -13,6 +13,13 @@ source "${ZSH}/oh-my-zsh.sh"
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
+if [[ -x "$(command -v cached-nix-shell)" ]]; then
+  NIX_SHELL_COMMAND="cached-nix-shell"
+else
+  NIX_SHELL_COMMAND="nix-shell"
+fi
+
+
 alias xcopy="xclip -rmlastnl -selection clipboard"
 alias xpaste="xsel --clipboard"
 
@@ -25,13 +32,13 @@ function rg() {
 }
 function rg_() {
   RIPGREP_ARGS="$@"
-  nix-shell -p ripgrep --run "rg ${RIPGREP_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p ripgrep --run "rg ${RIPGREP_ARGS}"
 }
 
 
 function ncdu() {
   NCDU_ARGS="$@"
-  nix-shell -p ncdu --run "ncdu --color off ${NCDU_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p ncdu --run "ncdu --color off ${NCDU_ARGS}"
 }
 
 
@@ -40,25 +47,25 @@ function bat() {
 }
 function bat_() {
   BAT_ARGS="$@"
-  nix-shell -p bat --run "bat ${BAT_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p bat --run "bat ${BAT_ARGS}"
 }
 
 
 function tldr() {
   TLDR_ARGS="$@"
-  nix-shell -p tldr --run "tldr ${TLDR_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p tldr --run "tldr ${TLDR_ARGS}"
 }
 
 
 function aws() {
   AWS_CLI_ARGS="$@"
-  nix-shell -p awscli2 --run "aws ${AWS_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p awscli2 --run "aws ${AWS_CLI_ARGS}"
 }
 
 
 function scala-cli() {
   SCALA_CLI_ARGS="$@"
-  nix-shell -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
 }
 
 
