@@ -12,11 +12,20 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
+
 audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xrandr --output eDP1 --mode 1920x1200 --rate 60 --scale 1x1"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
+disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
+launchNetworkApplet = "nm-applet &"
+launchVolumeApplet = "volumeicon &"
+launchClipboardManager = "copyq &"
+launchSysTray = "trayer --edge top --align right --widthtype request --padding 6 " ++
+  "--SetDockType true --SetPartialStrut true --expand true --monitor 1 " ++
+  "--transparent true --alpha 0 --tint 0x282c34 --height 22 --iconspacing 4 &"
+
 bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H.%M.%S\").png\""
 
 myLayout = tiled ||| Mirror tiled ||| Full
@@ -29,12 +38,13 @@ myLayout = tiled ||| Mirror tiled ||| Full
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce internalMonitorSetResolutionCommand
-  spawnOnce "nm-applet &"
-  spawnOnce "volumeicon &"
-  spawnOnce "copyq &"
-  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22 --iconspacing 4 &"
-  -- spawnOnce "sxhkd &"
   spawnOnce setKeyboardRepeatDelayAndRateCommand
+  spawnOnce disableTouchpadTapToClick
+  spawnOnce launchNetworkApplet
+  spawnOnce launchVolumeApplet
+  spawnOnce launchClipboardManager
+  spawnOnce launchSysTray
+  -- spawnOnce "sxhkd &"
 
 myManageHook :: ManageHook
 myManageHook = composeAll
