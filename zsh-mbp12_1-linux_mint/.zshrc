@@ -17,7 +17,9 @@ alias xcopy="xclip -rmlastnl -selection clipboard"
 alias xpaste="xsel --clipboard"
 
 
-# alias rg="rg --hidden"
+alias vi=nvim
+
+
 function rg() {
   rg_ --hidden "$@"
 }
@@ -25,9 +27,6 @@ function rg_() {
   RIPGREP_ARGS="$@"
   nix-shell -p ripgrep --run "rg ${RIPGREP_ARGS}"
 }
-
-
-alias vi=nvim
 
 
 function ncdu() {
@@ -54,6 +53,12 @@ function tldr() {
 function aws() {
   AWS_CLI_ARGS="$@"
   nix-shell -p awscli2 --run "aws ${AWS_CLI_ARGS}"
+}
+
+
+function scala-cli() {
+  SCALA_CLI_ARGS="$@"
+  nix-shell -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
 }
 
 
