@@ -17,7 +17,14 @@ alias xcopy="xclip -rmlastnl -selection clipboard"
 alias xpaste="xsel --clipboard"
 
 
-alias rg="rg --hidden"
+# alias rg="rg --hidden"
+function rg() {
+  rg_ --hidden "$@"
+}
+function rg_() {
+  RIPGREP_ARGS="$@"
+  nix-shell -p ripgrep --run "rg ${RIPGREP_ARGS}"
+}
 
 
 alias vi=nvim
@@ -32,7 +39,6 @@ function ncdu() {
 function bat() {
   bat_ --style=plain "$@"
 }
-
 function bat_() {
   BAT_ARGS="$@"
   nix-shell -p bat --run "bat ${BAT_ARGS}"
