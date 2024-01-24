@@ -35,7 +35,8 @@ foreground = '0xe9e9f4'
 size = 8.0
 
 [font.normal]
-family = 'FiraMono Nerd Font'
+# family = 'FiraMono Nerd Font'
+family = 'JetBrainsMono Nerd Font'
 style = 'Retina'
 
 [keyboard]
