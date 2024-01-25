@@ -7,5 +7,5 @@ else
 fi
 
 NEOVIM_ARGS="$@"
-"${NIX_SHELL_COMMAND}" --packages nodejs yarn nodePackages.bash-language-server neovim \
+"${NIX_SHELL_COMMAND}" --packages nodejs yarn nodePackages.bash-language-server ripgrep neovim \
   --run "nvim ${NEOVIM_ARGS}"
