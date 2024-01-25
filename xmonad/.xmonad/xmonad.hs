@@ -24,7 +24,7 @@ launchVolumeApplet = "volumeicon &"
 launchClipboardManager = "copyq &"
 launchSysTray = "trayer --edge top --align right --widthtype request --padding 5 " ++
   "--SetDockType true --SetPartialStrut true --expand true --monitor 1 " ++
-  "--transparent true --alpha 0 --tint 0x282c34 --height 26 --iconspacing 5 &"
+  "--transparent true --alpha 0 --tint 0x282c34 --height 26 --iconspacing 4 &"
 
 bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H.%M.%S\").png\""
 
