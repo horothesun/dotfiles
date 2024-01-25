@@ -51,6 +51,12 @@ function bat_() {
 }
 
 
+function trans() {
+  TRANSLATE_SHELL_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p translate-shell --run "trans ${TRANSLATE_SHELL_ARGS}"
+}
+
+
 function tldr() {
   TLDR_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p tldr --run "tldr ${TLDR_ARGS}"
