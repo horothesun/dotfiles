@@ -152,7 +152,7 @@ function update_tldr() {
 
 function update_flatpaks() {
   echo "update_flatpaks BEGIN"
-  flatpak update
+  flatpak update --assumeyes
   echo "update_flatpaks END"
 }
 
