@@ -75,6 +75,16 @@ function scala-cli() {
 }
 
 
+function idea() {
+  if [[ $# -eq 0 ]]; then
+    ( flatpak run "com.jetbrains.IntelliJ-IDEA-Community" & ) &> /dev/null
+  else
+    IDEA_ARGS="$@"
+    ( flatpak run "com.jetbrains.IntelliJ-IDEA-Community" "${IDEA_ARGS}" & ) &> /dev/null
+  fi
+}
+
+
 # preferred editor for local and remote sessions
 if [[ -n "${SSH_CONNECTION}" ]]; then
   export VISUAL="vi"
