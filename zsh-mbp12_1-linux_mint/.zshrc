@@ -95,12 +95,12 @@ export EDITOR="${VISUAL}"
 
 
 function show_all_branches() {
-  ls | xargs -n 1 -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
+  ls | xargs -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
 }
 
 function pull_all_repos() {
   time ( \
-    ls | xargs -n 1 -P 0 -I ^ \
+    ls | xargs -P 0 -I ^ \
       /bin/bash -c 'echo "⏳ Processing ^..." && cd ^ && git status && git fetch --all --prune --jobs=10 && git pull && echo' \
   )
 }
@@ -126,6 +126,27 @@ function init_jenv() {
 
 # for JVM-based workflow convenience
 init_jenv
+
+function reset_jenv() {
+  echo "reset_jenv BEGIN"
+  echo "jenv versions # old"
+  jenv versions
+  echo
+  ls "${HOME}/.jenv/versions" | xargs -n 1 jenv remove
+  echo
+  JVM_LIBRARY_BASE_DIR="/usr/lib/jvm"
+  echo "${JVM_LIBRARY_BASE_DIR} content:"
+  ls -lah "${JVM_LIBRARY_BASE_DIR}"
+  echo
+  ls "${JVM_LIBRARY_BASE_DIR}" | grep "temurin" | xargs -I ^ jenv add "${JVM_LIBRARY_BASE_DIR}/^"
+  echo
+  echo "jenv versions # new"
+  jenv versions
+  echo
+  echo "jenv doctor"
+  jenv doctor
+  echo "reset_jenv END"
+}
 
 
 alias gdh="gdiff HEAD"
@@ -170,6 +191,8 @@ function update_alacritty() {
 
 function update_all() {
   update_apt
+  echo
+  reset_jenv
   echo
   omz update
   echo
