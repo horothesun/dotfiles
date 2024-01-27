@@ -51,6 +51,12 @@ function bat_() {
 }
 
 
+function btop() {
+  BTOP_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p btop --run "btop ${BAT_ARGS}"
+}
+
+
 function trans() {
   TRANSLATE_SHELL_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p translate-shell --run "trans ${TRANSLATE_SHELL_ARGS}"
