@@ -180,6 +180,8 @@ function update_tldr() {
 
 function update_flatpaks() {
   echo "update_flatpaks BEGIN"
+  flatpak list --app
+  echo
   flatpak update --assumeyes && \
     flatpak uninstall --unused
   echo "update_flatpaks END"
@@ -187,6 +189,7 @@ function update_flatpaks() {
 
 function update_appimages() {
   echo "update_appimages BEGIN"
+  am files
   am update && \
     am clean
   echo "update_appimages END"
