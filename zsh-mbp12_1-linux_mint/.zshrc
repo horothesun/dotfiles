@@ -206,11 +206,11 @@ function update_all() {
   echo
   reset_jenv
   echo
-  omz update
-  echo
   update_flatpaks
   echo
   update_appimages
   echo
   update_alacritty
+  echo
+  omz update
 }
