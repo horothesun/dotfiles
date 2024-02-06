@@ -210,6 +210,8 @@ function update_all() {
   echo
   update_appimages
   echo
+  update_tldr
+  echo
   update_alacritty
   echo
   omz update
