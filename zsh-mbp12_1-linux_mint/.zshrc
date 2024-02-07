@@ -53,7 +53,7 @@ function bat_() {
 
 function btop() {
   BTOP_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -p btop --run "btop ${BAT_ARGS}"
+  "${NIX_SHELL_COMMAND}" -p btop --run "btop ${BTOP_ARGS}"
 }
 
 
