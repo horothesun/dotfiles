@@ -13,6 +13,10 @@ source "${ZSH}/oh-my-zsh.sh"
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
+# used by gh
+export BROWSER="brave"
+
+
 if [[ -x "$(command -v cached-nix-shell)" ]]; then
   NIX_SHELL_COMMAND="cached-nix-shell"
 else
