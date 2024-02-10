@@ -122,4 +122,4 @@ main :: IO ()
 main = xmonad . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
   where
     toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
+    toggleStrutsKey XConfig { modMask = m } = (m, xK_b)
