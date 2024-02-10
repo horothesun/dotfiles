@@ -51,6 +51,12 @@ function bat_() {
 }
 
 
+function gh() {
+  GH_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p gh --run "gh ${GH_ARGS}"
+}
+
+
 function btop() {
   BTOP_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p btop --run "btop ${BTOP_ARGS}"
