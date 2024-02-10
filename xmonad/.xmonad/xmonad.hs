@@ -1,6 +1,8 @@
 import XMonad
 
+import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
+import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
@@ -77,6 +79,12 @@ myKeys =
   , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
   ]
 
+-- Super + Right-click: window resize from bottom-rigth corner
+myMouse x = [
+    ((4, button3), (\w -> focus w >> Flex.mouseResizeWindow w))
+  ]
+newMouse x = M.union (mouseBindings def x) (M.fromList (myMouse x))
+
 myXmobarPP :: PP
 myXmobarPP = def
   { ppSep             = magenta " • "
@@ -107,6 +115,7 @@ myConfig = def
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
   , handleEventHook    = handleEventHook def <+> fullscreenEventHook
+  , mouseBindings      = newMouse
   } `additionalKeysP` myKeys
 
 main :: IO ()
