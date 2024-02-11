@@ -6,7 +6,8 @@ FACETIMEHD_MODULE_DIR="bcwc_pcie"
 
 mkdir "${HOME_TMP_FOLDER}"
 
-# build facetimehd drivers
+echo "Build facetimehd drivers"
+echo
 (
   cd "${HOME_TMP_FOLDER}"
   git clone "https://github.com/patjak/${FACETIMEHD_FIRMWARE_DIR}.git"
@@ -15,7 +16,8 @@ mkdir "${HOME_TMP_FOLDER}"
   sudo make install
 )
 
-# build and load module
+echo "Build and load module"
+echo
 (
   cd "${HOME_TMP_FOLDER}"
   git clone "https://github.com/patjak/${FACETIMEHD_MODULE_DIR}.git"
@@ -28,7 +30,7 @@ mkdir "${HOME_TMP_FOLDER}"
   sudo modprobe facetimehd
 )
 
-# cleanup
+echo "Cleanup"
 rm -fr "${HOME_TMP_FOLDER}/${FACETIMEHD_FIRMWARE_DIR}"
 rm -fr "${HOME_TMP_FOLDER}/${FACETIMEHD_MODULE_DIR}"
 
