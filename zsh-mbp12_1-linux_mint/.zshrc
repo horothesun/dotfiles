@@ -91,6 +91,12 @@ function scala-cli() {
 }
 
 
+function asciiquarium() {
+  ASCIIQUARIUM_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p asciiquarium --run "LANG=C asciiquarium ${ASCIIQUARIUM_ARGS}"
+}
+
+
 function idea() {
   if [[ $# -eq 0 ]]; then
     ( flatpak run "com.jetbrains.IntelliJ-IDEA-Community" & ) &> /dev/null
