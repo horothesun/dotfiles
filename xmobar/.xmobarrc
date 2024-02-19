@@ -31,6 +31,7 @@ Config
           ] 50
       , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 60
       , Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
+      , Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
       , Run Battery
           [ "--template" , "<acstatus>"
           , "--Low"      , "25" -- units: %
@@ -49,5 +50,5 @@ Config
   , sepChar  = "%"
   , alignSep = "}{"
   -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=darkcyan>  󰳣 %tflhome2work%</fc>  %battery%  %date% %trayerpad%"
-  , template = "%StdinReader% }{ %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=darkcyan>  󰳣 %tflhome2work%</fc>  %battery%  %date% %trayerpad%"
+  , template = "%StdinReader% }{ %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=darkcyan> %tflhome2work% </fc><fc=darkmagenta>󰳣 %tflwork2home% </fc><fc=darkcyan> </fc> %battery%  %date% %trayerpad%"
   }
