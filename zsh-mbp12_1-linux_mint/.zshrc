@@ -131,6 +131,10 @@ function pull_all_repos() {
 # start ssh agent
 eval "$(ssh-agent)" > /dev/null
 
+# GitHub SSH key
+SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" \
+  ssh-add "${HOME}/.ssh/horothesun" &> /dev/null
+
 
 # starship
 eval "$(starship init zsh)"
