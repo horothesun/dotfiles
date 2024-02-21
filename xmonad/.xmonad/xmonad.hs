@@ -23,8 +23,8 @@ setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
 launchNetworkApplet = "nm-applet &"
 launchVolumeApplet = "volumeicon &"
-launchClipboardManager = "sleep 3; copyq &"
-launchSysTray = "sleep 2; trayer --edge top --align right --widthtype request --padding 5 " ++
+launchClipboardManager = "sleep 4; copyq &"
+launchSysTray = "sleep 3; trayer --edge top --align right --widthtype request --padding 5 " ++
   "--SetDockType true --SetPartialStrut true --expand true --monitor primary " ++
   "--transparent true --alpha 0 --tint 0x202020 --height 26 --iconspacing 4 &"
 dmenuCommand = "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true\"" ++
