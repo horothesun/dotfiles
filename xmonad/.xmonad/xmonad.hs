@@ -9,6 +9,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
+-- import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
@@ -24,7 +25,7 @@ disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
 launchNetworkApplet = "nm-applet &"
 launchVolumeApplet = "volumeicon &"
 launchClipboardManager = "sleep 4; copyq &"
-launchSysTray = "sleep 3; trayer --edge top --align right --widthtype request --padding 5 " ++
+launchSysTray = "sleep 3; trayer -l --edge top --align right --widthtype request --padding 5 " ++
   "--SetDockType true --SetPartialStrut true --expand true --monitor primary " ++
   "--transparent true --alpha 0 --tint 0x202020 --height 26 --iconspacing 4 &"
 dmenuCommand = "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true\"" ++
@@ -118,7 +119,7 @@ myConfig = def
   , layoutHook         = myLayout
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
-  , handleEventHook    = handleEventHook def <+> fullscreenEventHook
+  , handleEventHook    = handleEventHook def <+> fullscreenEventHook -- <> Hacks.trayerAboveXmobarEventHook
   , mouseBindings      = newMouse
   } `additionalKeysP` myKeys
 
