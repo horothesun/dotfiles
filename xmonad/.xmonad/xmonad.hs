@@ -22,12 +22,12 @@ internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
-launchNetworkApplet = "nm-applet &"
-launchVolumeApplet = "volumeicon &"
-launchClipboardManager = "sleep 4; copyq &"
-launchSysTray = "sleep 3; trayer -l --edge top --align right --widthtype request --padding 5 " ++
+launchSystemTray = "trayer -l --edge top --align right --widthtype request --padding 5 " ++
   "--SetDockType true --SetPartialStrut true --expand true --monitor primary " ++
   "--transparent true --alpha 0 --tint 0x202020 --height 26 --iconspacing 4 &"
+launchNetworkApplet = "nm-applet &"
+launchVolumeApplet = "volumeicon &"
+launchClipboardManager = "copyq &"
 dmenuCommand = "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true\"" ++
   " -nb \"#3c3836\" -nf \"#fbf1c7\" -sb \"#d65d0e\" -sf \"white\" &"
 
@@ -45,10 +45,10 @@ myStartupHook = do
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce setKeyboardRepeatDelayAndRateCommand
   spawnOnce disableTouchpadTapToClick
+  spawnOnce launchSystemTray
   spawnOnce launchNetworkApplet
   spawnOnce launchVolumeApplet
   spawnOnce launchClipboardManager
-  spawnOnce launchSysTray
   -- spawnOnce "sxhkd &"
 
 myManageHook :: ManageHook
