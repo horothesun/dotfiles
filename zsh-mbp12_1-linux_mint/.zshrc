@@ -79,6 +79,12 @@ function tldr() {
 }
 
 
+function pdfview() {
+  ZATHURA_ARGS="$@"
+  ( "${NIX_SHELL_COMMAND}" -p zathura --run "zathura ${ZATHURA_ARGS}" & ) &> /dev/null
+}
+
+
 function aws() {
   AWS_CLI_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p awscli2 --run "aws ${AWS_CLI_ARGS}"
