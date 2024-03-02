@@ -10,8 +10,9 @@ Config
   , commands         =
       [ Run StdinReader
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
+      , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 10
       , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
-      -- , Run Swap [ "--template", " <usedratio>%" ] 20
+      , Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
       , Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <essid> <quality>%</fc>" ] 40
       , Run DynNetwork
@@ -31,8 +32,8 @@ Config
           , "--high"     , "darkred"
           ] 50
       , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 60
-      -- , Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
-      -- , Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
+      , Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
+      , Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
       , Run Battery
           [ "--template" , "<acstatus>"
           , "--Low"      , "25" -- units: %
@@ -50,9 +51,9 @@ Config
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   -- TfL
-  -- , template = "%StdinReader% }{ %coretemp%  <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   -- all
-  -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp%  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   }
