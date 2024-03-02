@@ -4,7 +4,7 @@ HOME_TMP_FOLDER="${HOME}/tmp"
 FACETIMEHD_FIRMWARE_DIR="facetimehd-firmware"
 FACETIMEHD_MODULE_DIR="bcwc_pcie"
 
-mkdir "${HOME_TMP_FOLDER}"
+mkdir -p "${HOME_TMP_FOLDER}"
 
 echo "Build facetimehd drivers"
 echo

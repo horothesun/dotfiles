@@ -203,6 +203,20 @@ function update_apt() {
   echo "update_apt END"
 }
 
+function update_starship() {
+  echo "update_starship BEGIN"
+  starship --version
+  echo
+  HOME_TMP_DIR="${HOME}/tmp"
+  STARSHIP_INSTALL_SH="${HOME_TMP_DIR}/install_starship.sh"
+  mkdir -p "${HOME_TMP_DIR}"
+  curl -sS "https://starship.rs/install.sh" > "${STARSHIP_INSTALL_SH}"
+  chmod u+x "${STARSHIP_INSTALL_SH}"
+  "${STARSHIP_INSTALL_SH}" --yes
+  rm "${STARSHIP_INSTALL_SH}"
+  echo "update_starship END"
+}
+
 # tldr's apt version's very old and --update doesn't work
 function update_tldr() {
   echo "update_tldr BEGIN"
@@ -243,6 +257,8 @@ function update_all() {
   update_appimages
   echo
   update_tldr
+  echo
+  update_starship
   echo
   update_alacritty
   echo
