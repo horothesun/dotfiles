@@ -190,11 +190,17 @@ function gdiff() {
 
 
 function update_apt() {
+  echo "update_apt BEGIN"
+  echo "Kernel: $(uname -r)"
+  echo
   sudo apt update && \
     sudo apt upgrade -y && \
     sudo apt dist-upgrade -y && \
     sudo apt autoremove -y && \
     sudo apt clean
+  echo
+  echo "Kernel: $(uname -r)"
+  echo "update_apt END"
 }
 
 # tldr's apt version's very old and --update doesn't work
