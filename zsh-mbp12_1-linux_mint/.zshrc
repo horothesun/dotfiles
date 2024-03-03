@@ -224,6 +224,19 @@ function update_tldr() {
   echo "update_tldr END"
 }
 
+function update_jenv() {
+  echo "update_jenv BEGIN"
+  jenv --version
+  echo
+  (
+    cd "${HOME}/.jenv"
+    git pull origin master
+  )
+  echo
+  jenv --version
+  echo "update_jenv END"
+}
+
 function update_flatpaks() {
   echo "update_flatpaks BEGIN"
   flatpak list --app
@@ -243,6 +256,8 @@ function update_appimages() {
 
 function update_alacritty() {
   echo "update_alacritty BEGIN"
+  alacritty --version
+  echo
   cargo install alacritty
   echo "update_alacritty END"
 }
@@ -251,6 +266,8 @@ function update_all() {
   update_apt
   echo
   reset_jenv
+  echo
+  update_jenv
   echo
   update_flatpaks
   echo
