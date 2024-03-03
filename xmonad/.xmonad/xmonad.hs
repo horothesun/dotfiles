@@ -66,6 +66,8 @@ myKeys =
   , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
   , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
+  , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
+  , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
   -- custom dmenu
   , ("M-p",     spawn dmenuCommand)
   -- launch browser
