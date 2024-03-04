@@ -12,17 +12,17 @@ Config
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
       , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 10
       , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
-      , Run Swap [ "--template", " <usedratio>%" ] 20
+      --, Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
-      , Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <essid> <quality>%</fc>" ] 40
-      , Run DynNetwork
-          [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
-          , "--Low"      , "300000"  -- units: B/s
-          , "--High"     , "1500000" -- units: B/s
-          , "--low"      , "darkgreen"
-          , "--normal"   , "darkorange"
-          , "--high"     , "darkred"
-          ] 10
+      --, Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <essid> <quality>%</fc>" ] 40
+      --, Run DynNetwork
+      --    [ "--template" , "<rx><fc=#aaaaaa>󰅀 </fc><tx><fc=#aaaaaa>󰅃 </fc>" -- unit: kB/s
+      --    , "--Low"      , "300000"  -- units: B/s
+      --    , "--High"     , "1500000" -- units: B/s
+      --    , "--low"      , "darkgreen"
+      --    , "--normal"   , "darkorange"
+      --    , "--high"     , "darkred"
+      --    ] 10
       , Run CoreTemp
           [ "--template" , "<core0><fc=#aaaaaa>󰔄</fc>"
           , "--Low"      , "55" -- units: °C
@@ -32,8 +32,8 @@ Config
           , "--high"     , "darkred"
           ] 50
       , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 60
-      , Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
-      , Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
+      --, Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
+      --, Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
       , Run Battery
           [ "--template" , "<acstatus>"
           , "--Low"      , "25" -- units: %
