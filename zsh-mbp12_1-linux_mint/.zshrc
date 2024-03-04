@@ -61,6 +61,12 @@ function gh() {
 }
 
 
+function htop() {
+  HTOP_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p htop --run "htop ${HTOP_ARGS}"
+}
+
+
 function btop() {
   BTOP_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p btop --run "btop ${BTOP_ARGS}"
