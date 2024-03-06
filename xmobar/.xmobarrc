@@ -10,7 +10,8 @@ Config
   , commands         =
       [ Run StdinReader
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
-      , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 10
+      , Run Com "get-fan-speed.sh" [] "fanspeed" 10
+      , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
       , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
       --, Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
@@ -31,9 +32,9 @@ Config
           , "--normal"   , "darkorange"
           , "--high"     , "darkred"
           ] 50
-      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 60
-      --, Run Com "tfl-home-to-work.sh" [] "tflhome2work" 60
-      --, Run Com "tfl-work-to-home.sh" [] "tflwork2home" 60
+      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 600
+      --, Run Com "tfl-home-to-work.sh" [] "tflhome2work" 500
+      --, Run Com "tfl-work-to-home.sh" [] "tflwork2home" 500
       , Run Battery
           [ "--template" , "<acstatus>"
           , "--Low"      , "25" -- units: %
@@ -47,11 +48,11 @@ Config
           , "-i"	 , "󰂅 <left>"  -- charged status
           ] 50
       , Run Date "%a %d %b %H:%M:%S" "date" 10
-      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 20
+      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 30
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   -- TfL
   -- , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   -- all
