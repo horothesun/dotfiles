@@ -61,8 +61,8 @@ myKeys :: [(String, X ())]
 myKeys =
   [ ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%+")
   , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%-")
-  , ("<XF86KbdBrightnessUp>",   spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
-  , ("<XF86KbdBrightnessDown>", spawn $ "sudo brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
+  , ("<XF86KbdBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
+  , ("<XF86KbdBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
   , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
   , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
   , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
