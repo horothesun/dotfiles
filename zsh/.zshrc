@@ -83,12 +83,12 @@ alias tfa="terraform apply"
 
 
 function show_all_branches() {
-  ls | xargs -n 1 -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
+  ls -d */ | xargs -n 1 -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
 }
 
 function pull_all_repos() {
   time ( \
-    ls | xargs -n 1 -P 0 -I ^ \
+    ls -d */ | xargs -n 1 -P 0 -I ^ \
       /bin/bash -c 'echo "⏳ Processing ^..." && cd ^ && git status && git fetch --all --prune --jobs=10 && git pull && echo' \
   )
 }
