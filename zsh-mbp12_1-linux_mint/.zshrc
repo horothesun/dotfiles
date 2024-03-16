@@ -129,12 +129,12 @@ export EDITOR="${VISUAL}"
 
 
 function show_all_branches() {
-  ls | xargs -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
+  ls -d */ | xargs -I ^ /bin/bash -c 'cd ^; echo "$(git branch --show-current) -> ^"'
 }
 
 function pull_all_repos() {
   time ( \
-    ls | xargs -P 0 -I ^ \
+    ls -d */ | xargs -P 0 -I ^ \
       /bin/bash -c 'echo "⏳ Processing ^..." && cd ^ && git status && git fetch --all --prune --jobs=10 && git pull && echo' \
   )
 }
