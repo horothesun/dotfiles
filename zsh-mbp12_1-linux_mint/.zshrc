@@ -109,12 +109,23 @@ function asciiquarium() {
 }
 
 
+IDEA_FLATPACK_ID="com.jetbrains.IntelliJ-IDEA-Community"
+
 function idea() {
   if [[ $# -eq 0 ]]; then
-    ( flatpak run "com.jetbrains.IntelliJ-IDEA-Community" & ) &> /dev/null
+    ( flatpak run "${IDEA_FLATPACK_ID}" & ) &> /dev/null
   else
     IDEA_ARGS="$@"
-    ( flatpak run "com.jetbrains.IntelliJ-IDEA-Community" "${IDEA_ARGS}" & ) &> /dev/null
+    ( flatpak run "${IDEA_FLATPACK_ID}" "${IDEA_ARGS}" & ) &> /dev/null
+  fi
+}
+
+function idea_verbose() {
+  if [[ $# -eq 0 ]]; then
+    flatpak run "${IDEA_FLATPACK_ID}"
+  else
+    IDEA_ARGS="$@"
+    flatpak run "${IDEA_FLATPACK_ID}" "${IDEA_ARGS}"
   fi
 }
 
