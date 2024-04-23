@@ -220,6 +220,15 @@ function update_apt() {
   echo "update_apt END"
 }
 
+
+function update_nix() {
+  echo "update_nix BEGIN"
+  nix-channel --list
+  nix-channel --update
+  echo "update_nix END"
+}
+
+
 function update_starship() {
   echo "update_starship BEGIN"
   starship --version
@@ -281,6 +290,8 @@ function update_alacritty() {
 
 function update_all() {
   update_apt
+  echo
+  update_nix
   echo
   reset_jenv
   echo
