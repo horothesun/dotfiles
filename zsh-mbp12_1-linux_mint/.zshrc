@@ -99,7 +99,7 @@ function aws() {
 
 function scala-cli() {
   SCALA_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:nixpkgs-unstable" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
 }
 
 
