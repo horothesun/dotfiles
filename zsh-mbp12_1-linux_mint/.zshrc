@@ -17,6 +17,7 @@ PATH="${PATH}:${HOME}/.cargo/bin"
 export BROWSER="brave"
 
 
+export NIX_SHELL_CHANNEL_UNSTABLE="nixpkgs-unstable"
 if [[ -x "$(command -v cached-nix-shell)" ]]; then
   NIX_SHELL_COMMAND="cached-nix-shell"
 else
@@ -99,13 +100,17 @@ function aws() {
 
 function scala-cli() {
   SCALA_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:nixpkgs-unstable" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+    -p scala-cli \
+    --run "scala-cli ${SCALA_CLI_ARGS}"
 }
 
 
 function fastfetch() {
   FASTFETCH_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:nixpkgs-unstable" -p fastfetch --run "fastfetch ${FASTFETCH_ARGS}"
+  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+    -p fastfetch \
+    --run "fastfetch ${FASTFETCH_ARGS}"
 }
 
 
