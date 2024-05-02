@@ -7,12 +7,12 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
-$docker_context\
 $conda\
 $line_break\
 $status\
 $shell\
 $character"""
+# $docker_context\
 
 add_newline = false
 
