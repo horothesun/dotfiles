@@ -103,6 +103,12 @@ function scala-cli() {
 }
 
 
+function fastfetch() {
+  FASTFETCH_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:nixpkgs-unstable" -p fastfetch --run "fastfetch ${FASTFETCH_ARGS}"
+}
+
+
 function asciiquarium() {
   ASCIIQUARIUM_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -p asciiquarium --run "LANG=C asciiquarium ${ASCIIQUARIUM_ARGS}"
