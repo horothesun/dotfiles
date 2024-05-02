@@ -99,7 +99,7 @@ function aws() {
 
 function scala-cli() {
   SCALA_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:nixpkgs-unstable" -p scala-cli --run "scala-cli ${SCALA_CLI_ARGS}"
 }
 
 
@@ -220,6 +220,15 @@ function update_apt() {
   echo "update_apt END"
 }
 
+
+function update_nix() {
+  echo "update_nix BEGIN"
+  nix-channel --list
+  nix-channel --update
+  echo "update_nix END"
+}
+
+
 function update_starship() {
   echo "update_starship BEGIN"
   starship --version
@@ -281,6 +290,8 @@ function update_alacritty() {
 
 function update_all() {
   update_apt
+  echo
+  update_nix
   echo
   reset_jenv
   echo
