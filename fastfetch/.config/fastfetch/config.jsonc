@@ -20,6 +20,7 @@
     // "cursor",
     "terminal",
     "terminalfont",
+    "locale",
     "cpu",
     "gpu",
     "memory",
@@ -27,9 +28,8 @@
     "disk",
     // "localip",
     // "battery",
-    "poweradapter",
-    "locale"
+    "poweradapter"
     // "break",
-    // "colors"
+    // "colors",
   ]
 }
