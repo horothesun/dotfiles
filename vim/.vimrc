@@ -80,7 +80,7 @@ Plug 'vimwiki/vimwiki'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 
-Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
+" Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
 
 " Telescope
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate c lua vim' }
