@@ -32,13 +32,7 @@ alias xpaste="xsel --clipboard"
 alias vi=nvim
 
 
-function rg() {
-  rg_ --hidden "$@"
-}
-function rg_() {
-  RIPGREP_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -p ripgrep --run "rg ${RIPGREP_ARGS}"
-}
+alias rg="rg --hidden"
 
 
 function ncdu() {
