@@ -114,6 +114,12 @@ function asciiquarium() {
 }
 
 
+function cmatrix() {
+  CMATRIX_ARGS="$@"
+  "${NIX_SHELL_COMMAND}" -p cmatrix --run "cmatrix ${CMATRIX_ARGS}"
+}
+
+
 IDEA_FLATPACK_ID="com.jetbrains.IntelliJ-IDEA-Community"
 
 function idea() {
