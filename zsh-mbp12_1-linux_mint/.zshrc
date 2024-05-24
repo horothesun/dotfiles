@@ -236,7 +236,23 @@ function update_nix() {
   echo "update_nix BEGIN"
   nix-channel --list
   nix-channel --update
+  echo "Invalidating cached-nix-shell cache..."
+  setopt localoptions rmstarsilent
+  rm --force "$HOME/.cache/cached-nix-shell/"*
   echo "update_nix END"
+}
+
+
+function update_nix_shell_software() {
+  echo "update_nix_shell_software BEGIN"
+  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p scala-cli --run "scala-cli --version"
+  nix-shell -p gh --run "gh --version"
+  nix-shell -p tldr --run "tldr --version"
+  nix-shell -p translate-shell --run "trans --version"
+  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p fastfetch --run "fastfetch --version"
+  nix-shell -p awscli2 --run "aws --version"
+  nix-shell -p zathura --run "zathura --version"
+  echo "update_nix_shell_software END"
 }
 
 
@@ -303,6 +319,8 @@ function update_all() {
   update_apt
   echo
   update_nix
+  echo
+  update_nix_shell_software
   echo
   reset_jenv
   echo
