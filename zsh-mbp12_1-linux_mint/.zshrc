@@ -236,23 +236,36 @@ function update_nix() {
   echo "update_nix BEGIN"
   nix-channel --list
   nix-channel --update
+  echo
   echo "Invalidating cached-nix-shell cache..."
   setopt localoptions rmstarsilent
   rm --force "$HOME/.cache/cached-nix-shell/"*
+  echo
+  nix-shell -p jdk11 nodejs yarn nodePackages.bash-language-server terraform-ls ripgrep neovim --run "nvim -u NONE --version &> /dev/null"
+  nvim -u NONE --version
+  echo
+  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p scala-cli --run "scala-cli --version &> /dev/null"
+  scala-cli --version
+  echo
+  nix-shell -p gh --run "gh --version &> /dev/null"
+  gh --version
+  echo
+  nix-shell -p tldr --run "tldr --version &> /dev/null"
+  tldr --version
+  echo
+  nix-shell -p translate-shell --run "trans --version &> /dev/null"
+  trans --version
+  echo
+  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p fastfetch --run "fastfetch --version &> /dev/null"
+  fastfetch --version
+  echo
+  nix-shell -p awscli2 --run "aws --version &> /dev/null"
+  aws --version
+  echo
+  nix-shell -p zathura --run "zathura --version &> /dev/null"
+  zathura --version
+  echo
   echo "update_nix END"
-}
-
-
-function update_nix_shell_software() {
-  echo "update_nix_shell_software BEGIN"
-  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p scala-cli --run "scala-cli --version"
-  nix-shell -p gh --run "gh --version"
-  nix-shell -p tldr --run "tldr --version"
-  nix-shell -p translate-shell --run "trans --version"
-  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p fastfetch --run "fastfetch --version"
-  nix-shell -p awscli2 --run "aws --version"
-  nix-shell -p zathura --run "zathura --version"
-  echo "update_nix_shell_software END"
 }
 
 
@@ -319,8 +332,6 @@ function update_all() {
   update_apt
   echo
   update_nix
-  echo
-  update_nix_shell_software
   echo
   reset_jenv
   echo
