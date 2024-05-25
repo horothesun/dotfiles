@@ -88,13 +88,15 @@ function pdfview() {
 
 function aws() {
   AWS_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -p awscli2 --run "aws ${AWS_CLI_ARGS}"
+  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+    -p awscli2 \
+    --run "aws ${AWS_CLI_ARGS}"
 }
 
 
 function scala-cli() {
   SCALA_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
     -p scala-cli \
     --run "scala-cli ${SCALA_CLI_ARGS}"
 }
@@ -102,7 +104,7 @@ function scala-cli() {
 
 function fastfetch() {
   FASTFETCH_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I "nixpkgs=channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
     -p fastfetch \
     --run "fastfetch ${FASTFETCH_ARGS}"
 }
@@ -244,26 +246,43 @@ function update_nix() {
   nix-shell -p jdk11 nodejs yarn nodePackages.bash-language-server terraform-ls ripgrep neovim --run "nvim -u NONE --version &> /dev/null"
   nvim -u NONE --version
   echo
-  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p scala-cli --run "scala-cli --version &> /dev/null"
-  scala-cli --version
+  nix-shell -p ncdu --run "ncdu --version &> /dev/null"
+  ncdu --version
+  echo
+  nix-shell -p bat --run "bat --version &> /dev/null"
+  bat --version
   echo
   nix-shell -p gh --run "gh --version &> /dev/null"
   gh --version
   echo
-  nix-shell -p tldr --run "tldr --version &> /dev/null"
-  tldr --version
+  nix-shell -p htop --run "htop --version &> /dev/null"
+  htop --version
+  echo
+  nix-shell -p btop --run "btop --version &> /dev/null"
+  btop --version
   echo
   nix-shell -p translate-shell --run "trans --version &> /dev/null"
   trans --version
   echo
-  nix-shell -I nixpkgs=channel:nixpkgs-unstable -p fastfetch --run "fastfetch --version &> /dev/null"
-  fastfetch --version
-  echo
-  nix-shell -p awscli2 --run "aws --version &> /dev/null"
-  aws --version
+  nix-shell -p tldr --run "tldr --version &> /dev/null"
+  tldr --version
   echo
   nix-shell -p zathura --run "zathura --version &> /dev/null"
-  zathura --version
+  pdfview --version
+  echo
+  nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p awscli2 --run "aws --version &> /dev/null"
+  aws --version
+  echo
+  nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p scala-cli --run "scala-cli --version &> /dev/null"
+  scala-cli --version
+  echo
+  nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p fastfetch --run "fastfetch --version &> /dev/null"
+  fastfetch --version
+  echo
+  echo "[UPDATE SKIPPED] asciiquarium doesn't have '--version' option"
+  echo
+  nix-shell -p cmatrix --run "cmatrix -V &> /dev/null"
+  cmatrix -V
   echo
   echo "update_nix END"
 }
