@@ -555,3 +555,65 @@ yellow = "0xe0af68"
 [schemes.tokyo_night_storm.primary]
 background = "0x24283b"
 foreground = "0xa9b1d6"
+
+[schemes.gruvbox_material_medium_dark]
+draw_bold_text_with_bright_colors = false
+
+[schemes.gruvbox_material_medium_dark.cursor]
+cursor = "0xe9e9f4"
+text   = "0x282936"
+
+[schemes.gruvbox_material_medium_dark.primary]
+background = "#282828"
+foreground = "#d4be98"
+
+[schemes.gruvbox_material_medium_dark.normal]
+black   = "#3c3836"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#d4be98"
+
+[schemes.gruvbox_material_medium_dark.bright]
+black   = "#3c3836"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#d4be98"
+
+[schemes.gruvbox_material_hard_dark]
+draw_bold_text_with_bright_colors = false
+
+[schemes.gruvbox_material_hard_dark.cursor]
+cursor = "0xe9e9f4"
+text   = "0x282936"
+
+[schemes.gruvbox_material_hard_dark.primary]
+background = "#1d2021"
+foreground = "#d4be98"
+
+[schemes.gruvbox_material_hard_dark.normal]
+black   = "#32302f"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#d4be98"
+
+[schemes.gruvbox_material_hard_dark.bright]
+black   = "#32302f"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#d4be98"
