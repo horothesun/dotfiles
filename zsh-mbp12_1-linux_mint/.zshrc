@@ -327,7 +327,7 @@ function update_flatpaks() {
   flatpak list --app
   echo
   flatpak update --assumeyes && \
-    flatpak uninstall --unused
+    flatpak uninstall --unused --assumeyes
   echo "update_flatpaks END"
 }
 
