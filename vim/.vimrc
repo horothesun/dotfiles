@@ -97,11 +97,11 @@ Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 
+"  \ 'coc-metals',
 let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-json',
   \ 'coc-markdownlint',
-  \ 'coc-metals',
   \ 'coc-sh',
   \ 'coc-tsserver',
   \ 'coc-sumneko-lua'
