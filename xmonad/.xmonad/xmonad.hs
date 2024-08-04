@@ -16,7 +16,7 @@ import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
 
-audioCardId = "1"
+audioCardId = "0"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
@@ -101,7 +101,7 @@ myXmobarPP = def
   , ppHiddenNoWindows = lowWhite . wrap " " ""
   , ppUrgent          = red . wrap (yellow "!") (yellow "!")
   } where
-    -- Windows should have *some* title, which should not not exceed a sane length
+    -- Windows should have *some* title, which should not exceed a sane length
     ppWindow :: String -> String
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 24
     blue, lowWhite, magenta, red, white, yellow :: String -> String
@@ -121,7 +121,7 @@ myConfig = def
   , layoutHook         = myLayout
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
-  , handleEventHook    = handleEventHook def <+> fullscreenEventHook -- <> Hacks.trayerAboveXmobarEventHook
+  -- , handleEventHook    = handleEventHook def <+> fullscreenEventHook -- <> Hacks.trayerAboveXmobarEventHook
   , mouseBindings      = newMouse
   } `additionalKeysP` myKeys
 

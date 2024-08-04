@@ -1,11 +1,15 @@
 Config
   { overrideRedirect = True
   , lowerOnStart     = True
+  -- xft fonts not available after xmobar v0.45.0
   -- , font             = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
-  , font             = "xft:JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true"
+  -- , font             = "xft:JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true"
+  -- , font             = "FiraMono Nerd Font 13"
+  , font             = "JetBrainsMono Nerd Font 13"
   , bgColor          = "#202020"
   , fgColor          = "#f8f8f2"
-  , position         = TopW L 100
+  -- , position         = TopW L 100
+  , position         = TopH 26
   , persistent       = True
   , commands         =
       [ Run StdinReader
