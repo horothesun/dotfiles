@@ -12,13 +12,14 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
 import qualified XMonad.Util.Hacks as Hacks
+import XMonad.Util.Cursor
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
 
-audioCardId = "0"
+audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
@@ -44,6 +45,7 @@ myLayout = tiled ||| Mirror tiled ||| Full
 
 myStartupHook :: X ()
 myStartupHook = do
+  setDefaultCursor xC_arrow
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce setKeyboardRepeatDelayAndRateCommand
   spawnOnce disableTouchpadTapToClick
