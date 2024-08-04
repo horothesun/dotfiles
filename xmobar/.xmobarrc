@@ -12,7 +12,7 @@ Config
   , position         = TopH 26
   , persistent       = True
   , commands         =
-      [ Run StdinReader
+      [ Run XMonadLog
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
       , Run Com "get-fan-speed.sh" [] "fanspeed" 10
       , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
@@ -56,9 +56,9 @@ Config
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   -- TfL
-  -- , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   -- all
-  -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   }

@@ -6,6 +6,8 @@ import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
@@ -112,6 +114,9 @@ myXmobarPP = def
     red      = xmobarColor "#ff5555" ""
     lowWhite = xmobarColor "#bbbbbb" ""
 
+myStatusBar :: StatusBarConfig
+myStatusBar = statusBarProp "xmobar" (pure myXmobarPP)
+
 myConfig = def
   { modMask            = mod4Mask -- Rebind Mod to the Super key
   , terminal           = myTerminal
@@ -126,7 +131,4 @@ myConfig = def
   } `additionalKeysP` myKeys
 
 main :: IO ()
-main = xmonad . ewmhFullscreen . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig { modMask = m } = (m, xK_b)
+main = xmonad . ewmhFullscreen . ewmh . withEasySB myStatusBar defToggleStrutsKey $ myConfig
