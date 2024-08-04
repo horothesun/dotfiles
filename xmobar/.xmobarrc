@@ -1,7 +1,7 @@
 Config
   { overrideRedirect = True
   , lowerOnStart     = True
-  -- xft fonts not available after xmobar v0.45.0
+  -- xft fonts not available xmobar >0.45
   -- , font             = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
   -- , font             = "xft:JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true"
   -- , font             = "FiraMono Nerd Font 13"
