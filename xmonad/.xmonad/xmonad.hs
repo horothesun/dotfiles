@@ -9,7 +9,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
--- import qualified XMonad.Util.Hacks as Hacks
+import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
@@ -121,12 +121,12 @@ myConfig = def
   , layoutHook         = myLayout
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
-  -- , handleEventHook    = handleEventHook def <+> fullscreenEventHook -- <> Hacks.trayerAboveXmobarEventHook
+  , handleEventHook    = handleEventHook def <+> Hacks.trayerAboveXmobarEventHook
   , mouseBindings      = newMouse
   } `additionalKeysP` myKeys
 
 main :: IO ()
-main = xmonad . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
+main = xmonad . ewmhFullscreen . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
   where
     toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
     toggleStrutsKey XConfig { modMask = m } = (m, xK_b)
