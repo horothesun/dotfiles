@@ -19,7 +19,6 @@ import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
 
-audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
@@ -67,9 +66,9 @@ myKeys =
   , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%-")
   , ("<XF86KbdBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
   , ("<XF86KbdBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
-  , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
-  , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
-  , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
+  , ("<XF86AudioMute>",         spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("<XF86AudioRaiseVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
   , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
   , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
   -- custom dmenu
