@@ -219,6 +219,13 @@ function gdiff() {
 }
 
 
+function update_autocpufreq() {
+  echo "update_autocpufreq BEGIN"
+  sudo auto-cpufreq --update
+  echo "update_autocpufreq END"
+}
+
+
 function update_apt() {
   echo "update_apt BEGIN"
   echo "Kernel: $(uname -r)"
