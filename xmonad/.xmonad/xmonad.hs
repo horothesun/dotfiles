@@ -97,7 +97,7 @@ newMouse x = M.union (mouseBindings def x) (M.fromList (myMouse x))
 
 myXmobarPP :: PP
 myXmobarPP = def
-  { ppSep             = magenta " • "
+  { ppSep             = magenta " | "
   , ppTitleSanitize   = xmobarStrip
   , ppCurrent         = wrap (blue "[") (blue "]")
   , ppHidden          = white . wrap "" "•"
