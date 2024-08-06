@@ -222,6 +222,7 @@ function gdiff() {
 function update_autocpufreq() {
   echo "update_autocpufreq BEGIN"
   sudo auto-cpufreq --update
+  auto-cpufreq --version
   echo "update_autocpufreq END"
 }
 
