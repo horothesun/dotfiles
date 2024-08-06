@@ -8,6 +8,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.Renamed
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
@@ -35,9 +36,11 @@ dmenuCommand = "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialia
 
 bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H.%M.%S\").png\""
 
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = tall ||| wide ||| full
   where
-    tiled   = Tall nmaster delta ratio
+    tall    = renamed [Replace "Tall"] $ Tall nmaster delta ratio
+    wide    = renamed [Replace "Wide"] $ Mirror tall
+    full    = renamed [Replace "Full"] Full
     nmaster = 1     -- Default number of windows in the master pane
     ratio   = 1/2   -- Default proportion of screen occupied by master pane
     delta   = 5/100 -- Percent of screen to increment by when resizing panes
@@ -106,7 +109,7 @@ myXmobarPP = def
   } where
     -- Windows should have *some* title, which should not exceed a sane length
     ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 24
+    ppWindow = xmobarRaw . (\w -> if null w then "<untitled>" else w) . shorten 24
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor "#ff79c6" ""
     blue     = xmobarColor "#bd93f9" ""
