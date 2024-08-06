@@ -38,9 +38,9 @@ bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H
 
 myLayout = tall ||| wide ||| full
   where
-    tall    = renamed [Replace "\xec00"] $ Tall nmaster delta ratio
-    wide    = renamed [Replace "\xec01"] $ Mirror tall
-    full    = renamed [Replace "\xf50c"] Full
+    tall    = renamed [Replace "\xec00  Tall"] $ Tall nmaster delta ratio
+    wide    = renamed [Replace "\xec01  Wide"] $ Mirror tall
+    full    = renamed [Replace "\xf50c  Full"] Full
     nmaster = 1     -- Default number of windows in the master pane
     ratio   = 1/2   -- Default proportion of screen occupied by master pane
     delta   = 5/100 -- Percent of screen to increment by when resizing panes
