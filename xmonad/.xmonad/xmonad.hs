@@ -100,8 +100,8 @@ myXmobarPP = def
   { ppSep             = magenta " • "
   , ppTitleSanitize   = xmobarStrip
   , ppCurrent         = wrap (blue "[") (blue "]")
-  , ppHidden          = white . wrap " " ""
-  , ppHiddenNoWindows = lowWhite . wrap " " ""
+  , ppHidden          = white . wrap "" "•"
+  , ppHiddenNoWindows = lowWhite . wrap "" ""
   , ppUrgent          = red . wrap (yellow "!") (yellow "!")
   } where
     -- Windows should have *some* title, which should not exceed a sane length
