@@ -4,8 +4,8 @@
   xargs -I ^ echo "\"^\"" | \
   jq --raw-output '
       split(" ")[-2]
-    | if (. == "powersave") then "󱙷 "
+    | if (. == "powersave") then "󱙷"
       else
-        if (. == "performance") then "󱐋 " else "???" end
+        if (. == "performance") then "󱐋" else "???" end
       end
   '
