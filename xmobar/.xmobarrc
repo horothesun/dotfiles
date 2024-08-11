@@ -11,9 +11,9 @@ Config
   , commands         =
       [ Run XMonadLog
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
-      , Run Com "get-fan-speed.sh" [] "fanspeed" 10
+      , Run Com "get-fan-speed.sh" [] "fanspeed" 20
       , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
-      , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
+      , Run Memory [ "--template", "󰍛 <usedratio>%" ] 20
       --, Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
       --, Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <essid> <quality>%</fc>" ] 40
@@ -32,8 +32,8 @@ Config
           , "--low"      , "darkgreen"
           , "--normal"   , "darkorange"
           , "--high"     , "darkred"
-          ] 50
-      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 600
+          ] 30
+      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 300
       --, Run Com "tfl-home-to-work.sh" [] "tflhome2work" 500
       --, Run Com "tfl-work-to-home.sh" [] "tflwork2home" 500
       , Run Battery
@@ -47,9 +47,9 @@ Config
           , "-o"	 , "󰁹 <left>" -- discharging status
           , "-O"	 , " <left>" -- AC "on" status
           , "-i"	 , "󰂅 <left>" -- charged status
-          ] 50
-      , Run Date "%a %d %b %H:%M:%S" "date" 10
-      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 30
+          ] 30
+      , Run Date "%a %d %b %H:%M:%S" "date" 5
+      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 20
       ]
   , sepChar  = "%"
   , alignSep = "}{"
