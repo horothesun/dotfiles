@@ -358,6 +358,8 @@ function update_alacritty() {
 function update_all() {
   update_apt
   echo
+  update_autocpufreq
+  echo
   update_nix
   echo
   reset_jenv
