@@ -5,6 +5,7 @@ import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -58,7 +59,7 @@ myStartupHook = do
   -- spawnOnce "sxhkd &"
 
 myManageHook :: ManageHook
-myManageHook = composeAll
+myManageHook = insertPosition Below Newer <> composeAll
   [ className =? "Gimp" --> doFloat
   , isDialog            --> doFloat
   ]
