@@ -25,6 +25,9 @@ else
 fi
 
 
+alias cl=clear
+
+
 alias xcopy="xclip -rmlastnl -selection clipboard"
 alias xpaste="xsel --clipboard"
 
