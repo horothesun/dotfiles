@@ -104,6 +104,7 @@ myXmobarPP = def
   { ppSep             = magenta " | "
   , ppTitleSanitize   = xmobarStrip
   , ppCurrent         = wrap (blue "[") (blue "]")
+  , ppVisible         = wrap (lowWhite "(") (lowWhite ")")
   , ppHidden          = white . wrap "" "•"
   , ppHiddenNoWindows = lowWhite . wrap "" ""
   , ppUrgent          = red . wrap (yellow "!") (yellow "!")
