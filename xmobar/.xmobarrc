@@ -1,18 +1,19 @@
 Config
   { overrideRedirect = True
   , lowerOnStart     = True
-  -- , font             = "xft:FiraMono Nerd Font:pixelsize=18:antialias=true:hinting=true"
-  , font             = "xft:JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true"
+  -- xft fonts not available xmobar >0.45
+  -- , font             = "FiraMono Nerd Font 13"
+  , font             = "JetBrainsMono Nerd Font 13"
   , bgColor          = "#202020"
   , fgColor          = "#f8f8f2"
-  , position         = TopW L 100
+  , position         = TopH 26
   , persistent       = True
   , commands         =
-      [ Run StdinReader
+      [ Run XMonadLog
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
-      , Run Com "get-fan-speed.sh" [] "fanspeed" 10
+      , Run Com "get-fan-speed.sh" [] "fanspeed" 20
       , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
-      , Run Memory [ "--template", "󰍛 <usedratio>%" ] 10
+      , Run Memory [ "--template", "󰍛 <usedratio>%" ] 20
       --, Run Swap [ "--template", " <usedratio>%" ] 20
       -- get wi-fi SSID by running: inxi --network-advanced
       --, Run Wireless "wlp3s0" [ "--template", "<fc=#aaaaaa>󰖩 <essid> <quality>%</fc>" ] 40
@@ -31,8 +32,8 @@ Config
           , "--low"      , "darkgreen"
           , "--normal"   , "darkorange"
           , "--high"     , "darkred"
-          ] 50
-      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 600
+          ] 30
+      , Run DiskU [ ("/", "<fc=#aaaaaa> <free></fc>") ] [] 300
       --, Run Com "tfl-home-to-work.sh" [] "tflhome2work" 500
       --, Run Com "tfl-work-to-home.sh" [] "tflwork2home" 500
       , Run Battery
@@ -43,18 +44,18 @@ Config
           , "--normal"   , "darkorange"
           , "--high"     , "darkgreen"
           , "--" -- battery specific options
-          , "-o"	 , "󰁹 <left>"  -- discharging status
-          , "-O"	 , "  <left>" -- AC "on" status
-          , "-i"	 , "󰂅 <left>"  -- charged status
-          ] 50
-      , Run Date "%a %d %b %H:%M:%S" "date" 10
-      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 30
+          , "-o"	 , "󰁹 <left>" -- discharging status
+          , "-O"	 , " <left>" -- AC "on" status
+          , "-i"	 , "󰂅 <left>" -- charged status
+          ] 30
+      , Run Date "%a %d %b %H:%M:%S" "date" 5
+      , Run Com "trayer-padding-icon.sh" [] "trayerpad" 20
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   -- TfL
-  -- , template = "%StdinReader% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   -- all
-  -- , template = "%StdinReader% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   }

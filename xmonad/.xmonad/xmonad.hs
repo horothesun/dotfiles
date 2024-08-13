@@ -5,18 +5,22 @@ import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.Renamed
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
--- import qualified XMonad.Util.Hacks as Hacks
+import qualified XMonad.Util.Hacks as Hacks
+import XMonad.Util.Cursor
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
 
-audioCardId = "1"
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
@@ -33,15 +37,18 @@ dmenuCommand = "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialia
 
 bashScreenshotName = "\"${HOME}/Downloads/Screenshot $(date -u \"+%Y-%m-%d at %H.%M.%S\").png\""
 
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = tall ||| wide ||| full
   where
-    tiled   = Tall nmaster delta ratio
+    tall    = renamed [Replace "\xec00  Tall"] $ Tall nmaster delta ratio
+    wide    = renamed [Replace "\xec01  Wide"] $ Mirror tall
+    full    = renamed [Replace "\xf50c  Full"] Full
     nmaster = 1     -- Default number of windows in the master pane
     ratio   = 1/2   -- Default proportion of screen occupied by master pane
     delta   = 5/100 -- Percent of screen to increment by when resizing panes
 
 myStartupHook :: X ()
 myStartupHook = do
+  setDefaultCursor xC_arrow
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce setKeyboardRepeatDelayAndRateCommand
   spawnOnce disableTouchpadTapToClick
@@ -52,7 +59,7 @@ myStartupHook = do
   -- spawnOnce "sxhkd &"
 
 myManageHook :: ManageHook
-myManageHook = composeAll
+myManageHook = insertPosition Below Newer <> composeAll
   [ className =? "Gimp" --> doFloat
   , isDialog            --> doFloat
   ]
@@ -63,9 +70,9 @@ myKeys =
   , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%-")
   , ("<XF86KbdBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
   , ("<XF86KbdBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
-  , ("<XF86AudioMute>",         spawn $ "toggle_audio.sh " ++ audioCardId)
-  , ("<XF86AudioRaiseVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%+")
-  , ("<XF86AudioLowerVolume>",  spawn $ "amixer --card " ++ audioCardId ++ " sset Master 5%-")
+  , ("<XF86AudioMute>",         spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("<XF86AudioRaiseVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
   , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
   , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
   -- custom dmenu
@@ -94,16 +101,16 @@ newMouse x = M.union (mouseBindings def x) (M.fromList (myMouse x))
 
 myXmobarPP :: PP
 myXmobarPP = def
-  { ppSep             = magenta " • "
+  { ppSep             = magenta " | "
   , ppTitleSanitize   = xmobarStrip
   , ppCurrent         = wrap (blue "[") (blue "]")
-  , ppHidden          = white . wrap " " ""
-  , ppHiddenNoWindows = lowWhite . wrap " " ""
+  , ppHidden          = white . wrap "" "•"
+  , ppHiddenNoWindows = lowWhite . wrap "" ""
   , ppUrgent          = red . wrap (yellow "!") (yellow "!")
   } where
-    -- Windows should have *some* title, which should not not exceed a sane length
+    -- Windows should have *some* title, which should not exceed a sane length
     ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 24
+    ppWindow = xmobarRaw . (\w -> if null w then "<untitled>" else w) . shorten 24
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor "#ff79c6" ""
     blue     = xmobarColor "#bd93f9" ""
@@ -111,6 +118,9 @@ myXmobarPP = def
     yellow   = xmobarColor "#f1fa8c" ""
     red      = xmobarColor "#ff5555" ""
     lowWhite = xmobarColor "#bbbbbb" ""
+
+myStatusBar :: StatusBarConfig
+myStatusBar = statusBarProp "xmobar" (pure myXmobarPP)
 
 myConfig = def
   { modMask            = mod4Mask -- Rebind Mod to the Super key
@@ -121,12 +131,9 @@ myConfig = def
   , layoutHook         = myLayout
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
-  , handleEventHook    = handleEventHook def <+> fullscreenEventHook -- <> Hacks.trayerAboveXmobarEventHook
+  , handleEventHook    = handleEventHook def <+> Hacks.trayerAboveXmobarEventHook
   , mouseBindings      = newMouse
   } `additionalKeysP` myKeys
 
 main :: IO ()
-main = xmonad . ewmh =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig { modMask = m } = (m, xK_b)
+main = xmonad . ewmhFullscreen . ewmh . withEasySB myStatusBar defToggleStrutsKey $ myConfig
