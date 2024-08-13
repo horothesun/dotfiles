@@ -53,9 +53,9 @@ Config
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>󰈐 %fanspeed%</fc> <fc=#aaaaaa>%memory%</fc> %disku% %battery% %date% %trayerpad%"
+  , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   -- TfL
-  -- , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory%</fc> %disku% <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc> %battery% %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   -- all
-  -- , template = "%XMonadLog% }{ %dynnetwork%%wlp3s0wi% %coretemp% <fc=#aaaaaa>%cpugovernor%</fc> <fc=#aaaaaa>%memory% (%swap%)</fc> %disku% <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc> %battery% %date% %trayerpad%"
+  -- , template = "%XMonadLog% }{ %dynnetwork%%wlp3s0wi%  %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>%memory% (%swap%)</fc>  %disku%  <fc=lightblue> %tflhome2work% </fc><fc=lightpink>󰳣 %tflwork2home%</fc>  %battery%  %date% %trayerpad%"
   }
