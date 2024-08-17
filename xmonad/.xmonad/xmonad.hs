@@ -6,9 +6,11 @@ import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Renamed
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
@@ -56,7 +58,6 @@ myStartupHook = do
   spawnOnce launchNetworkApplet
   spawnOnce launchVolumeApplet
   spawnOnce launchClipboardManager
-  -- spawnOnce "sxhkd &"
 
 myManageHook :: ManageHook
 myManageHook = insertPosition Below Newer <> composeAll
@@ -75,10 +76,11 @@ myKeys =
   , ("<XF86AudioLowerVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
   , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
   , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
+  , ("M-b",                     sendMessage ToggleStruts) -- toggle status bar for dynamic setup
   -- custom dmenu
   , ("M-p",     spawn dmenuCommand)
   -- launch browser
-  , ("M-w",     spawn "brave &")
+  , ("M-S-w",   spawn "brave &")
   -- screenshot from current window to file
   , ("M-C-2",   spawn $ "maim --window $(xdotool getactivewindow) " ++ bashScreenshotName ++ " &")
   -- screenshot from current window to clipboard
@@ -93,11 +95,14 @@ myKeys =
   , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
   ]
 
--- Super + Right-click: window resize from bottom-rigth corner
-myMouse x = [
-    ((4, button3), (\w -> focus w >> Flex.mouseResizeWindow w))
-  ]
-newMouse x = M.union (mouseBindings def x) (M.fromList (myMouse x))
+myMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
+myMouseBindings x = M.union (mouseBindings def x) mappings
+  where
+    mappings :: M.Map (KeyMask, Button) (Window -> X ())
+    mappings = M.fromList [
+      -- Super + Right-click: window resize from bottom-rigth corner
+        ((4, button3), (\w -> focus w >> Flex.mouseResizeWindow w))
+      ]
 
 myXmobarPP :: PP
 myXmobarPP = def
@@ -120,8 +125,24 @@ myXmobarPP = def
     red      = xmobarColor "#ff5555" ""
     lowWhite = xmobarColor "#bbbbbb" ""
 
-myStatusBar :: StatusBarConfig
-myStatusBar = statusBarProp "xmobar" (pure myXmobarPP)
+mainScreenOnlySBConfig :: StatusBarConfig
+mainScreenOnlySBConfig = statusBarProp "xmobar" (pure myXmobarPP)
+
+multiScreenDynamicSBConfig :: ScreenId -> StatusBarConfig
+multiScreenDynamicSBConfig (S sId) = statusBarPropTo prop cmd (pure myXmobarPP)
+  where
+    prop = "_XMONAD_LOG_" ++ show (1 + sId)
+    cmd  = "xmobar -x " ++ show sId ++ " \"${HOME}/xmobarrc_" ++ show sId ++ "\""
+
+barSpawner :: ScreenId -> IO StatusBarConfig
+barSpawner (S sId) | sId <= 1 = pure $ multiScreenDynamicSBConfig $ S sId
+barSpawner _                  = mempty
+
+mainScreenOnlySB :: LayoutClass l Window => XConfig l -> XConfig (ModifiedLayout AvoidStruts l)
+mainScreenOnlySB = withEasySB mainScreenOnlySBConfig defToggleStrutsKey
+
+multiScreenDynamicSBs :: LayoutClass l Window => XConfig l -> XConfig (ModifiedLayout AvoidStruts l)
+multiScreenDynamicSBs = dynamicEasySBs barSpawner
 
 myConfig = def
   { modMask            = mod4Mask -- Rebind Mod to the Super key
@@ -133,8 +154,9 @@ myConfig = def
   , startupHook        = myStartupHook
   , manageHook         = myManageHook -- Match on certain windows
   , handleEventHook    = handleEventHook def <+> Hacks.trayerAboveXmobarEventHook
-  , mouseBindings      = newMouse
+  , mouseBindings      = myMouseBindings
   } `additionalKeysP` myKeys
 
 main :: IO ()
-main = xmonad . ewmhFullscreen . ewmh . withEasySB myStatusBar defToggleStrutsKey $ myConfig
+-- status bar: use either `mainScreenOnlySB` or `multiScreenDynamicSBs`
+main = xmonad . ewmhFullscreen . ewmh . multiScreenDynamicSBs $ myConfig
