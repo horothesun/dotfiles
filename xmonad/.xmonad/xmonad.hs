@@ -28,12 +28,9 @@ internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
-launchSystemTray :: ScreenId -> String
-launchSystemTray (S sId) = "trayer -l --edge top --align right --widthtype request --padding 5" ++
-  " --SetDockType true --SetPartialStrut true --expand true --monitor " ++ monitor ++
+launchSystemTray = "trayer -l --edge top --align right --widthtype request --padding 5" ++
+  " --SetDockType true --SetPartialStrut true --expand true --monitor primary" ++
   " --transparent true --alpha 0 --tint 0x202020 --height 26 --iconspacing 4 &"
-  where
-    monitor = if sId == 0 then "primary" else show (1 + sId)
 launchNetworkApplet = "nm-applet &"
 launchVolumeApplet = "volumeicon &"
 launchClipboardManager = "copyq &"
@@ -57,7 +54,7 @@ myStartupHook = do
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce setKeyboardRepeatDelayAndRateCommand
   spawnOnce disableTouchpadTapToClick
-  spawnOnce $ launchSystemTray 0
+  spawnOnce launchSystemTray
   spawnOnce launchNetworkApplet
   spawnOnce launchVolumeApplet
   spawnOnce launchClipboardManager
