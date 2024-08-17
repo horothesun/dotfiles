@@ -79,7 +79,7 @@ myKeys =
   , ("<XF86AudioLowerVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
   , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
   , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
-  , ("M-b",                     sendMessage ToggleStruts) -- toggle status bar dynamic setup
+  , ("M-b",                     sendMessage ToggleStruts) -- toggle status bar for dynamic setup
   -- custom dmenu
   , ("M-p",     spawn dmenuCommand)
   -- launch browser
