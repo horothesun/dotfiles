@@ -158,4 +158,5 @@ myConfig = def
   } `additionalKeysP` myKeys
 
 main :: IO ()
+-- status bar: use either `mainScreenOnlySB` or `multiScreenDynamicSBs`
 main = xmonad . ewmhFullscreen . ewmh . multiScreenDynamicSBs $ myConfig
