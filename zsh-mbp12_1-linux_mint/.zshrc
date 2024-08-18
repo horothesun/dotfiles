@@ -125,23 +125,23 @@ function cmatrix() {
 }
 
 
-IDEA_FLATPACK_ID="com.jetbrains.IntelliJ-IDEA-Community"
+PATH="${PATH}:${HOME}/intellij_idea_community/bin"
 
-function idea() {
+function idea_() {
   if [[ $# -eq 0 ]]; then
-    ( flatpak run "${IDEA_FLATPACK_ID}" & ) &> /dev/null
+    ( idea & ) &> /dev/null
   else
     IDEA_ARGS="$@"
-    ( flatpak run "${IDEA_FLATPACK_ID}" "${IDEA_ARGS}" & ) &> /dev/null
+    ( idea "${IDEA_ARGS}" & ) &> /dev/null
   fi
 }
 
 function idea_verbose() {
   if [[ $# -eq 0 ]]; then
-    flatpak run "${IDEA_FLATPACK_ID}"
+    idea
   else
     IDEA_ARGS="$@"
-    flatpak run "${IDEA_FLATPACK_ID}" "${IDEA_ARGS}"
+    idea "${IDEA_ARGS}"
   fi
 }
 
