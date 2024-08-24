@@ -82,17 +82,17 @@ myKeys =
   -- launch browser
   , ("M-S-w",   spawn "brave &")
   -- screenshot from current window to file
-  , ("M-C-2",   spawn $ "maim --window $(xdotool getactivewindow) " ++ bashScreenshotName ++ " &")
+  , ("M-C-2",   spawn $ "maim --hidecursor --window $(xdotool getactivewindow) " ++ bashScreenshotName ++ " &")
   -- screenshot from current window to clipboard
-  , ("M-C-S-2", spawn "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -target image/png &")
+  , ("M-C-S-2", spawn "maim --hidecursor --window $(xdotool getactivewindow) | xclip -selection clipboard -target image/png &")
   -- screenshot fullscreen to file
-  , ("M-C-3",   spawn $ "maim " ++ bashScreenshotName ++ " &")
+  , ("M-C-3",   spawn $ "maim --hidecursor " ++ bashScreenshotName ++ " &")
   -- screenshot fullscreen to clipboard
-  , ("M-C-S-3", spawn "maim | xclip -selection clipboard -target image/png &")
+  , ("M-C-S-3", spawn "maim --hidecursor | xclip -selection clipboard -target image/png &")
   -- screenshot from selection to file
-  , ("M-C-4",   spawn $ "maim --noopengl --select " ++ bashScreenshotName ++ " &")
+  , ("M-C-4",   spawn $ "maim --hidecursor --noopengl --select " ++ bashScreenshotName ++ " &")
   -- screenshot from selection to clipboard
-  , ("M-C-S-4", spawn "maim --noopengl --select | xclip -selection clipboard -target image/png &")
+  , ("M-C-S-4", spawn "maim --hidecursor --noopengl --select | xclip -selection clipboard -target image/png &")
   ]
 
 myMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
