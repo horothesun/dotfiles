@@ -63,6 +63,9 @@ export PATH="${HOMEBREW_OPT_DIR}/curl/bin:${PATH}"
 # export PKG_CONFIG_PATH="${HOMEBREW_OPT_DIR}/curl/lib/pkgconfig"
 
 
+alias cl=clear
+
+
 alias rg="rg --hidden"
 
 
