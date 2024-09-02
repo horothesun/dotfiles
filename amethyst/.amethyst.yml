@@ -19,6 +19,8 @@ relaunch-amethyst:
   mod: mod2
   key: z
 
+enables-layout-hud-on-space-change: false
+
 mouse-follows-focus: false
 focus-follows-mouse: false
 
