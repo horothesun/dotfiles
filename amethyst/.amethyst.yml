@@ -1,3 +1,7 @@
+# In order to register changes restart Amethyst.
+# If you experience issues pulling in the changes you can also quit Amethyst and run: `defaults delete com.amethyst.Amethyst.plist`
+# This removes the current preferences and causes Amethyst to restart with default preferences and pull configs from this file.
+
 layouts:
   - tall
   - fullscreen
@@ -15,19 +19,18 @@ relaunch-amethyst:
   mod: mod2
   key: z
 
+enables-layout-hud-on-space-change: false
+
 mouse-follows-focus: false
 focus-follows-mouse: false
 
 window-margins: false
 window-margin-size: 0
 
-# Floating windows
-#
-# Float small windows: true
-#
-# Automatically float application listed
-#   - "com.apple.systempreferences"
-#   - "com.apple.calculator"
-#   - "com.utmapp.UTM"
-#   - "com.wulkano.kap"
-#   - "com.authy.authy-mac"
+float-small-windows: true
+floating: [
+  "com.apple.systempreferences",
+  "com.apple.calculator",
+  "com.utmapp.UTM",
+  "com.wulkano.kap"
+]
