@@ -129,10 +129,10 @@ PATH="${PATH}:${HOME}/intellij_idea_community/bin"
 
 function idea_() {
   if [[ $# -eq 0 ]]; then
-    ( idea & ) &> /dev/null
+    ( idea nosplash & ) &> /dev/null
   else
     IDEA_ARGS="$@"
-    ( idea "${IDEA_ARGS}" & ) &> /dev/null
+    ( idea nosplash "${IDEA_ARGS}" & ) &> /dev/null
   fi
 }
 
