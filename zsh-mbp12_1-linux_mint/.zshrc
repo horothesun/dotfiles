@@ -240,7 +240,6 @@ function update_apt() {
     sudo apt autoremove -y && \
     sudo apt clean
   echo
-  echo "Kernel: $(uname -r)"
   echo "update_apt END"
 }
 
