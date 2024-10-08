@@ -10,6 +10,15 @@ plugins=(
 source "${ZSH}/oh-my-zsh.sh"
 
 
+setopt share_history
+
+# mill (JVM build tool):
+# `[_]` is a pattern used in mill, by default it's a default zsh match pattern.
+# Avoid the collision with the following zsh config.
+unsetopt nomatch
+
+
+
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
