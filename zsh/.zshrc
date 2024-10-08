@@ -35,6 +35,11 @@ source "${ZSH}/oh-my-zsh.sh"
 # unsetopt inc_append_history
 setopt share_history
 
+# mill (JVM build tool):
+# `[_]` is a pattern used in mill, by default it's a default zsh match pattern.
+# Avoid the collision with the following zsh config.
+unsetopt nomatch
+
 
 # HOMEBREW_OPT_DIR: different values between Intel and Apple Silicon (arm64)
 export HOMEBREW_OPT_DIR="$(brew --prefix)/opt"
