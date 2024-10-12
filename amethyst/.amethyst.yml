@@ -34,3 +34,5 @@ floating: [
   "com.utmapp.UTM",
   "com.wulkano.kap"
 ]
+
+restore-layouts-on-launch: false
