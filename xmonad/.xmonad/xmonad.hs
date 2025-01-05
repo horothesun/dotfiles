@@ -25,6 +25,15 @@ myTerminal = "alacritty"
 
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
+
+externalDisplay1SleepMultiplier = 0.1 -- check https://www.ddcutil.com/faq/ "ddcutil is slow." section
+externalDisplay1Bus = 2 -- get it from `ddcutil detect` -> Display 1 -> I2C bus -> /dev/i2c-<BUS#>
+setExternalDisplay1CommandPrefix = "ddcutil" ++
+  " --sleep-multiplier " ++ show externalDisplay1SleepMultiplier ++
+  " --bus " ++ show externalDisplay1Bus ++ " setvcp"
+setExternalDisplay1BrightnessCommandPrefix = setExternalDisplay1CommandPrefix ++ " 10"
+setExternalDisplay1ContrastCommandPrefix   = setExternalDisplay1CommandPrefix ++ " 12"
+
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
@@ -67,16 +76,20 @@ myManageHook = insertPosition Below Newer <> composeAll
 
 myKeys :: [(String, X ())]
 myKeys =
-  [ ("<XF86MonBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%+")
-  , ("<XF86MonBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%-")
-  , ("<XF86KbdBrightnessUp>",   spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
-  , ("<XF86KbdBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
-  , ("<XF86AudioMute>",         spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-  , ("<XF86AudioRaiseVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-  , ("<XF86AudioLowerVolume>",  spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-  , ("<XF86PowerOff>",          spawn $ "systemctl suspend")
-  , ("M-<XF86PowerOff>",        spawn $ "systemctl poweroff")
-  , ("M-b",                     sendMessage ToggleStruts) -- toggle status bar for dynamic setup
+  [ ("<XF86MonBrightnessUp>",       spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%+")
+  , ("<XF86MonBrightnessDown>",     spawn $ "brightnessctl --quiet --device " ++ internalMonitorBacklightDeviceName ++ " set 2%-")
+  , ("S-<XF86MonBrightnessUp>",     spawn $ setExternalDisplay1BrightnessCommandPrefix ++ " + 10")
+  , ("S-<XF86MonBrightnessDown>",   spawn $ setExternalDisplay1BrightnessCommandPrefix ++ " - 10")
+  , ("C-S-<XF86MonBrightnessUp>",   spawn $ setExternalDisplay1ContrastCommandPrefix ++ " + 5")
+  , ("C-S-<XF86MonBrightnessDown>", spawn $ setExternalDisplay1ContrastCommandPrefix ++ " - 5")
+  , ("<XF86KbdBrightnessUp>",       spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
+  , ("<XF86KbdBrightnessDown>",     spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
+  , ("<XF86AudioMute>",             spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("<XF86AudioRaiseVolume>",      spawn $ "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>",      spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+  , ("<XF86PowerOff>",              spawn $ "systemctl suspend")
+  , ("M-<XF86PowerOff>",            spawn $ "systemctl poweroff")
+  , ("M-b",                         sendMessage ToggleStruts) -- toggle status bar for dynamic setup
   -- custom dmenu
   , ("M-p",     spawn dmenuCommand)
   -- launch browser
