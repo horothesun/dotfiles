@@ -27,10 +27,11 @@ internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 
 externalDisplay1SleepMultiplier = 0.1 -- check https://www.ddcutil.com/faq/ "ddcutil is slow." section
-externalDisplay1Bus = 2 -- get it from `ddcutil detect` -> Display 1 -> I2C bus -> /dev/i2c-<BUS#>
+externalDisplay1Name = 1 -- not using the bus number (even if it's faster) because it changes across reboots
 setExternalDisplay1CommandPrefix = "ddcutil" ++
   " --sleep-multiplier " ++ show externalDisplay1SleepMultiplier ++
-  " --bus " ++ show externalDisplay1Bus ++ " setvcp"
+  " --display " ++ show externalDisplay1Name ++
+  " setvcp"
 setExternalDisplay1BrightnessCommandPrefix = setExternalDisplay1CommandPrefix ++ " 10"
 setExternalDisplay1ContrastCommandPrefix   = setExternalDisplay1CommandPrefix ++ " 12"
 
