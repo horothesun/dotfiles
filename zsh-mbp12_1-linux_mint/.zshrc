@@ -100,7 +100,8 @@ function pdfview() {
 
 function aws() {
   AWS_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+  # "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+  "${NIX_SHELL_COMMAND}" \
     -p awscli2 \
     --run "aws ${AWS_CLI_ARGS}"
 }
@@ -289,7 +290,8 @@ function update_nix() {
   nix-shell -p zathura --run "zathura --version &> /dev/null"
   pdfview --version
   echo
-  nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p awscli2 --run "aws --version &> /dev/null"
+  # nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p awscli2 --run "aws --version &> /dev/null"
+  nix-shell -p awscli2 --run "aws --version &> /dev/null"
   aws --version
   echo
   nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p scala-cli --run "scala-cli --version &> /dev/null"
@@ -358,6 +360,14 @@ function update_appimages() {
   echo "update_appimages END"
 }
 
+function update_rustup() {
+  echo "update_rustup BEGIN"
+  rustup show
+  echo
+  rustup update
+  echo "update_rustup END"
+}
+
 function update_alacritty() {
   echo "update_alacritty BEGIN"
   alacritty --version
@@ -384,6 +394,8 @@ function update_all() {
   update_tldr
   echo
   update_starship
+  echo
+  update_rustup
   echo
   update_alacritty
   echo
