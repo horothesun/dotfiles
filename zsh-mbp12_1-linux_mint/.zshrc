@@ -107,14 +107,6 @@ function aws() {
 }
 
 
-function scala-cli() {
-  SCALA_CLI_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
-    -p scala-cli \
-    --run "scala-cli ${SCALA_CLI_ARGS}"
-}
-
-
 function fastfetch() {
   FASTFETCH_ARGS="$@"
   "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
@@ -293,9 +285,6 @@ function update_nix() {
   # nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p awscli2 --run "aws --version &> /dev/null"
   nix-shell -p awscli2 --run "aws --version &> /dev/null"
   aws --version
-  echo
-  nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p scala-cli --run "scala-cli --version &> /dev/null"
-  scala-cli --version
   echo
   nix-shell -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" -p fastfetch --run "fastfetch --version &> /dev/null"
   fastfetch --version
