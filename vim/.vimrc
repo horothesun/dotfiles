@@ -67,7 +67,7 @@ set shortmess+=c
 " Disable mouse integration
 set mouse=
 
-set colorcolumn=110
+set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
@@ -97,14 +97,15 @@ Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 
-"  \ 'coc-metals',
+
+" \ 'coc-go',
+" \ 'coc-metals',
+" \ 'coc-tsserver',
+" \ 'coc-sumneko-lua',
 let g:coc_global_extensions = [
-  \ 'coc-go',
   \ 'coc-json',
   \ 'coc-markdownlint',
-  \ 'coc-sh',
-  \ 'coc-tsserver',
-  \ 'coc-sumneko-lua'
+  \ 'coc-sh'
   \ ]
 
 " VimWiki
