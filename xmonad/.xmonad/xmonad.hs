@@ -163,6 +163,7 @@ myConfig = def
   , terminal           = myTerminal
   , borderWidth        = 1
   , normalBorderColor  = "#363636"
+  -- , focusedBorderColor = "black"
   , focusedBorderColor = "darkGreen"
   , layoutHook         = myLayout
   , startupHook        = myStartupHook
