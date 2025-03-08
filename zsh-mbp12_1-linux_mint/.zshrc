@@ -22,6 +22,14 @@ unsetopt nomatch
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
+# npm
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
+
 # used by gh
 export BROWSER="brave"
 
@@ -255,9 +263,9 @@ function update_nix() {
   setopt localoptions rmstarsilent
   rm --force "$HOME/.cache/cached-nix-shell/"*
   echo
-  nix-shell -p jdk11 nodejs yarn nodePackages.bash-language-server terraform-ls ripgrep neovim --run "nvim -u NONE --version &> /dev/null"
-  nvim -u NONE --version
-  echo
+  # nix-shell -p jdk11 nodejs yarn nodePackages.bash-language-server terraform-ls ripgrep neovim --run "nvim -u NONE --version &> /dev/null"
+  # nvim -u NONE --version
+  # echo
   nix-shell -p ncdu --run "ncdu --version &> /dev/null"
   ncdu --version
   echo
