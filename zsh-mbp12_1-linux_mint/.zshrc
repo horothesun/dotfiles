@@ -340,6 +340,12 @@ function update_jenv() {
   echo "update_jenv END"
 }
 
+function update_npm() {
+  echo "update_npm BEGIN"
+  npm update --global --verbose
+  echo "update_npm END"
+}
+
 function update_flatpaks() {
   echo "update_flatpaks BEGIN"
   flatpak list --app
