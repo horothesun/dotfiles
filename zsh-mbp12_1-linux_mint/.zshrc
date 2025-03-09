@@ -343,7 +343,7 @@ function update_jenv() {
 function update_npm() {
   echo "update_npm BEGIN"
   npm update --global --verbose
-  echo "update_npm END"
+  echo "update_npm BEGIN"
 }
 
 function update_flatpaks() {
@@ -389,6 +389,8 @@ function update_all() {
   reset_jenv
   echo
   update_jenv
+  echo
+  update_npm
   echo
   update_flatpaks
   echo
