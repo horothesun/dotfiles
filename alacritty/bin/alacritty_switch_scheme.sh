@@ -32,12 +32,12 @@ echo "${SELECTED_COLOR_SCHEME_JSON}" | dasel --read=json --write=toml --colour '
 echo ""
 
 function set_live_config_reload() {
-  echo ".global.live_config_reload := $1"
+  echo ".general.live_config_reload := $1"
   dasel put \
     --file "${ALACRITTY_CONFIG_FILE}" \
     --type="bool" \
     --value="$1" \
-    '.global.live_config_reload'
+    '.general.live_config_reload'
 }
 
 function put() {
