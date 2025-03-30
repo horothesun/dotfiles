@@ -329,17 +329,38 @@ function update_neovim() {
   NEOVIM_TMP_DIR="${HOME_TMP_DIR}/neovim"
   (
     cd "${HOME_TMP_DIR}";
-    NEOVIM_LATEST_RELEASE_TAG=$( curl --silent https://api.github.com/repos/neovim/neovim/releases/latest | jq --raw-output ".tag_name" );
+    NEOVIM_LATEST_RELEASE_TAG=$(
+      curl --silent https://api.github.com/repos/neovim/neovim/releases/latest | jq --raw-output ".tag_name"
+    );
     echo "Cloning tag ${NEOVIM_LATEST_RELEASE_TAG} ...";
     echo;
     git clone --depth 1 --branch "${NEOVIM_LATEST_RELEASE_TAG}" "git@github.com:neovim/neovim.git";
+    if [[ $? -eq 0 ]]; then
+      echo "Cloned."
+    else
+      echo "Cloning failed!"
+      echo "update_neovim FAILED"
+      return 1
+    fi;
     cd "${NEOVIM_TMP_DIR}";
     echo "Build ...";
     make CMAKE_BUILD_TYPE=RelWithDebInfo;
+    if [[ $? -eq 0 ]]; then
+      echo "Built."
+    else
+      echo "Building failed!"
+      cd "${HOME_TMP_DIR}"
+      rm -fr "${NEOVIM_TMP_DIR}"
+      echo "update_neovim FAILED"
+      return 2
+    fi;
     echo;
-    echo "Delete installed version ...";
-    sudo rm -rf /usr/local/share/nvim/runtime;
-    echo;
+    NEOVIM_RUNTIME_FOLDER="/usr/local/share/nvim/runtime";
+    if [[ -d "${NEOVIM_RUNTIME_FOLDER}" ]]; then
+      echo "Removing pre-installed version ..."
+      sudo rm -rf "${NEOVIM_RUNTIME_FOLDER}"
+      echo;
+    fi;
     echo "Install ...";
     sudo make install;
     echo
