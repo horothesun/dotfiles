@@ -320,6 +320,34 @@ function update_starship() {
   echo "update_starship END"
 }
 
+function update_neovim() {
+  echo "update_neovim BEGIN"
+  nvim --version
+  echo
+  HOME_TMP_DIR="${HOME}/tmp"
+  mkdir -p "${HOME_TMP_DIR}"
+  NEOVIM_TMP_DIR="${HOME_TMP_DIR}/neovim"
+  (
+    cd "${HOME_TMP_DIR}";
+    NEOVIM_LATEST_RELEASE_TAG=$( curl --silent https://api.github.com/repos/neovim/neovim/releases/latest | jq --raw-output ".tag_name" );
+    echo "Cloning tag ${NEOVIM_LATEST_RELEASE_TAG} ...";
+    echo;
+    git clone --depth 1 --branch "${NEOVIM_LATEST_RELEASE_TAG}" "git@github.com:neovim/neovim.git";
+    cd "${NEOVIM_TMP_DIR}";
+    echo "Build ...";
+    make CMAKE_BUILD_TYPE=RelWithDebInfo;
+    echo;
+    echo "Delete installed version ...";
+    sudo rm -rf /usr/local/share/nvim/runtime;
+    echo;
+    echo "Install ...";
+    sudo make install;
+    echo
+  )
+  rm -fr "${NEOVIM_TMP_DIR}"
+  echo "update_neovim END"
+}
+
 # tldr's apt version's very old and --update doesn't work
 function update_tldr() {
   echo "update_tldr BEGIN"
