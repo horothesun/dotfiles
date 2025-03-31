@@ -101,11 +101,11 @@ call plug#end()
 " \ 'coc-go',
 " \ 'coc-metals',
 " \ 'coc-tsserver',
-" \ 'coc-sumneko-lua',
 let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-markdownlint',
-  \ 'coc-sh'
+  \ 'coc-sh',
+  \ 'coc-sumneko-lua'
   \ ]
 
 " VimWiki
