@@ -392,7 +392,7 @@ function update_jenv() {
 function update_npm() {
   echo "update_npm BEGIN"
   npm update --global --verbose
-  echo "update_npm BEGIN"
+  echo "update_npm END"
 }
 
 function update_flatpaks() {
