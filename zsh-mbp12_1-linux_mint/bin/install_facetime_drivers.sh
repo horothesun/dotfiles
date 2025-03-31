@@ -35,6 +35,6 @@ rm -fr "${HOME_TMP_FOLDER}/${FACETIMEHD_FIRMWARE_DIR}"
 rm -fr "${HOME_TMP_FOLDER}/${FACETIMEHD_MODULE_DIR}"
 
 echo
-echo "!!! Test the FaceTime webcam with guvcview or skypeforlinux !!!"
+echo "!!! Test the FaceTime webcam with guvcview !!!"
 echo "!!! A SYSTEM REBOOT MIGHT BE REQUIRED !!!"
 echo
