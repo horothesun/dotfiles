@@ -46,6 +46,11 @@ style = 'Retina'
 
 [keyboard]
 [[keyboard.bindings]]
+action = "Paste"
+key = 'V'
+mods = 'Control'
+
+[[keyboard.bindings]]
 chars = "\u001Bb"
 key = 'Left'
 mods = 'Alt'
