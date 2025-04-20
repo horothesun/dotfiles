@@ -30,19 +30,20 @@ local function on_attach(client, bufnr)
   vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, buf_opts)
 
   -- Workspace folder management
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, buf_opts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, buf_opts)
-  vim.keymap.set('n', '<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, buf_opts)
+  -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, buf_opts)
+  -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, buf_opts)
+  -- vim.keymap.set('n', '<leader>wl', function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, buf_opts)
 
   -- Type definition
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, buf_opts)
 
   -- Quickfix list navigation
-  -- vim.keymap.set('n', ']q', ":cnext<CR>", buf_opts)
-  -- vim.keymap.set('n', '[q', ":cprev<CR>", buf_opts)
-  -- vim.keymap.set('n', '<leader>qq', ":copen<CR>", buf_opts)
+  vim.keymap.set('n', ']q', ":cnext<CR>", buf_opts)
+  vim.keymap.set('n', '[q', ":cprev<CR>", buf_opts)
+  vim.keymap.set('n', '<leader>qq', ":copen<CR>", buf_opts)
+  vim.keymap.set('n', '<leader>qQ', ":cclose<CR>", buf_opts)
 
   -- Formatting
   vim.keymap.set('n', '<leader>F', function()
