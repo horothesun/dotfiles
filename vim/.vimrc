@@ -88,6 +88,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
+Plug 'lewis6991/gitsigns.nvim'
+
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'scalameta/nvim-metals'
@@ -256,6 +258,13 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzy_native')
 EOF
+
+
+" gitsigns
+lua <<EOF
+require('gitsigns').setup()
+EOF
+
 
 " Telescope remaps
 nnoremap <C-p> <cmd>Telescope live_grep<CR>
