@@ -71,11 +71,9 @@ key = 'Key3'
 mods = 'Alt'
 
 [[keyboard.bindings]]
+command = 'alacritty_new_window_same_dir.sh'
 key = 'N'
-mods = 'Command'
-
-[keyboard.bindings.command]
-program = '/usr/local/bin/alacritty_new_window_same_dir.sh'
+mods = 'Control'
 
 [selection]
 save_to_clipboard = true
