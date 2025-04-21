@@ -178,6 +178,16 @@ let g:netrw_winsize = 25
 nnoremap <leader>pv :topleft wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
 
+" keep previously yanked text in the registry
+"
+" paste in VISUAL-mode
+xnoremap <leader>p "_dP
+" delete in NORMAL-mode
+nnoremap <leader>d "_d
+" delete in VISUAL/SELECT-mode
+vnoremap <leader>d "_d
+
+
 " replace all
 nnoremap <leader>s :%s//gc<Left><Left><Left>
 
@@ -187,8 +197,10 @@ nnoremap Y y$
 
 
 " keeping it centered
-" nnoremap n nzz
-" nnoremap N Nzz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
 " nnoremap J mzJ`z
 
 
@@ -205,74 +217,6 @@ inoremap ? ?<C-g>u
 " nnoremap <leader>fb :Buffers<CR>
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.94, 'relative': v:true, 'yoffset': 0.9 } }
 " let g:fzf_preview_window = ['right:50%']
-
-" Telescope
-lua <<EOF
-require('telescope').setup {
-  defaults = {
-    file_sorter = require('telescope.sorters').get_fzy_sorter,
-    prompt_prefix = '> ',
-    color_devicons = true,
-    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-    -- vimgrep_arguments = {
-    --   'rg',
-    --   '--color=never',
-    --   '--no-heading',
-    --   '--with-filename',
-    --   '--line-number',
-    --   '--column',
-    --   '--smart-case',
-    --   '--unrestricted', -- disable .gitignore handling
-    --   '--unrestricted'  -- search hidden files and directories
-    -- },
-    layout_config = { width = 0.9, height = 0.9 },
-    mappings = {
-      i = {
-        ['<esc>'] = require('telescope.actions').close,
-      }
-    },
-    file_ignore_patterns = {
-      ".git/",
-      ".idea/",
-      ".metals/",
-      ".bloop/",
-      "node_modules/"
-    }
-  },
-  pickers = {
-    find_files = { hidden = true },
-    live_grep = {
-      additional_args = function(opts)
-        return { "--hidden" }
-      end
-    }
-  },
-  extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true
-    }
-  }
-}
-require('telescope').load_extension('fzy_native')
-EOF
-
-
-" gitsigns
-lua <<EOF
-require('gitsigns').setup()
-EOF
-
-
-" Telescope remaps
-nnoremap <C-p> <cmd>Telescope live_grep<CR>
-nnoremap <leader>ff <cmd>Telescope find_files<CR>
-nnoremap <leader>fb <cmd>Telescope buffers<CR>
-nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-nnoremap <leader>fe <cmd>luafile ~/.config/nvim/pickers/emoji_picker.lua<CR>
-nnoremap <leader>fs <cmd>luafile ~/.config/nvim/pickers/symbol_picker.lua<CR>
 
 
 nnoremap <leader>h :wincmd h<CR>
