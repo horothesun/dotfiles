@@ -44,6 +44,7 @@ local function on_attach(client, bufnr)
   -- vim.keymap.set('n', ']q', ":cnext<CR>", buf_opts) -- default from v0.11.0
   vim.keymap.set('n', '<leader>qq', ":copen<CR>", buf_opts)
   vim.keymap.set('n', '<leader>qQ', ":cclose<CR>", buf_opts)
+  vim.keymap.set('n', '<leader>qd', ":call setqflist([])<CR>:cclose<CR>", buf_opts)
 
   -- Formatting
   vim.keymap.set('n', '<leader>F', function()
