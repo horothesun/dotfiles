@@ -40,8 +40,8 @@ local function on_attach(client, bufnr)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, buf_opts)
 
   -- Quickfix list navigation
-  vim.keymap.set('n', ']q', ":cnext<CR>", buf_opts)
-  vim.keymap.set('n', '[q', ":cprev<CR>", buf_opts)
+  -- vim.keymap.set('n', ']q', ":cnext<CR>", buf_opts) -- default from v0.11.0
+  -- vim.keymap.set('n', '[q', ":cprev<CR>", buf_opts) -- default from v0.11.0
   vim.keymap.set('n', '<leader>qq', ":copen<CR>", buf_opts)
   vim.keymap.set('n', '<leader>qQ', ":cclose<CR>", buf_opts)
 
@@ -84,8 +84,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ------------------------------------------------------------
 local diag_opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, diag_opts)
-vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, diag_opts)
-vim.keymap.set('n', ']c', vim.diagnostic.goto_next, diag_opts)
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, diag_opts)
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, diag_opts)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, diag_opts)
 
 vim.diagnostic.config({
