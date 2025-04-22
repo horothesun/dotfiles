@@ -42,6 +42,13 @@ else
 fi
 
 
+function clean_java_instances() {
+  ps auxww | \grep "/bin/java" | \grep -v "grep" |\
+    jq --raw-input 'split(" ") | map(select(. != ""))[1]' |\
+    xargs --no-run-if-empty --max-args 1 kill --signal 9
+}
+
+
 alias cl=clear
 
 
