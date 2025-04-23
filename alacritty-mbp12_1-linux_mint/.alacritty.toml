@@ -45,10 +45,12 @@ family = 'JetBrainsMono Nerd Font'
 style = 'Retina'
 
 [keyboard]
-[[keyboard.bindings]]
-action = "Paste"
-key = 'V'
-mods = 'Control'
+
+# Ctrl+V enables VISUAL-BLOCK mode in vim
+# [[keyboard.bindings]]
+# action = "Paste"
+# key = 'V'
+# mods = 'Control'
 
 [[keyboard.bindings]]
 chars = "\u001Bb"
