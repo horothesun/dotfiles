@@ -219,7 +219,7 @@ end
 require("lsp_signature").setup()
 
 ------------------------------------------------------------
--- Plugins configuration (LSP unrelated)
+-- LSP-unrelated plugins
 ------------------------------------------------------------
 require('plugin/gitsigns')
 require('plugin/telescope')
