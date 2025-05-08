@@ -12,7 +12,7 @@ Config
       [ Run XPropertyLog "_XMONAD_LOG_1"
       , Run Cpu [ "-L", "3", "-H", "50", "--high", "red", "--normal", "green" ] 10
       , Run Com "get-fan-speed.sh" [] "fanspeed" 20
-      , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
+      -- , Run Com "auto-cpufreq-governor.sh" [] "cpugovernor" 20
       , Run Memory [ "--template", "󰍛 <usedratio>%" ] 20
       , Run CoreTemp
           [ "--template" , "<core0><fc=#aaaaaa>󰔄</fc>"
@@ -40,5 +40,6 @@ Config
       ]
   , sepChar  = "%"
   , alignSep = "}{"
-  , template = "%_XMONAD_LOG_1% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  -- , template = "%_XMONAD_LOG_1% }{ %coretemp% <fc=#aaaaaa>%cpugovernor%</fc>  <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
+  , template = "%_XMONAD_LOG_1% }{ %coretemp%  <fc=#aaaaaa>󰈐 %fanspeed%</fc>  <fc=#aaaaaa>%memory%</fc>  %disku%  %battery%  %date% %trayerpad%"
   }
