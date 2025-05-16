@@ -1,0 +1,83 @@
+[general]
+live_config_reload = true
+
+[env]
+WINIT_X11_SCALE_FACTOR = "1.0"
+# WINIT_HIDPI_FACTOR = "1.0"
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = '#32302f'
+blue = '#7daea3'
+cyan = '#89b482'
+green = '#a9b665'
+magenta = '#d3869b'
+red = '#ea6962'
+white = '#d4be98'
+yellow = '#d8a657'
+
+[colors.cursor]
+cursor = '0xe9e9f4'
+text = '0x282936'
+
+[colors.normal]
+black = '#32302f'
+blue = '#7daea3'
+cyan = '#89b482'
+green = '#a9b665'
+magenta = '#d3869b'
+red = '#ea6962'
+white = '#d4be98'
+yellow = '#d8a657'
+
+[colors.primary]
+background = '#1d2021'
+foreground = '#d4be98'
+
+[font]
+size = 10.0
+
+[font.normal]
+family = 'JetBrainsMono Nerd Font'
+# family = 'FiraMono Nerd Font'
+# style = 'Retina'
+
+[keyboard]
+
+# Ctrl+V enables VISUAL-BLOCK mode in vim
+# [[keyboard.bindings]]
+# action = "Paste"
+# key = 'V'
+# mods = 'Control'
+
+#[[keyboard.bindings]]
+#chars = "\u001Bb"
+#key = 'Left'
+#mods = 'Alt'
+
+#[[keyboard.bindings]]
+#chars = "\u001Bf"
+#key = 'Right'
+#mods = 'Alt'
+
+#[[keyboard.bindings]]
+#chars = '€'
+#key = 'Key2'
+#mods = 'Alt'
+
+#[[keyboard.bindings]]
+#chars = '#'
+#key = 'Key3'
+#mods = 'Alt'
+
+#[[keyboard.bindings]]
+#command = 'alacritty_new_window_same_dir.sh'
+#key = 'N'
+#mods = 'Control'
+
+[selection]
+save_to_clipboard = true
+
+[window]
