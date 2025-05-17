@@ -1,0 +1,12 @@
+height=30%
+hide_scroll=false
+insensitive=true
+location=2
+matching=fuzzy
+mode=run
+prompt=
+term=alacritty
+width=40%
+yoffset=300
+line_wrap=word
+signle_click=true
