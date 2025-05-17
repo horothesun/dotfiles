@@ -94,9 +94,13 @@ button:hover {
 #mode,
 #window,
 #clock,
-#wireplumber,
 #tray,
-#load {
+#disk {
+    padding: 0 10px;
+    background-color: #282828;
+    color: #ebdbb2;
+}
+#temperature {
     padding: 0 10px;
     background-color: #282828;
     color: #ebdbb2;
