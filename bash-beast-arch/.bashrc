@@ -32,4 +32,6 @@ PS1='[\u@\h \W]\$ '
 eval "$(ssh-agent)" > /dev/null
 SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" ssh-add "${HOME}/.ssh/horothesun" &> /dev/null
 
+eval "$(fzf --bash)"
+
 PATH=$PATH:$HOME/bin
