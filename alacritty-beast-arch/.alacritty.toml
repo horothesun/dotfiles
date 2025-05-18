@@ -41,8 +41,7 @@ size = 10.0
 
 [font.normal]
 family = 'JetBrainsMono Nerd Font'
-# family = 'FiraMono Nerd Font'
-# style = 'Retina'
+#family = 'FiraCode Nerd Font'
 
 [keyboard]
 
