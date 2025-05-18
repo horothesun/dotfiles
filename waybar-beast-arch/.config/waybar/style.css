@@ -4,8 +4,6 @@
 }
 
 window#waybar {
-    /* `otf-font-awesome` is required to be installed for icons */
-    /* font-family: FontAwesome, monospace; */
     font-family: JetBrainsMono Nerd Font, monospace;
     background-color: transparent;
     border-bottom: 0px;
@@ -104,27 +102,10 @@ button:hover {
 #window,
 #clock,
 #tray,
-
-#systemd-failed-units {
-    padding: 0 10px;
-    background-color: #282828;
-    color: #ebdbb2;
-}
-#disk {
-    padding: 0 10px;
-    background-color: #282828;
-    color: #ebdbb2;
-}
-#temperature {
-    padding: 0 10px;
-    background-color: #282828;
-    color: #ebdbb2;
-}
-#cpu {
-    padding: 0 10px;
-    background-color: #282828;
-    color: #ebdbb2;
-}
+#systemd-failed-units,
+#disk,
+#temperature,
+#cpu,
 #memory {
     padding: 0 10px;
     background-color: #282828;
@@ -154,23 +135,8 @@ button:hover {
     }
 }
 
-/* Using steps() instead of linear as a timing function to limit cpu usage */
-#battery.critical:not(.charging) {
-    background-color: #cc241d;
-    color: #ebdbb2;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: steps(12);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
 label:focus {
     background-color: #000000;
-}
-
-#wireplumber.muted {
-    background-color: #458588;
 }
 
 #tray > .passive {
@@ -181,15 +147,6 @@ label:focus {
     -gtk-icon-effect: highlight;
 }
 
-#mpris.playing {
-    background-color: #d79921;
-    color: #282828;
-}
-
 #tray menu {
     font-family: sans-serif;
-}
-
-#scratchpad.empty {
-    background: transparent;
 }
