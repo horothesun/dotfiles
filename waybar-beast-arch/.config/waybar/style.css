@@ -95,6 +95,12 @@ button:hover {
 #window,
 #clock,
 #tray,
+
+#systemd-failed-units {
+    padding: 0 10px;
+    background-color: #282828;
+    color: #ebdbb2;
+}
 #disk {
     padding: 0 10px;
     background-color: #282828;

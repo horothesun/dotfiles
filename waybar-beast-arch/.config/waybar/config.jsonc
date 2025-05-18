@@ -12,6 +12,7 @@
     "modules-center": [
     ],
     "modules-right": [
+        "systemd-failed-units",
         "temperature#amdgpu",
         "cpu",
         "memory",
@@ -21,6 +22,29 @@
         "tray"
     ],
     // Modules configuration
+    "clock": {
+        "interval": 1,
+        "format": "{:%a %d %h | %H:%M:%S}",
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "disk": {
+        "format": "{specific_used:0.1f}GB ",
+        "unit": "GB",
+        "tooltip": false
+    },
+    "hyprland/submap": {
+        "format": "{}"
+    },
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 100,
+        "all-outputs": true,
+        "tooltip": false
+    },
     "hyprland/workspaces": {
         "persistent-workspaces": {
           "1": [],
@@ -37,35 +61,15 @@
         "enable-bar-scroll": true,
         "disable-scroll-wraparound": true
     },
-    "hyprland/window": {
-        "format": "{title}",
-        "max-length": 100,
-        "all-outputs": true,
-        "tooltip": false
-    },
-    "hyprland/submap": {
-        "format": "{}"
-    },
-    "tray": {
-        "icon-size": 14,
-        "spacing": 10
-    },
-    "clock": {
-        "interval": 1,
-        "format": "{:%a %d %h | %H:%M:%S}",
-        "tooltip": false
-    },
-    "disk": {
-        "format": "{specific_used:0.1f}GB ",
-        "unit": "GB",
-        "tooltip": false
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
     "memory": {
         "format": "{percentage}% "
+    },
+    "systemd-failed-units": {
+        "hide-on-ok": false, // Do not hide if there is zero failed units
+        "format": "  sys {nr_failed_system}, user {nr_failed_system}",
+        "format-ok": "✓",
+        "system": true, // Monitor failed systemwide units
+        "user": true // Ignore failed user units
     },
     "temperature#nvme": {
         "format": "{temperatureC}°C ",
@@ -73,8 +77,13 @@
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:01:00.0/nvme/nvme0/hwmon0/temp1_input"
     },
     "temperature#amdgpu": {
+        "interval": 5,
         "format": "{temperatureC}°C ",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0c:00.0/hwmon/hwmon1/temp1_input"
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
     }
 }]
