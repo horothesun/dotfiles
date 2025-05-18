@@ -34,4 +34,6 @@ SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" ssh-add "${HOM
 
 eval "$(fzf --bash)"
 
+eval "$(starship init bash)"
+
 PATH=$PATH:$HOME/bin
