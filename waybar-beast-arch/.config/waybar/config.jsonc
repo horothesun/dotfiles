@@ -6,10 +6,10 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/submap",
-        "hyprland/window"
+        "hyprland/submap"
     ],
     "modules-center": [
+        "hyprland/window"
     ],
     "modules-right": [
         "systemd-failed-units",
@@ -25,7 +25,7 @@
     // Modules configuration
     "clock": {
         "interval": 1,
-        "format": "{:%a %d %h | %H:%M:%S}",
+        "format": "{:%a %d %h, %H:%M:%S}",
         "tooltip": false
     },
     "cpu": {
@@ -70,13 +70,14 @@
         "scroll-step": 1.0
     },
     "systemd-failed-units": {
-        "hide-on-ok": false, // Do not hide if there is zero failed units
+        "hide-on-ok": false,
         "format": "  sys {nr_failed_system}, user {nr_failed_system}",
         "format-ok": "✓",
         "system": true, // Monitor failed systemwide units
         "user": true // Ignore failed user units
     },
     "temperature#nvme": {
+        "interval": 5,
         "format": "{temperatureC}°C ",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:01:00.0/nvme/nvme0/hwmon0/temp1_input"
