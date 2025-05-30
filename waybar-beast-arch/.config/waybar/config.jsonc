@@ -65,7 +65,7 @@
         "format": "{volume}% {icon}",
         "format-muted": "",
         "format-icons": ["", ""],
-        //"on-click": "helvum",
+        "on-click": "uwsm app -- pavucontrol",
         "max-volume": 100,
         "scroll-step": 1.0
     },
