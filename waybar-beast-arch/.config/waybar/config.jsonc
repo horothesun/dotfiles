@@ -33,7 +33,7 @@
         "tooltip": false
     },
     "disk": {
-        "format": "{specific_used:0.0f}GB ",
+        "format": "{specific_used:0.0f}G ",
         "unit": "GB",
         "tooltip": false
     },
