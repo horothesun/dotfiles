@@ -25,7 +25,7 @@
     // Modules configuration
     "clock": {
         "interval": 1,
-        "format": "{:%a %d %h, %d:%M:%S}",
+        "format": "{:%a %d %h, %H:%M:%S}",
         "tooltip": false
     },
     "cpu": {
