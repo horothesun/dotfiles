@@ -13,7 +13,7 @@
     ],
     "modules-right": [
         "systemd-failed-units",
-        "temperature#amdgpu",
+        "temperature#cpu",
         "cpu",
         "memory",
         "temperature#nvme",
@@ -25,7 +25,7 @@
     // Modules configuration
     "clock": {
         "interval": 1,
-        "format": "{:%a %d %h, %H:%M:%S}",
+        "format": "{:%a %d %h, %k:%M:%S}",
         "tooltip": false
     },
     "cpu": {
@@ -76,17 +76,17 @@
         "system": true, // Monitor failed systemwide units
         "user": true // Ignore failed user units
     },
+    "temperature#cpu": {
+        "interval": 5,
+        "format": "{temperatureC}°C ",
+        "tooltip": false,
+        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
+    },
     "temperature#nvme": {
         "interval": 5,
         "format": "{temperatureC}°C ",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:01:00.0/nvme/nvme0/hwmon0/temp1_input"
-    },
-    "temperature#amdgpu": {
-        "interval": 5,
-        "format": "{temperatureC}°C ",
-        "tooltip": false,
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0c:00.0/hwmon/hwmon1/temp1_input"
     },
     "tray": {
         "icon-size": 14,
