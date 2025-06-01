@@ -30,12 +30,12 @@
     },
     "cpu": {
         "interval": 2,
-        "format": "{usage}% ",
+        "format": "  {usage}%",
         "tooltip": false
     },
     "disk": {
         "interval": 5,
-        "format": "{specific_used:0.0f}G ",
+        "format": "  {specific_used:0.0f}G",
         "unit": "GB",
         "tooltip": false
     },
@@ -62,10 +62,10 @@
     },
     "memory": {
         "interval": 2,
-        "format": "{percentage}% "
+        "format": "  {percentage}%"
     },
     "wireplumber": {
-        "format": "{volume}% {icon}",
+        "format": "{icon}  {volume}%",
         "format-muted": "",
         "format-icons": ["", ""],
         "on-click": "uwsm app -- pavucontrol",
@@ -81,13 +81,13 @@
     },
     "temperature#cpu": {
         "interval": 2,
-        "format": "{temperatureC}°C ",
+        "format": "  {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
     },
     "temperature#nvme": {
         "interval": 5,
-        "format": "{temperatureC}°C ",
+        "format": "  {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:01:00.0/nvme/nvme0/hwmon0/temp1_input"
     },
