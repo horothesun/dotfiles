@@ -29,15 +29,29 @@ function clean_java_instances() {
 }
 
 
-alias cl=clear
+alias cl="clear"
+alias l="ls -lah --color=auto"
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias bat="bat --style=plain"
 
+# git aliases
+alias gcl="git clone --recurse-submodules"
+alias gb="git branch"
+alias gbD="git branch --delete --force"
+alias gco="git checkout"
+alias gfa="git fetch --all --tags --prune --jobs=10"
+alias gl="git pull"
+alias gst="git status"
+alias ga="git add"
+alias gaa="git add --all"
+alias gc="git commit --verbose"
+alias gp="git push"
+
+alias vi="nvim"
 
 #alias xcopy="xclip -rmlastnl -selection clipboard"
 #alias xpaste="xsel --clipboard"
-
-
-alias vi=nvim
-
 
 alias rg="rg --hidden"
 
@@ -63,12 +77,9 @@ function pull_all_repos() {
 }
 
 
-# start ssh agent
-eval "$(ssh-agent)" > /dev/null
-
 # GitHub SSH key
-SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" \
-  ssh-add "${HOME}/.ssh/horothesun" &> /dev/null
+eval "$(ssh-agent)" > /dev/null
+SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" ssh-add "${HOME}/.ssh/horothesun" &> /dev/null
 
 
 # starship
@@ -77,6 +88,9 @@ eval "$(starship init zsh)"
 
 # fzf
 source <(fzf --zsh)
+
+
+PATH=$PATH:$HOME/bin
 
 
 alias gdh="gdiff HEAD"
