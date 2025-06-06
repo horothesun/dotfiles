@@ -1,4 +1,5 @@
-#export ZSH="$HOME/.oh-my-zsh"
+# Path to your Oh My Zsh installation.
+ZSH="/usr/share/oh-my-zsh/"
 
 ZSH_THEME="robbyrussell"
 
@@ -7,15 +8,28 @@ plugins=(
   web-search
 )
 
-#source "${ZSH}/oh-my-zsh.sh"
+ZSH_CACHE_DIR="${HOME}/.cache/oh-my-zsh"
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
+
+source "${ZSH}/oh-my-zsh.sh"
 
 
-setopt share_history
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+#setopt NOTIFY
+#setopt NOHUP
+#setopt MAILWARN
+
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE=5000
+SAVEHIST=5000
 
 # mill (JVM build tool):
 # `[_]` is a pattern used in mill, by default it's a default zsh match pattern.
 # Avoid the collision with the following zsh config.
-unsetopt nomatch
+unsetopt NOMATCH
 
 
 # used by gh
@@ -34,21 +48,14 @@ alias l="ls -lah --color=auto"
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias bat="bat --style=plain"
-
-# git aliases
-alias gcl="git clone --recurse-submodules"
-alias gb="git branch"
-alias gbD="git branch --delete --force"
-alias gco="git checkout"
-alias gfa="git fetch --all --tags --prune --jobs=10"
-alias gl="git pull"
-alias gst="git status"
-alias ga="git add"
-alias gaa="git add --all"
-alias gc="git commit --verbose"
-alias gp="git push"
-
 alias vi="nvim"
+
+alias gdh="gdiff HEAD"
+
+function gdiff() {
+  GDIFF_PREVIEW="git diff $@ --color=always -- {-1}"
+  git diff $@ --name-only | fzf -m --ansi --preview-window 'top,85%,wrap' --preview "${GDIFF_PREVIEW}"
+}
 
 #alias xcopy="xclip -rmlastnl -selection clipboard"
 #alias xpaste="xsel --clipboard"
@@ -91,14 +98,6 @@ source <(fzf --zsh)
 
 
 PATH=$PATH:$HOME/bin
-
-
-alias gdh="gdiff HEAD"
-
-function gdiff() {
-  GDIFF_PREVIEW="git diff $@ --color=always -- {-1}"
-  git diff $@ --name-only | fzf -m --ansi --preview-window 'top,85%,wrap' --preview "${GDIFF_PREVIEW}"
-}
 
 
 # tldr's apt version's very old and --update doesn't work
