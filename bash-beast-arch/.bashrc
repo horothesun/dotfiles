@@ -14,6 +14,7 @@ alias bat='bat --style=plain'
 # git aliases
 alias gcl='git clone --recurse-submodules'
 alias gb='git branch'
+alias gbr='git branch --remote'
 alias gbD='git branch --delete --force'
 alias gco='git checkout'
 alias gfa='git fetch --all --tags --prune --jobs=10'
