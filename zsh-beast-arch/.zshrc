@@ -107,7 +107,7 @@ function get_monitor_stats() {
         split(" ")
       | map(select(. != ""))
       | {
-          "\(.[3] | split("(")[1])": {
+          "\(.[3] | split("(")[1] | ascii_downcase)": {
             "value": .[8] | split(",")[0] | tonumber,
             "max": .[12] | tonumber
             }
