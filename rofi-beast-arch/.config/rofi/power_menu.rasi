@@ -1,13 +1,9 @@
 configuration {
   font: "JetBrainsMono Nerd Font 15";
-  show-icons: true;
+  show-icons: false;
   timeout {
     action: "kb-cancel";
     delay: 0;
-  }
-  filebrowser {
-    directories-first: true;
-    sorting-method: "name";
   }
 }
 
@@ -23,16 +19,9 @@ element {
   enabled: true;
   spacing: 10px;
   margin: 0px;
-  padding: 5px 10px;
+  padding: 10px 0px 10px 24px;
   border: 0px;
   border-radius: 18px;
-}
-//element selected.normal {
-//  background-color: #162022;
-//  text-color: white;
-//}
-element-icon {
-  size: 32px;
 }
 element-text {
   vertical-align: 0.5;
