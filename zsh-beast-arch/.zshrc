@@ -100,6 +100,22 @@ source <(fzf --zsh)
 PATH=$PATH:$HOME/bin
 
 
+# get external monitor brightness/contrast
+function get_monitor_stats() {
+  ddcutil getvcp 10 12 |\
+    jq --raw-input --raw-output '
+        split(" ")
+      | map(select(. != ""))
+      | {
+          "\(.[3] | split("(")[1])": {
+            "value": .[8] | split(",")[0] | tonumber,
+            "max": .[12] | tonumber
+            }
+        }' |\
+    jq --slurp 'add'
+}
+
+
 # tldr's apt version's very old and --update doesn't work
 function update_tldr() {
   echo "update_tldr BEGIN"
