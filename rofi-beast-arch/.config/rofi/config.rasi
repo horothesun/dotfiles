@@ -15,25 +15,29 @@ configuration {
 
 window {
   width: 30%;
-  border-radius: 18px;
+  border-radius: 8px;
+}
+
+listview {
+  fixed-height: false;
+  dynamic: true;
+  scrollbar: true;
 }
 
 element {
   enabled: true;
-  spacing: 10px;
+  spacing: 0px;
   margin: 0px;
-  padding: 5px 10px;
+  padding: 5px 0px 5px 20px;
   border: 0px;
-  border-radius: 18px;
 }
-//element selected.normal {
-//  background-color: #162022;
-//  text-color: white;
-//}
+
 element-icon {
   size: 40px;
 }
+
 element-text {
   vertical-align: 0.5;
   horizontal-align: 0.0;
+  padding: 0px 0px 0px 20px;
 }
