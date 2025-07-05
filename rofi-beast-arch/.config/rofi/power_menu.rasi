@@ -1,6 +1,6 @@
 configuration {
   font: "JetBrainsMono Nerd Font 15";
-  show-icons: false;
+  show-icons: true;
   timeout {
     action: "kb-cancel";
     delay: 0;
@@ -10,23 +10,32 @@ configuration {
 @theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
 
 window {
-  height: 18%;
   width: 12%;
   border-radius: 18px;
+}
+
+listview {
+  fixed-height: false;
+  dynamic: true;
+  columns: 1;
+  scrollbar: false;
 }
 
 element {
   enabled: true;
   spacing: 10px;
   margin: 0px;
-  padding: 10px 0px 10px 30px;
+  padding: 10px 0px 10px 20px;
   border: 0px;
-  border-radius: 18px;
+  border-radius: 8px;
 }
+
+element-icon {
+  size: 32px;
+}
+
 element-text {
   vertical-align: 0.5;
   horizontal-align: 0.0;
-}
-listview {
-  scrollbar: false;
+  padding: 0px 0px 0px 10px;
 }
