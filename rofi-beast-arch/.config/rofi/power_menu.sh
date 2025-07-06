@@ -3,7 +3,7 @@
 POWER_MENU_OPTIONS=(
   shutdown
   reboot
-  #suspend
+  suspend
   #hibernate
   logout
   lockscreen
