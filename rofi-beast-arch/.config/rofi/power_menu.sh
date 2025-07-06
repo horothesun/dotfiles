@@ -1,6 +1,13 @@
 #!/bin/bash
 
-POWER_MENU_OPTIONS=(shutdown reboot suspend hibernate logout lockscreen)
+POWER_MENU_OPTIONS=(
+  shutdown
+  reboot
+  #suspend
+  #hibernate
+  logout
+  lockscreen
+)
 POWER_MENU_OPTIONS_LENGTH=${#POWER_MENU_OPTIONS[@]}
 
 declare -A ICONS
