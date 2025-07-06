@@ -4,12 +4,20 @@ POWER_MENU_OPTIONS=(shutdown reboot suspend hibernate logout lockscreen)
 POWER_MENU_OPTIONS_LENGTH=${#POWER_MENU_OPTIONS[@]}
 
 declare -A ICONS
-ICONS[shutdown]="<span color='#cc241d'></span>"
-ICONS[reboot]="<span color='#d65d0e'>󰜉</span>"
-ICONS[suspend]="<span color='#b16286'>󰒲</span>"
-ICONS[hibernate]="<span color='#458588'>󰋊</span>"
-ICONS[logout]="<span color='#d79921'>󰍃</span>"
-ICONS[lockscreen]="<span color='#689d6a'>󰌾</span>"
+ICONS[shutdown]=""
+ICONS[reboot]="󰜉"
+ICONS[suspend]="󰒲"
+ICONS[hibernate]="󰋊"
+ICONS[logout]="󰍃"
+ICONS[lockscreen]="󰌾"
+
+declare -A ICON_COLORS
+ICON_COLORS[shutdown]="#cc241d"
+ICON_COLORS[reboot]="#d65d0e"
+ICON_COLORS[suspend]="#b16286"
+ICON_COLORS[hibernate]="#458588"
+ICON_COLORS[logout]="#d79921"
+ICON_COLORS[lockscreen]="#689d6a"
 
 declare -A LABELS
 LABELS[shutdown]="Shutdown"
@@ -30,7 +38,10 @@ ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID-}"
 SEP=""
 SELECTED_INDEX=$(
   for key in "${POWER_MENU_OPTIONS[@]}"; do
-    printf "%s%s\0icon\x1f%s" "${SEP}" "${LABELS[${key}]}" "${ICONS[$key]}"
+    printf "%s%s\0icon\x1f%s" \
+      "${SEP}" \
+      "${LABELS[${key}]}" \
+      "<span color='${ICON_COLORS[${key}]}'>${ICONS[${key}]}</span>"
     SEP="|"
   done | \
   rofi \
