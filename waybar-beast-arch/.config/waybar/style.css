@@ -119,6 +119,29 @@ button:hover {
     /* box-shadow: inset 0 -3px #ffffff; */
 }
 
+#window {
+    padding: 0 10px;
+    background-color: #282828;
+}
+
+#temperature.nvme,
+#disk {
+    background-color: #076678;
+}
+
+#temperature.cpu,
+#cpu {
+    background-color: #8f3f71;
+}
+
+/* #wireplumber {
+    background-color: #79740e;
+} */
+
+#memory {
+    background-color: #427b58;
+}
+
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
