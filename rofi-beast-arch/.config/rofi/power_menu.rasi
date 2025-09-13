@@ -1,0 +1,40 @@
+configuration {
+  font: "JetBrainsMono Nerd Font 15";
+  show-icons: true;
+  timeout {
+    action: "kb-cancel";
+    delay: 0;
+  }
+}
+
+@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
+
+window {
+  width: 10%;
+  border-radius: 8px;
+}
+
+listview {
+  fixed-height: false;
+  dynamic: true;
+  columns: 1;
+  scrollbar: false;
+}
+
+element {
+  enabled: true;
+  spacing: 0px;
+  margin: 0px;
+  padding: 10px 0px 10px 20px;
+  border: 0px;
+}
+
+element-icon {
+  size: 32px;
+}
+
+element-text {
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+  padding: 0px 0px 0px 20px;
+}

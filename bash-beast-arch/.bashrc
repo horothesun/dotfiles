@@ -14,6 +14,7 @@ alias bat='bat --style=plain'
 # git aliases
 alias gcl='git clone --recurse-submodules'
 alias gb='git branch'
+alias gbr='git branch --remote'
 alias gbD='git branch --delete --force'
 alias gco='git checkout'
 alias gfa='git fetch --all --tags --prune --jobs=10'
@@ -31,5 +32,9 @@ PS1='[\u@\h \W]\$ '
 # GitHub SSH key
 eval "$(ssh-agent)" > /dev/null
 SSH_ASKPASS_REQUIRE="force" SSH_ASKPASS="${HOME}/.ssh/askpass.sh" ssh-add "${HOME}/.ssh/horothesun" &> /dev/null
+
+eval "$(fzf --bash)"
+
+eval "$(starship init bash)"
 
 PATH=$PATH:$HOME/bin

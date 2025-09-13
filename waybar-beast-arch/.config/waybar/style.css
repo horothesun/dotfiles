@@ -1,0 +1,176 @@
+* {
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+window#waybar {
+    font-family: JetBrainsMono Nerd Font Propo, monospace;
+    background-color: transparent;
+    border-bottom: 0px;
+    color: #ebdbb2;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+.modules-right {
+    margin: 0px 0px 0 0;
+}
+.modules-center {
+    margin: 0px 0 0 0;
+}
+.modules-left {
+    margin: 0px 0 0 0px;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    /* box-shadow: inset 0 -3px transparent; */
+    border: none;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+/*
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ebdbb2;
+} */
+
+#workspaces {
+    background-color: #282828;
+}
+
+/* non-empty workspaces */
+#workspaces button {
+    background-color: #665c54;
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+
+    color: #ebdbb2;
+    transition: all 0.1s ease;
+
+    border: none;
+    border-radius: 4px;
+}
+
+#workspaces button:hover {
+    /* transition-duration: .1s; */
+    color: #eceff4;
+    box-shadow: inset 0 -2px #ffffff;
+    /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+    text-shadow: inherit;
+}
+
+/* non-empty non-visible persistent workspaces */
+#workspaces button.persistent {
+    background-color: #504945;
+}
+
+/* empty non-visible persistent workspaces */
+#workspaces button.empty {
+    background-color: #282828;
+}
+
+/* active or visible workspaces */
+#workspaces button.active,
+#workspaces button.visible {
+    background-color: #7c6f64;
+    /* box-shadow: inset 0 -4px #d5c4a1; */
+}
+
+#workspaces button.urgent {
+    color: #bf616a;
+}
+
+#mode,
+#window,
+#clock,
+#tray,
+#systemd-failed-units,
+#disk,
+#temperature,
+#cpu,
+#wireplumber,
+#memory {
+    padding: 0 10px;
+    background-color: #282828;
+    color: #ebdbb2;
+}
+
+#mode {
+    background-color: #689d6a;
+    color: #282828;
+    /* box-shadow: inset 0 -3px #ffffff; */
+}
+
+#window {
+    padding: 0 10px;
+    background-color: #282828;
+}
+
+#temperature.nvme,
+#disk {
+    background-color: #076678;
+}
+
+#temperature.cpu,
+#cpu {
+    background-color: #8f3f71;
+}
+
+/* #wireplumber {
+    background-color: #79740e;
+} */
+
+#memory {
+    background-color: #427b58;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+@keyframes blink {
+    to {
+        background-color: #282828;
+        color: #ebdbb2;
+    }
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#tray menu {
+    font-family: sans-serif;
+}
