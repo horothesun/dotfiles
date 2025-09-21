@@ -1,0 +1,7 @@
+require('gitsigns').setup()
+vim.keymap.set('n', '[h', ":Gitsigns prev_hunk<CR>", buf_opts)
+vim.keymap.set('n', ']h', ":Gitsigns next_hunk<CR>", buf_opts)
+vim.keymap.set('n', '<leader>hp', ":Gitsigns preview_hunk_inline<CR>", buf_opts)
+vim.keymap.set('n', '<leader>hr', ":Gitsigns reset_hunk<CR>", buf_opts)
+vim.keymap.set('n', '<leader>hs', ":Gitsigns stage_hunk<CR>", buf_opts)
+vim.keymap.set('n', '<leader>hu', ":Gitsigns undo_stage_hunk<CR>", buf_opts)

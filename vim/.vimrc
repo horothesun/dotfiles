@@ -73,9 +73,9 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdcommenter'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -83,14 +83,29 @@ Plug 'vimwiki/vimwiki'
 " Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
 
 " Telescope
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate c lua vim' }
+" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate c lua vim' }
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+Plug 'lewis6991/gitsigns.nvim'
+
 Plug 'nvim-lua/plenary.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'scalameta/nvim-metals'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'hrsh7th/nvim-cmp'              " Core completion framework
+Plug 'hrsh7th/cmp-nvim-lsp'          " LSP completion source
+Plug 'L3MON4D3/LuaSnip'              " Lua-based snippet engine
+Plug 'saadparwaiz1/cmp_luasnip'      " LuaSnip completion source
+Plug 'j-hui/fidget.nvim'             " Neovim notifications and LSP progress messages
+Plug 'ray-x/lsp_signature.nvim'      " show function signature when typing
 
 " Color schemes
-Plug 'gruvbox-community/gruvbox'
-" Plug 'sainnhe/gruvbox-material'
+" Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 " Plug 'phanviet/vim-monokai-pro'
 " Plug 'flazz/vim-colorschemes'
 
@@ -101,21 +116,30 @@ call plug#end()
 " \ 'coc-go',
 " \ 'coc-metals',
 " \ 'coc-tsserver',
-let g:coc_global_extensions = [
-  \ 'coc-json',
-  \ 'coc-markdownlint',
-  \ 'coc-sh',
-  \ 'coc-sumneko-lua'
-  \ ]
+" let g:coc_global_extensions = [
+"   \ 'coc-json',
+"   \ 'coc-markdownlint',
+"   \ 'coc-sh',
+"   \ 'coc-sumneko-lua'
+"   \ ]
 
 " VimWiki
-let g:vimwiki_list = [
-  \ { 'path': '~/vimwiki/personal/', 'syntax': 'markdown', 'ext': '.md' },
-  \ { 'path': '~/vimwiki/work/',     'syntax': 'markdown', 'ext': '.md' }
-  \ ]
-let g:vimwiki_global_ext = 0
-let g:vimwiki_markdown_link_ext = 1
+" let g:vimwiki_list = [
+"   \ { 'path': '~/vimwiki/personal/', 'syntax': 'markdown', 'ext': '.md' },
+"   \ { 'path': '~/vimwiki/work/',     'syntax': 'markdown', 'ext': '.md' }
+"   \ ]
+" let g:vimwiki_global_ext = 0
+" let g:vimwiki_markdown_link_ext = 1
 
+
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox
+" set background=dark
+
+set background=dark
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
 
 
 " https://shapeshed.com/vim-statuslines/
@@ -139,11 +163,6 @@ au BufRead,BufNewFile *.sbt,*.sc,*.scala set filetype=scala
 " Help Vim recognize *.tf as Terraform files
 au BufRead,BufNewFile *.tf set filetype=tf
 
-
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox
-set background=dark
-
 if executable('rg')
   let g:rg_derive_root='true'
 endif
@@ -159,6 +178,16 @@ let g:netrw_winsize = 25
 nnoremap <leader>pv :topleft wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
 
+" keep previously yanked text in the registry
+"
+" paste in VISUAL-mode
+xnoremap <leader>p "_dP
+" delete in NORMAL-mode
+nnoremap <leader>d "_d
+" delete in VISUAL/SELECT-mode
+vnoremap <leader>d "_d
+
+
 " replace all
 nnoremap <leader>s :%s//gc<Left><Left><Left>
 
@@ -168,8 +197,10 @@ nnoremap Y y$
 
 
 " keeping it centered
-" nnoremap n nzz
-" nnoremap N Nzz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
 " nnoremap J mzJ`z
 
 
@@ -187,67 +218,6 @@ inoremap ? ?<C-g>u
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.94, 'relative': v:true, 'yoffset': 0.9 } }
 " let g:fzf_preview_window = ['right:50%']
 
-" Telescope
-lua <<EOF
-require('telescope').setup {
-  defaults = {
-    file_sorter = require('telescope.sorters').get_fzy_sorter,
-    prompt_prefix = '> ',
-    color_devicons = true,
-    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-    -- vimgrep_arguments = {
-    --   'rg',
-    --   '--color=never',
-    --   '--no-heading',
-    --   '--with-filename',
-    --   '--line-number',
-    --   '--column',
-    --   '--smart-case',
-    --   '--unrestricted', -- disable .gitignore handling
-    --   '--unrestricted'  -- search hidden files and directories
-    -- },
-    layout_config = { width = 0.9, height = 0.9 },
-    mappings = {
-      i = {
-        ['<esc>'] = require('telescope.actions').close,
-      }
-    },
-    file_ignore_patterns = {
-      ".git/",
-      ".idea/",
-      ".metals/",
-      ".bloop/",
-      "node_modules/"
-    }
-  },
-  pickers = {
-    find_files = { hidden = true },
-    live_grep = {
-      additional_args = function(opts)
-        return { "--hidden" }
-      end
-    }
-  },
-  extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true
-    }
-  }
-}
-require('telescope').load_extension('fzy_native')
-EOF
-
-" Telescope remaps
-nnoremap <C-p> <cmd>Telescope live_grep<CR>
-nnoremap <leader>ff <cmd>Telescope find_files<CR>
-nnoremap <leader>fb <cmd>Telescope buffers<CR>
-nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-nnoremap <leader>fe <cmd>luafile ~/.config/nvim/pickers/emoji_picker.lua<CR>
-nnoremap <leader>fs <cmd>luafile ~/.config/nvim/pickers/symbol_picker.lua<CR>
-
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -259,42 +229,53 @@ nnoremap <leader>- :vertical resize -5<CR>
 inoremap <C-c> <esc>
 
 
+" TODO: replace with native LSP commands
+"
 " GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <silent> g[ <Plug>(coc-diagnostic-prev)
-nmap <silent> g] <Plug>(coc-diagnostic-next)
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <leader>rn <Plug>(coc-rename)
+" nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+" nmap <silent> g] <Plug>(coc-diagnostic-next)
+"
 "nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 "nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 
+" TODO: replace with native LSP commands
+"
 " Fix autofix problem of current line
-nmap <leader>qf <Plug>(coc-fix-current)
+" nmap <leader>qf <Plug>(coc-fix-current)
 
+" TODO: replace with native LSP commands
+"
 " Remap for do codeAction of current line
-xmap <leader>a <Plug>(coc-codeaction-line)
-nmap <leader>a <Plug>(coc-codeaction-line)
+" xmap <leader>a <Plug>(coc-codeaction-line)
+" nmap <leader>a <Plug>(coc-codeaction-line)
 
+" TODO: replace with native LSP commands
+"
 " Use K to either doHover or show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
 
+" TODO: replace with native LSP commands
+"
 " Customise autocomplete popup menu behaviour
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
+" inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 
-nnoremap <leader>cr :CocRestart<CR>
+" nnoremap <leader>cr :CocRestart<CR>
 
 
 " Disable arrow keys
@@ -342,3 +323,6 @@ let g:NERDToggleCheckAllLines = 1
 
 nmap <leader>cc <Plug>NERDCommenterToggle
 vmap <leader>cc <Plug>NERDCommenterToggle
+
+" Load Lua setup
+lua require('setup1')
