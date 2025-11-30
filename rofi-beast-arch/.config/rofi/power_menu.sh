@@ -39,8 +39,8 @@ ACTIONS[shutdown]="systemctl poweroff"
 ACTIONS[reboot]="systemctl reboot"
 ACTIONS[suspend]="systemctl suspend"
 ACTIONS[hibernate]="systemctl hibernate"
-ACTIONS[logout]="hyprctl dispatch exit"
-ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID-}"
+ACTIONS[logout]="loginctl kill-session ${XDG_SESSION_ID}"
+ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID}"
 
 SEP=""
 SELECTED_INDEX=$(
