@@ -20,6 +20,7 @@
         "disk",
         "wireplumber",
         "clock",
+        "bluetooth",
         "tray"
     ],
     // Modules configuration
@@ -91,6 +92,15 @@
         "format": " {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:01:00.0/nvme/nvme0/hwmon0/temp1_input"
+    },
+    "bluetooth": {
+        "format": "",
+       	"format-disabled": "󰂲",
+       	"format-connected": "󰂱 ({num_connections})",
+        "on-click": "uwsm app -- alacritty --command bluetui",
+       	"tooltip-format": "{controller_alias}\t{controller_address}",
+       	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+       	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
     },
     "tray": {
         "icon-size": 14,

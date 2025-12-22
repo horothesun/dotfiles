@@ -107,6 +107,7 @@ button:hover {
 #temperature,
 #cpu,
 #wireplumber,
+#bluetooth,
 #memory {
     padding: 0 10px;
     background-color: #282828;
