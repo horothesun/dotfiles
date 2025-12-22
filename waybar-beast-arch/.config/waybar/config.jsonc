@@ -95,6 +95,8 @@
     },
     "bluetooth": {
         "format": "",
+        "format-on": "",
+       	"format-off": "󰂲",
        	"format-disabled": "󰂲",
        	"format-connected": "󰂱 {num_connections}",
         "on-click": "uwsm app -- alacritty --command bluetui",
