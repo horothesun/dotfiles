@@ -96,11 +96,11 @@
     "bluetooth": {
         "format": "",
        	"format-disabled": "󰂲",
-       	"format-connected": "󰂱 ({num_connections})",
+       	"format-connected": "󰂱 {num_connections}",
         "on-click": "uwsm app -- alacritty --command bluetui",
-       	"tooltip-format": "{controller_alias}\t{controller_address}",
-       	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-       	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+       	"tooltip-format": "{controller_alias}",
+       	"tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+       	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}% 󰥈"
     },
     "tray": {
         "icon-size": 14,
