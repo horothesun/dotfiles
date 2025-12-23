@@ -99,7 +99,7 @@
        	"format-off": "󰂲",
        	"format-disabled": "󰂲",
        	"format-connected": "󰂱 {num_connections}",
-        "on-click": "uwsm app -- alacritty --command bluetui",
+        "on-click": "uwsm app -- alacritty --title bluetui --command bluetui",
        	"tooltip-format": "{controller_alias}",
        	"tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
        	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}% 󰥈"
