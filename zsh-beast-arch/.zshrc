@@ -99,6 +99,8 @@ source <(fzf --zsh)
 
 PATH=$PATH:$HOME/bin
 
+PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+
 
 # get external monitor brightness/contrast
 function get_monitor_stats() {
