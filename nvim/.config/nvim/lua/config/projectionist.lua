@@ -3,12 +3,12 @@ local M = {}
 
 vim.g.projectionist_heuristics = {
   ["stack.yaml"] = {
-    -- from src/Foo.hs -> test/FooSpec.hs
+    -- source -> test
     ["src/*.hs"] = {
       alternate = "test/{}Spec.hs",
       type = "source",
     },
-    -- from test/FooSpec.hs -> src/Foo.hs
+    -- test -> source
     ["test/*Spec.hs"] = {
       alternate = "src/{}.hs",
       type = "test",
@@ -16,18 +16,28 @@ vim.g.projectionist_heuristics = {
   },
 
   ["build.sbt"] = {
+    -- source -> test
     ["src/main/scala/*.scala"] = {
-      alternate = "src/test/scala/{}Spec.scala",
+      alternate = {
+        "src/test/scala/{}Spec.scala",
+        "src/test/scala/{}Suite.scala",
+      },
       type = "source",
     },
+    -- *Spec test -> source
     ["src/test/scala/*Spec.scala"] = {
+      alternate = "src/main/scala/{}.scala",
+      type = "test",
+    },
+    -- *Suite test -> source
+    ["src/test/scala/*Suite.scala"] = {
       alternate = "src/main/scala/{}.scala",
       type = "test",
     },
   },
 }
 
--- Keymap: <leader>gt = "go to test" (o back a source)
+-- Keymap: <leader>gt = "go to test" (and back a source)
 vim.keymap.set("n", "<leader>gt", "<Cmd>A<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>gT", "<Cmd>AV<CR>", { noremap = true, silent = true })
 
