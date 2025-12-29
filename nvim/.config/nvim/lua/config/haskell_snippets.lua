@@ -26,7 +26,9 @@ function M.setup()
   end
 
   local function is_source_file()
-    return vim.fn.expand("%:p"):match("/src/") ~= nil
+    local path = vim.fn.expand("%:p")
+    return path:match("/src/") ~= nil
+       and path:match("/test/") == nil
   end
 
   local function is_test_file()
