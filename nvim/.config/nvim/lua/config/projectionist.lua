@@ -19,18 +19,18 @@ vim.g.projectionist_heuristics = {
     -- source -> test
     ["src/main/scala/*.scala"] = {
       alternate = {
-        "src/test/scala/{}Spec.scala",
         "src/test/scala/{}Suite.scala",
+        "src/test/scala/{}Spec.scala",
       },
       type = "source",
     },
-    -- *Spec test -> source
-    ["src/test/scala/*Spec.scala"] = {
+    -- *Suite test -> source
+    ["src/test/scala/*Suite.scala"] = {
       alternate = "src/main/scala/{}.scala",
       type = "test",
     },
-    -- *Suite test -> source
-    ["src/test/scala/*Suite.scala"] = {
+    -- *Spec test -> source
+    ["src/test/scala/*Spec.scala"] = {
       alternate = "src/main/scala/{}.scala",
       type = "test",
     },

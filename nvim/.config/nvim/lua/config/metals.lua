@@ -10,6 +10,8 @@ function M.setup()
   -- Ensure shared LSP behaviour is initialized (on_attach, <leader>ls, etc.)
   lsp.setup()
 
+  require("config.scala_snippets").setup()
+
   local cfg = metals.bare_config()
 
   cfg.capabilities = lsp.capabilities
