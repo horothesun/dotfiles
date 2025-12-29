@@ -105,6 +105,10 @@ function M.setup()
         t({ "", "  " }), i(2, "actual"),
         t(" `shouldBe` "), i(3, "expected"),
       },
+      {
+        condition = is_test_file,
+        show_condition = is_test_file,
+      }
     ),
   })
 end
