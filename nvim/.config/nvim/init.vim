@@ -226,4 +226,3 @@ set undofile
 
 " Load Lua setup
 lua require('setup1')
-

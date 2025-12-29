@@ -42,4 +42,3 @@ vim.keymap.set("n", "<leader>gt", "<Cmd>A<CR>", { noremap = true, silent = true 
 vim.keymap.set("n", "<leader>gT", "<Cmd>AV<CR>", { noremap = true, silent = true })
 
 return M
-

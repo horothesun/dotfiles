@@ -37,4 +37,3 @@ require('spaceless').setup()
 require("config.projectionist")
 require('plugin/gitsigns')
 require('plugin/telescope')
-

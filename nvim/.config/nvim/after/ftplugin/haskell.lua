@@ -15,4 +15,3 @@ vim.keymap.set("n", "<leader>hs", ht.hoogle.hoogle_signature, opts)
 
 -- Evaluate all code snippets
 vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
-
