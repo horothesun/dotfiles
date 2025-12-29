@@ -32,7 +32,7 @@ function M.setup()
 
   ls.add_snippets("scala", {
     s(
-      { trig = "munit-scala3-test", name = "munit Scala 3 test" },
+      { trig = "munit-scala3-suite", name = "munit Scala 3 test suite" },
       fmt(
         [[
           import {}.*
@@ -64,12 +64,45 @@ function M.setup()
         }
       ),
       {
-        condition = is_test_file,
         show_condition = is_test_file,
       }
     ),
     s(
-      { trig = "munit-scala2-test", name = "munit Scala 2 test" },
+      { trig = "test-case-scala3", name = "Scala 3 test case" },
+      fmt(
+        [[
+            test("{}"):
+              assertEquals({}, {})
+        ]],
+        {
+          i(1, "description"),
+          i(2, "obtained"),
+          i(3, "expected"),
+        }
+      ),
+      {
+        show_condition = is_test_file,
+      }
+    ),
+    s(
+      { trig = "prop-scala3", name = "Scala 3 PBT case" },
+      fmt(
+        [[
+            property("{}"):
+              forAll {{ (x: Int, y: Int) =>
+                assert(Math.abs(x) + Math.abs(y.toLong) >= Math.abs(x))
+              }}
+        ]],
+        {
+          i(1, "description"),
+        }
+      ),
+      {
+        show_condition = is_test_file,
+      }
+    ),
+    s(
+      { trig = "munit-scala2-suite", name = "munit Scala 2 test suite" },
       fmt(
         [[
           import {}._
@@ -107,7 +140,42 @@ function M.setup()
         }
       ),
       {
-        condition = is_test_file,
+        show_condition = is_test_file,
+      }
+    ),
+    s(
+      { trig = "test-case-scala2", name = "Scala 2 test case" },
+      fmt(
+        [[
+            test("{}") {{
+              assertEquals({}, {})
+            }}
+        ]],
+        {
+          i(1, "description"),
+          i(2, "obtained"),
+          i(3, "expected"),
+        }
+      ),
+      {
+        show_condition = is_test_file,
+      }
+    ),
+    s(
+      { trig = "prop-scala2", name = "Scala 2 PBT case" },
+      fmt(
+        [[
+            property("{}") {{
+              forAll {{ (x: Int, y: Int) =>
+                assert(Math.abs(x) + Math.abs(y.toLong) >= Math.abs(x))
+              }}
+            }}
+        ]],
+        {
+          i(1, "description"),
+        }
+      ),
+      {
         show_condition = is_test_file,
       }
     ),

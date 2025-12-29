@@ -48,7 +48,6 @@ function M.setup()
         i(0),
       },
       {
-        condition = is_source_file,
         show_condition = is_source_file,
       }
     ),
@@ -72,7 +71,6 @@ function M.setup()
         i(0),
       },
       {
-        condition = is_test_file,
         show_condition = is_test_file,
       }
     ),
@@ -90,7 +88,6 @@ function M.setup()
         t(" `shouldBe` "), i(3, "expected"),
       },
       {
-        condition = is_test_file,
         show_condition = is_test_file,
       }
     ),
@@ -108,7 +105,6 @@ function M.setup()
         t(" `shouldBe` "), i(3, "expected"),
       },
       {
-        condition = is_test_file,
         show_condition = is_test_file,
       }
     ),
