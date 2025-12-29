@@ -7,53 +7,98 @@ function M.setup()
   if initialized then return end
   initialized = true
 
-  local ls = require("luasnip")
-  local s  = ls.snippet
-  local t  = ls.text_node
-  local i  = ls.insert_node
-  local f  = ls.function_node
+  local ls  = require("luasnip")
+  local s   = ls.snippet
+  local t   = ls.text_node
+  local i   = ls.insert_node
+  local f   = ls.function_node
+  local fmt = require("luasnip.extras.fmt").fmt
 
   -- get the current buffer filename without extension
-  local function get_filename()
+  local function get_test_classname()
     local fullpath = vim.api.nvim_buf_get_name(0)
     local filename = fullpath:match("([^/\\]+)%.scala$")
     return filename or "Unknown"
   end
 
-  -- base class = strip Suite/Spec
-  local function base_classname_fn()
-    local name = get_filename()
-    return name:gsub("(Suite|Spec)$", "")
-  end
-
-  -- test class = full filename
-  local function test_classname_fn()
-    return get_filename()
+  local function get_base_classname()
+    local name = get_test_classname()
+    return name:gsub("Suite$", ""):gsub("Spec$", "")
   end
 
   ls.add_snippets("scala", {
     s(
-      { trig = "munit-test", name = "munit Scala 3 test" },
-      {
-        f(function() return "import " .. base_classname_fn() .. ".*" end),
-        f(function() return "import " .. test_classname_fn() .. ".*" end),
-        t({
-          "import munit.ScalaCheckSuite",
-          "import org.scalacheck.Gen",
-          "import org.scalacheck.Prop.*",
-          "",
-        }),
-        f(function() return "class " .. test_classname_fn() .. " extends ScalaCheckSuite:" end),
-        t({ "", "  test(\"" }),
-        i(1, "fortytwo == 42"),
-        t("\"):"),
-        t({ "", "    " }),
-        i(2, "assertEquals(fortyTwo, 42)"),
-        t({ "", "", }),
-        f(function() return "object " .. test_classname_fn() .. ":" end),
-        t({ "", "  val fortyTwo: Int = 42" }),
-      }
-    )
+      { trig = "munit-scala3-test", name = "munit Scala 3 test" },
+      fmt(
+        [[
+          import {}.*
+          import {}.*
+          import munit.ScalaCheckSuite
+          import org.scalacheck.Gen
+          import org.scalacheck.Prop.*
+
+          class {} extends ScalaCheckSuite:
+
+            test({}"fortyTwo == 42"):
+              assertEquals(fortyTwo, 42)
+
+            property("fortyTwo < x | x in [50, 55]"):
+              forAll(Gen.choose(min = 50, max = 55)) {{ x =>
+                assert(fortyTwo < x)
+              }}
+
+          object {}:
+
+            val fortyTwo: Int = 42
+        ]],
+        {
+          f(get_base_classname),
+          f(get_test_classname),
+          f(get_test_classname),
+          i(1),
+          f(get_test_classname),
+        }
+      )
+    ),
+    s(
+      { trig = "munit-scala2-test", name = "munit Scala 2 test" },
+      fmt(
+        [[
+          import {}._
+          import {}._
+          import munit.ScalaCheckSuite
+          import org.scalacheck.Gen
+          import org.scalacheck.Prop._
+
+          class {} extends ScalaCheckSuite {{
+
+            test({}"fortyTwo == 42") {{
+              assertEquals(fortyTwo, 42)
+            }}
+
+            property("fortyTwo < x | x in [50, 55]") {{
+              forAll(Gen.choose(min = 50, max = 55)) {{ x =>
+                assert(fortyTwo < x)
+              }}
+            }}
+
+          }}
+
+          object {} {{
+
+            val fortyTwo: Int = 42
+
+          }}
+        ]],
+        {
+          f(get_base_classname),
+          f(get_test_classname),
+          f(get_test_classname),
+          i(1),
+          f(get_test_classname),
+        }
+      )
+    ),
   })
 
 end
