@@ -25,12 +25,20 @@ function M.setup()
     return name
   end
 
+  local function is_source_file()
+    return vim.fn.expand("%:p"):match("/src/") ~= nil
+  end
+
+  local function is_test_file()
+    return vim.fn.expand("%:p"):match("/test/") ~= nil
+  end
+
   ------------------------------------------------------------
   -- 1. Module header for src/ files
   ------------------------------------------------------------
   ls.add_snippets("haskell", {
     s(
-      { trig = "module", name = "Haskell module header (src)" },
+      { trig = "module-src", name = "Haskell module header (src)" },
       {
         t("module "),
         f(module_name, {}),
@@ -38,9 +46,8 @@ function M.setup()
         i(0),
       },
       {
-        condition = function()
-          return vim.fn.expand("%:p"):match("/src/") ~= nil
-        end,
+        condition = is_source_file,
+        show_condition = is_source_file,
       }
     ),
   })
@@ -50,7 +57,7 @@ function M.setup()
   ------------------------------------------------------------
   ls.add_snippets("haskell", {
     s(
-      { trig = "module", name = "Hspec test module (test)" },
+      { trig = "module-test", name = "Hspec test module (test)" },
       {
         t("module "),
         f(module_name, {}),
@@ -63,9 +70,8 @@ function M.setup()
         i(0),
       },
       {
-        condition = function()
-          return vim.fn.expand("%:p"):match("/test/") ~= nil
-        end,
+        condition = is_test_file,
+        show_condition = is_test_file,
       }
     ),
   })
@@ -80,6 +86,10 @@ function M.setup()
         t("it \""), i(1, "description"), t("\" $"),
         t({ "", "  " }), i(2, "actual"),
         t(" `shouldBe` "), i(3, "expected"),
+      },
+      {
+        condition = is_test_file,
+        show_condition = is_test_file,
       }
     ),
   })
@@ -94,7 +104,7 @@ function M.setup()
         t("prop \""), i(1, "description"), t("\" $"),
         t({ "", "  " }), i(2, "actual"),
         t(" `shouldBe` "), i(3, "expected"),
-      }
+      },
     ),
   })
 end

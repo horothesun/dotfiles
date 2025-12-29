@@ -26,6 +26,10 @@ function M.setup()
     return name:gsub("Suite$", ""):gsub("Spec$", "")
   end
 
+  local function is_test_file()
+    return vim.fn.expand("%:p"):find("/test/") ~= nil
+  end
+
   ls.add_snippets("scala", {
     s(
       { trig = "munit-scala3-test", name = "munit Scala 3 test" },
@@ -58,7 +62,11 @@ function M.setup()
           i(1),
           f(get_test_classname),
         }
-      )
+      ),
+      {
+        condition = is_test_file,
+        show_condition = is_test_file,
+      }
     ),
     s(
       { trig = "munit-scala2-test", name = "munit Scala 2 test" },
@@ -97,7 +105,11 @@ function M.setup()
           i(1),
           f(get_test_classname),
         }
-      )
+      ),
+      {
+        condition = is_test_file,
+        show_condition = is_test_file,
+      }
     ),
   })
 
