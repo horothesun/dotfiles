@@ -27,8 +27,8 @@ function M.setup()
 
   local function is_source_file()
     local path = vim.fn.expand("%:p")
-    return path:match("/src/") ~= nil
-       and path:match("/test/") == nil
+    -- "src" might appear in the absolute path before the project root folder
+    return path:match("/src/") ~= nil and path:match("/test/") == nil
   end
 
   local function is_test_file()
