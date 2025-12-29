@@ -32,7 +32,7 @@ function M.setup()
 
   ls.add_snippets("scala", {
     s(
-      { trig = "munit-scala3-suite", name = "munit Scala 3 test suite" },
+      { trig = "munit-suite-scala3", name = "munit Scala 3 test suite" },
       fmt(
         [[
           import {}.*
@@ -43,13 +43,8 @@ function M.setup()
 
           class {} extends ScalaCheckSuite:
 
-            test({}"fortyTwo == 42"):
-              assertEquals(fortyTwo, 42)
-
-            property("fortyTwo < x | x in [50, 55]"):
-              forAll(Gen.choose(min = 50, max = 55)) {{ x =>
-                assert(fortyTwo < x)
-              }}
+            test("{}"):
+              assertEquals({}, {})
 
           object {}:
 
@@ -59,7 +54,9 @@ function M.setup()
           f(get_base_classname),
           f(get_test_classname),
           f(get_test_classname),
-          i(1),
+          i(1, "description"),
+          i(2, "obtained"),
+          i(3, "expected"),
           f(get_test_classname),
         }
       ),
@@ -102,7 +99,7 @@ function M.setup()
       }
     ),
     s(
-      { trig = "munit-scala2-suite", name = "munit Scala 2 test suite" },
+      { trig = "munit-suite-scala2", name = "munit Scala 2 test suite" },
       fmt(
         [[
           import {}._
@@ -113,14 +110,8 @@ function M.setup()
 
           class {} extends ScalaCheckSuite {{
 
-            test({}"fortyTwo == 42") {{
-              assertEquals(fortyTwo, 42)
-            }}
-
-            property("fortyTwo < x | x in [50, 55]") {{
-              forAll(Gen.choose(min = 50, max = 55)) {{ x =>
-                assert(fortyTwo < x)
-              }}
+            test("{}") {{
+              assertEquals({}, {})
             }}
 
           }}
@@ -135,7 +126,9 @@ function M.setup()
           f(get_base_classname),
           f(get_test_classname),
           f(get_test_classname),
-          i(1),
+          i(1, "description"),
+          i(2, "obtained"),
+          i(3, "expected"),
           f(get_test_classname),
         }
       ),
