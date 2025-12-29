@@ -145,9 +145,10 @@ let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
 
 " Set transparent background for Normal and LineNr highlights
-highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr guibg=NONE ctermbg=NONE
-highlight EndOfBuffer guibg=NONE ctermbg=NONE
+" TODO: IT CLASHES WITH THE FIDGET PLUGIN - check if the following are needed
+"highlight Normal guibg=NONE ctermbg=NONE
+"highlight LineNr guibg=NONE ctermbg=NONE
+"highlight EndOfBuffer guibg=NONE ctermbg=NONE
 
 if executable('rg')
   let g:rg_derive_root='true'
