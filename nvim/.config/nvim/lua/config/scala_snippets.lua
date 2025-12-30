@@ -6,11 +6,11 @@ function M.setup()
   if initialized then return end
   initialized = true
 
-  local ls  = require("luasnip")
-  local s   = ls.snippet
-  local i   = ls.insert_node
-  local f   = ls.function_node
-  local fmt = require("luasnip.extras.fmt").fmt
+  local ls    = require("luasnip")
+  local s     = ls.snippet
+  local i     = ls.insert_node
+  local f     = ls.function_node
+  local fmt   = require("luasnip.extras.fmt").fmt
 
   -- get the current buffer filename without extension
   local function get_test_classname()
@@ -171,7 +171,6 @@ function M.setup()
       }
     ),
   })
-
 end
 
 return M

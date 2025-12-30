@@ -6,11 +6,11 @@ function M.setup()
   if initialized then return end
   initialized = true
 
-  local ls = require("luasnip")
-  local s  = ls.snippet
-  local t  = ls.text_node
-  local i  = ls.insert_node
-  local f  = ls.function_node
+  local ls    = require("luasnip")
+  local s     = ls.snippet
+  local t     = ls.text_node
+  local i     = ls.insert_node
+  local f     = ls.function_node
 
   local function module_name()
     local name = vim.fn.expand("%:r")

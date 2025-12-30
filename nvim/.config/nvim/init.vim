@@ -215,8 +215,8 @@ let g:mkdp_refresh_slow=1
 " let g:mkdp_markdown_css=expand('~/github-markdown.css')
 
 " Custom mappings for fzf
-"nnoremap <silent> <Leader>ff :Files<CR>
-"nnoremap <silent> <Leader>fg :Rg<CR>
+"nnoremap <silent> <leader>ff :Files<CR>
+"nnoremap <silent> <leader>fg :Rg<CR>
 "command! W write "to prevent accidentally triggering fzf's :Windows
 
 " Persist Undo in an XDG-Compliant Location

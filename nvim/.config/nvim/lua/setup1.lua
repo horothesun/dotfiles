@@ -4,21 +4,34 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 -- Diagnostic
 local diag_opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "[c", function()
+vim.keymap.set("n", "[e", function()
   vim.diagnostic.jump({ count = -1, float = true })
 end, diag_opts)
 
-vim.keymap.set("n", "]c", function()
+vim.keymap.set("n", "]e", function()
   vim.diagnostic.jump({ count = 1, float = true })
 end, diag_opts)
 
-vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, diag_opts)
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, diag_opts)
 
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   float = {
+--     border = "rounded"
+--   },
+-- })
 vim.diagnostic.config({
+  underline = true,
+  signs = true,
   virtual_text = false,
   float = {
-    border = 'rounded'
+    show_header = true,
+    source = "if_many",
+    border = "rounded",
+    focusable = true,
   },
+  update_in_insert = false,
+  severity_sort = false,
 })
 
 -- same as Ctrl-W d , but with autofocus on the floating box
@@ -33,7 +46,7 @@ vim.keymap.set("n", "gl", function()
 end, { silent = true, desc = "Diagnostics float (enter)" })
 
 -- Other plugins that we wanna load for every projects
-require('spaceless').setup()
+require("spaceless").setup()
 require("config.projectionist")
-require('plugin/gitsigns')
-require('plugin/telescope')
+require("plugin/gitsigns")
+require("plugin/telescope")

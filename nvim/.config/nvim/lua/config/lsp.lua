@@ -5,22 +5,28 @@ local M = {}
 -- (ALL buffer-local LSP keymaps live here)
 ------------------------------------------------------------
 local function on_attach_impl(client, bufnr)
-
   local buf_opts = { buffer = bufnr, noremap = true, silent = true }
 
   -- Standard LSP keybindings (buffer-local)
-  vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, buf_opts)
-  vim.keymap.set('n', 'grd', vim.lsp.buf.definition, buf_opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, buf_opts)
+  vim.keymap.set("n", "grD", vim.lsp.buf.declaration, buf_opts)
+  vim.keymap.set("n", "grd", vim.lsp.buf.definition, buf_opts)
+  vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, buf_opts)
 
   -- Code actions and lenses
-  vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, buf_opts)
-  vim.keymap.set('n', '<leader>cL', vim.lsp.codelens.refresh, buf_opts)
-  vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, buf_opts)
-  vim.keymap.set('n', '<leader>ss', vim.lsp.buf.workspace_symbol, buf_opts)
+  vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, buf_opts)
+  vim.keymap.set("n", "<leader>cL", vim.lsp.codelens.refresh, buf_opts)
+  vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, buf_opts)
+  vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, buf_opts)
+
+  -- Quickfix list navigation
+  -- vim.keymap.set("n", "[q", ":cprev<CR>", buf_opts) -- default from v0.11.0
+  -- vim.keymap.set("n", "]q", ":cnext<CR>", buf_opts) -- default from v0.11.0
+  -- vim.keymap.set("n", "<leader>qq", ":copen<CR>", buf_opts)
+  -- vim.keymap.set("n", "<leader>qQ", ":cclose<CR>", buf_opts)
+  -- vim.keymap.set("n", "<leader>qd", ":call setqflist([])<CR>:cclose<CR>", buf_opts)
 
   -- Formatting
-  vim.keymap.set('n', '<leader>F', function()
+  vim.keymap.set("n", "<leader>F", function()
     vim.lsp.buf.format { async = true }
   end, buf_opts)
 
@@ -38,7 +44,6 @@ local function on_attach_impl(client, bufnr)
       end
     end, { buffer = bufnr, silent = true })
   end
-
 end
 
 ------------------------------------------------------------
@@ -69,7 +74,7 @@ function M.setup()
   --------------------------------------------------------
   -- Capabilities (nvim-cmp + LSP)
   --------------------------------------------------------
-  local cmp_lsp = require('cmp_nvim_lsp')
+  local cmp_lsp = require("cmp_nvim_lsp")
   M.capabilities = cmp_lsp.default_capabilities()
 
   --------------------------------------------------------
@@ -80,20 +85,20 @@ function M.setup()
   cmp.setup({
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     mapping = cmp.mapping.preset.insert({
-      ['<CR>']      = cmp.mapping.confirm({ select = true }),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<Tab>']     = function(fallback)
+      ["<CR>"]      = cmp.mapping.confirm({ select = true }),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<Tab>"]     = function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         else
           fallback()
         end
       end,
-      ['<S-Tab>']   = function(fallback)
+      ["<S-Tab>"]   = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
         else
@@ -138,7 +143,7 @@ function M.setup()
 
 
   -- Print list of attached LSP clients (LSP-specific utility)
-  vim.keymap.set('n', '<leader>ls', function()
+  vim.keymap.set("n", "<leader>ls", function()
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
 

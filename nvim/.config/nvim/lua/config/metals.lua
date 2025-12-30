@@ -3,7 +3,6 @@
 local M = {}
 
 function M.setup()
-
   local metals = require("metals")
   local lsp    = require("config.lsp")
 
