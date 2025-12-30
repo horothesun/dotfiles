@@ -122,7 +122,7 @@ Plug 'hrsh7th/nvim-cmp'         " Core completion framework
 Plug 'hrsh7th/cmp-nvim-lsp'     " LSP completion source
 Plug 'L3MON4D3/LuaSnip'         " Lua-based snippet engine
 Plug 'saadparwaiz1/cmp_luasnip' " LuaSnip completion source
-Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'  " Go-to-tests
 Plug 'Mrcjkb/haskell-tools.nvim', { 'version': 6, 'for': ['haskell'] }
 " Plug 'kana/vim-textobj-user', { 'for': ['agda'] }
 " Plug 'neovimhaskell/nvim-hs.vim', { 'for': ['agda'] }
@@ -132,14 +132,12 @@ Plug 'j-hui/fidget.nvim' " Neovim notifications and LSP progress messages
 " Color schemes
 " Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
-" Plug 'phanviet/vim-monokai-pro'
-" Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
 " Default colorscheme (has to be installed, see vim-plug above)
 " Place this code AFTER the vim-plug section, otherwise you need to generate symb links in the colors folder
-set termguicolors     " enable true colors support
+set termguicolors " enable true colors support
 set background=dark
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_better_performance = 1
