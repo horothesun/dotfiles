@@ -67,9 +67,7 @@ function M.setup()
         t({ "", "spec = do", "  " }),
         i(0),
       },
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
   })
 
@@ -84,9 +82,7 @@ function M.setup()
         t({ "", "  " }), i(2, "actual"),
         t(" `shouldBe` "), i(3, "expected"),
       },
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
   })
 
@@ -101,9 +97,7 @@ function M.setup()
         t({ "", "  " }), i(2, "actual"),
         t(" `shouldBe` "), i(3, "expected"),
       },
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
   })
 end

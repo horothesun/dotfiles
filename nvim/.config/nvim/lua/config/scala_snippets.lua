@@ -58,9 +58,7 @@ function M.setup()
           f(get_test_classname),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
     s(
       { trig = "test-case-scala3", name = "Scala 3 test case" },
@@ -75,9 +73,7 @@ function M.setup()
           i(3, "expected"),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
     s(
       { trig = "prop-scala3", name = "Scala 3 PBT case" },
@@ -92,9 +88,7 @@ function M.setup()
           i(1, "description"),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
     s(
       { trig = "munit-suite-scala2", name = "munit Scala 2 test suite" },
@@ -130,9 +124,7 @@ function M.setup()
           f(get_test_classname),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
     s(
       { trig = "test-case-scala2", name = "Scala 2 test case" },
@@ -148,9 +140,7 @@ function M.setup()
           i(3, "expected"),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
     s(
       { trig = "prop-scala2", name = "Scala 2 PBT case" },
@@ -166,9 +156,7 @@ function M.setup()
           i(1, "description"),
         }
       ),
-      {
-        show_condition = is_test_file,
-      }
+      { show_condition = is_test_file, }
     ),
   })
 end
