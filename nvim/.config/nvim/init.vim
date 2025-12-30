@@ -156,6 +156,8 @@ endif
 
 let loaded_matchparen = 1
 let mapleader = " "
+nnoremap <Space> <Nop>
+vnoremap <Space> <Nop>
 
 let g:netrw_browse_split = 2
 let g:vrfr_rg = 'true'
