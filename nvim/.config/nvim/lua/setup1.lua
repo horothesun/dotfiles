@@ -41,6 +41,6 @@ end, { silent = true, desc = "Diagnostics float (enter)" })
 
 -- Other plugins that we wanna load for every projects
 require("spaceless").setup()
-require("config.projectionist")
-require("plugin/gitsigns")
-require("plugin/telescope")
+require("plugin.projectionist")
+require("plugin.gitsigns")
+require("plugin.telescope")
