@@ -34,6 +34,6 @@ vim.g.projectionist_heuristics = {
   },
 }
 
--- Keymap: <leader>gt = "go to test" (and back a source)
+-- Keymap: <leader>gt = "go to test" (and back to source)
 vim.keymap.set("n", "<leader>gt", "<Cmd>A<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>gT", "<Cmd>AV<CR>", { noremap = true, silent = true })
