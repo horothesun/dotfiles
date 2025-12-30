@@ -145,12 +145,6 @@ let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
 
-" Set transparent background for Normal and LineNr highlights
-" TODO: IT CLASHES WITH THE FIDGET PLUGIN - check if the following are needed
-"highlight Normal guibg=NONE ctermbg=NONE
-"highlight LineNr guibg=NONE ctermbg=NONE
-"highlight EndOfBuffer guibg=NONE ctermbg=NONE
-
 if executable('rg')
   let g:rg_derive_root='true'
 endif
@@ -214,11 +208,6 @@ noremap <Right> <Nop>
 let g:mkdp_auto_close=0
 let g:mkdp_refresh_slow=1
 " let g:mkdp_markdown_css=expand('~/github-markdown.css')
-
-" Custom mappings for fzf
-"nnoremap <silent> <leader>ff :Files<CR>
-"nnoremap <silent> <leader>fg :Rg<CR>
-"command! W write "to prevent accidentally triggering fzf's :Windows
 
 " Persist Undo in an XDG-Compliant Location
 if !isdirectory($HOME."/.local/share/nvim/undo")

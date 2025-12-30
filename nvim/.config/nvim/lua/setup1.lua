@@ -14,13 +14,7 @@ end, diag_opts)
 
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, diag_opts)
 
--- vim.diagnostic.config({
---   virtual_text = false,
---   float = {
---     border = "rounded"
---   },
--- })
-vim.diagnostic.config({
+vim.diagnostic.config {
   underline = true,
   signs = true,
   virtual_text = false,
@@ -32,7 +26,7 @@ vim.diagnostic.config({
   },
   update_in_insert = false,
   severity_sort = false,
-})
+}
 
 -- same as Ctrl-W d , but with autofocus on the floating box
 vim.keymap.set("n", "gl", function()
