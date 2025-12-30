@@ -3,9 +3,7 @@ local M = {}
 local initialized = false
 
 function M.setup()
-  if initialized then
-    return
-  end
+  if initialized then return end
   initialized = true
 
   local ls = require("luasnip")
