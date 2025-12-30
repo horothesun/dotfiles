@@ -1,6 +1,7 @@
 local ht  = require("haskell-tools")
 local lsp = require("config.lsp")
 
+-- Ensure shared LSP behaviour is initialized (on_attach, <leader>ls, etc.)
 lsp.setup()
 
 require("config.haskell_snippets").setup()
