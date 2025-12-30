@@ -116,7 +116,8 @@ Plug 'lewis6991/spaceless.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'scalameta/nvim-metals'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'hrsh7th/nvim-cmp'         " Core completion framework
 Plug 'hrsh7th/cmp-nvim-lsp'     " LSP completion source
 Plug 'L3MON4D3/LuaSnip'         " Lua-based snippet engine
