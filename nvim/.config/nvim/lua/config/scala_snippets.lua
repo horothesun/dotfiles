@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/config/scala_snippets.lua
 local M = {}
 
 local initialized = false
@@ -9,7 +8,6 @@ function M.setup()
 
   local ls  = require("luasnip")
   local s   = ls.snippet
-  local t   = ls.text_node
   local i   = ls.insert_node
   local f   = ls.function_node
   local fmt = require("luasnip.extras.fmt").fmt

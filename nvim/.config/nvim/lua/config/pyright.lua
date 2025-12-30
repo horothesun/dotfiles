@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/config/pyright.lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/pyright.lua
 
 local M = {}
 

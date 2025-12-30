@@ -17,9 +17,9 @@ local function picker(opts, prompt_title, items, selection_mapper)
           local output = selection_mapper(selection[1])
           vim.api.nvim_put(
             { output }, -- lines
-            '',         -- type: edit behavior
+            '',          -- type: edit behavior
             true,       -- after: insert after cursor
-            true        -- follow: place cursor at end of inserted text
+            true       -- follow: place cursor at end of inserted text
           )
         end
       )

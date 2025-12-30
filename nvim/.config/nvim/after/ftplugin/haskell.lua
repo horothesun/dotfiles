@@ -1,5 +1,3 @@
--- ~/.config/nvim/after/ftplugin/haskell.lua
-
 local ht  = require("haskell-tools")
 local lsp = require("config.lsp")
 

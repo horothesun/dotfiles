@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/config/projectionist.lua
 local M = {}
 
 vim.g.projectionist_heuristics = {

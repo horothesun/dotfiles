@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/config/ruff.lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ruff.lua
 
 local M = {}
 

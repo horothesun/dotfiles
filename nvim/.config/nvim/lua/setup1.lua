@@ -5,11 +5,11 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local diag_opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "[c", function()
-  vim.diagnostic.goto_prev({ float = true })
+  vim.diagnostic.jump({ count = -1, float = true })
 end, diag_opts)
 
 vim.keymap.set("n", "]c", function()
-  vim.diagnostic.goto_next({ float = true })
+  vim.diagnostic.jump({ count = 1, float = true })
 end, diag_opts)
 
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, diag_opts)

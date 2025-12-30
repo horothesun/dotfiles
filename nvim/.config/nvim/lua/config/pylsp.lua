@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/config/pylsp.lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/pylsp.lua
 
 local M = {}
 

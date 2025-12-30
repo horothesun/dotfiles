@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/config/haskell_snippets.lua
 local M = {}
 
 local initialized = false

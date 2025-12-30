@@ -50,10 +50,12 @@ telescope.setup {
 
 telescope.load_extension('fzy_native')
 
-vim.keymap.set('n', '<C-p>', ":Telescope live_grep<CR>", buf_opts)
-vim.keymap.set('n', '<leader>ff', ":Telescope find_files<CR>", buf_opts)
-vim.keymap.set('n', '<leader>fq', ":Telescope quickfix<CR>", buf_opts)
-vim.keymap.set('n', '<leader>fb', ":Telescope buffers<CR>", buf_opts)
-vim.keymap.set('n', '<leader>fh', ":Telescope help_tags<CR>", buf_opts)
-vim.keymap.set('n', '<leader>fe', ":luafile ~/.config/nvim/pickers/emoji_picker.lua<CR>", buf_opts)
-vim.keymap.set('n', '<leader>fs', ":luafile ~/.config/nvim/pickers/symbol_picker.lua<CR>", buf_opts)
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files,       { desc = 'Telescope find files' })
+vim.keymap.set('n', '<C-p>',      builtin.live_grep,        { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', ":Telescope buffers<CR>", { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags,        { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fq', builtin.quickfix,         { desc = 'Telescope quickfix' })
+
+vim.keymap.set('n', '<leader>fe', ":luafile ~/.config/nvim/pickers/emoji_picker.lua<CR>",  { desc = "Telescope emoji picker"})
+vim.keymap.set('n', '<leader>fs', ":luafile ~/.config/nvim/pickers/symbol_picker.lua<CR>", { desc = "Telescope symbol picker"})
