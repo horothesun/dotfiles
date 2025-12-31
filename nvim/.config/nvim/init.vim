@@ -83,6 +83,11 @@ set scrolloff=8
 set sidescrolloff=5
 set sidescroll=1
 
+" Give more space for displaying messages.
+" It seems to fix the issue with nvim-metals which requires to press ENTER to continue after indexing
+" (e.g. similar issue here: https://neovim.discourse.group/t/how-to-hide-press-enter-or-type-to-continue/3147).
+set cmdheight=2
+
 " Do not keep backup files (some LSPs are sensitive to backup files)
 set nobackup
 set nowritebackup
