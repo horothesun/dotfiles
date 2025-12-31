@@ -87,6 +87,7 @@ set sidescroll=1
 " E.g. similar issue here: https://neovim.discourse.group/t/how-to-hide-press-enter-or-type-to-continue/3147
 "
 " N.B.: nvim 0.12.0 will include a solution to this: https://github.com/neovim/neovim/pull/27855
+" TODO: remove after installing nvim >= 0.12.0 🔥🔥🔥
 "
 " Give more space for displaying messages.
 set cmdheight=2
