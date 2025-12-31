@@ -5,78 +5,44 @@ live_config_reload = true
 WINIT_X11_SCALE_FACTOR = "1.0"
 # WINIT_HIDPI_FACTOR = "1.0"
 
-[colors]
-draw_bold_text_with_bright_colors = false
-
-[colors.bright]
-black = '#32302f'
-blue = '#7daea3'
-cyan = '#89b482'
-green = '#a9b665'
-magenta = '#d3869b'
-red = '#ea6962'
-white = '#d4be98'
-yellow = '#d8a657'
-
-[colors.cursor]
-cursor = '0xe9e9f4'
-text = '0x282936'
-
-[colors.normal]
-black = '#32302f'
-blue = '#7daea3'
-cyan = '#89b482'
-green = '#a9b665'
-magenta = '#d3869b'
-red = '#ea6962'
-white = '#d4be98'
-yellow = '#d8a657'
-
-[colors.primary]
-background = '#1d2021'
-foreground = '#d4be98'
+[selection]
+save_to_clipboard = true
 
 [font]
-size = 10.0
+size = 11
 
 [font.normal]
 family = 'JetBrainsMono Nerd Font'
 #family = 'FiraCode Nerd Font'
 
-[keyboard]
 
-# Ctrl+V enables VISUAL-BLOCK mode in vim
-# [[keyboard.bindings]]
-# action = "Paste"
-# key = 'V'
-# mods = 'Control'
+# Colors (Gruvbox Material Hard Dark) ===========
 
-#[[keyboard.bindings]]
-#chars = "\u001Bb"
-#key = 'Left'
-#mods = 'Alt'
+# Default colors
+[colors.primary]
+background = '#1d2021'
+foreground = '#d4be98'
 
-#[[keyboard.bindings]]
-#chars = "\u001Bf"
-#key = 'Right'
-#mods = 'Alt'
+# Normal colors
+[colors.normal]
+black   = '#32302f'
+red     = '#ea6962'
+green   = '#a9b665'
+yellow  = '#d8a657'
+blue    = '#7daea3'
+magenta = '#d3869b'
+cyan    = '#89b482'
+white   = '#d4be98'
 
-#[[keyboard.bindings]]
-#chars = '€'
-#key = 'Key2'
-#mods = 'Alt'
+# Bright colors (same as normal colors)
+[colors.bright]
+black   = '#32302f'
+red     = '#ea6962'
+green   = '#a9b665'
+yellow  = '#d8a657'
+blue    = '#7daea3'
+magenta = '#d3869b'
+cyan    = '#89b482'
+white   = '#d4be98'
 
-#[[keyboard.bindings]]
-#chars = '#'
-#key = 'Key3'
-#mods = 'Alt'
-
-#[[keyboard.bindings]]
-#command = 'alacritty_new_window_same_dir.sh'
-#key = 'N'
-#mods = 'Control'
-
-[selection]
-save_to_clipboard = true
-
-[window]
+# ===============================================
