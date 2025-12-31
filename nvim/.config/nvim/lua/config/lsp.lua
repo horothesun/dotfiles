@@ -1,5 +1,4 @@
 local M = {}
-
 ------------------------------------------------------------
 -- Shared on_attach Function for LSP Clients
 -- (ALL buffer-local LSP keymaps live here)
@@ -17,13 +16,6 @@ local function on_attach_impl(client, bufnr)
   vim.keymap.set("n", "<leader>cL", vim.lsp.codelens.refresh, buf_opts)
   vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, buf_opts)
   vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, buf_opts)
-
-  -- Quickfix list navigation
-  -- vim.keymap.set("n", "[q", ":cprev<CR>", buf_opts) -- default from v0.11.0
-  -- vim.keymap.set("n", "]q", ":cnext<CR>", buf_opts) -- default from v0.11.0
-  -- vim.keymap.set("n", "<leader>qq", ":copen<CR>", buf_opts)
-  -- vim.keymap.set("n", "<leader>qQ", ":cclose<CR>", buf_opts)
-  -- vim.keymap.set("n", "<leader>qd", ":call setqflist([])<CR>:cclose<CR>", buf_opts)
 
   -- Formatting
   vim.keymap.set("n", "<leader>F", function()
