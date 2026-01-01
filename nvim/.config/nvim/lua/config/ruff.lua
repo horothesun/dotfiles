@@ -21,6 +21,12 @@ function M.setup()
       ".git"
     },
     settings = {},
+    on_attach = function(client, _)
+      if client.name == "ruff" then
+        -- disable hover in favor of basedpyright
+        client.server_capabilities.hoverProvider = false
+      end
+    end
   }
 
   vim.lsp.enable("ruff")

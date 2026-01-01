@@ -70,6 +70,37 @@ function M.setup()
         nargs = 1,
         complete = "file",
       })
+
+      -- Disable all capabilities except hoverProvider
+      client.server_capabilities.completionProvider = {}
+      client.server_capabilities.definitionProvider = false
+      client.server_capabilities.typeDefinitionProvider = false
+      client.server_capabilities.implementationProvider = false
+      client.server_capabilities.referencesProvider = false
+      client.server_capabilities.documentSymbolProvider = false
+      client.server_capabilities.workspaceSymbolProvider = false
+      client.server_capabilities.codeActionProvider = false
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+      client.server_capabilities.renameProvider = false
+      client.server_capabilities.signatureHelpProvider = {}
+      client.server_capabilities.documentHighlightProvider = false
+      client.server_capabilities.foldingRangeProvider = false
+      client.server_capabilities.semanticTokensProvider = {
+        legend = {
+          tokenTypes = {},
+          tokenModifiers = {},
+        }
+      }
+      client.server_capabilities.declarationProvider = false
+      client.server_capabilities.callHierarchyProvider = false
+      client.server_capabilities.diagnosticProvider = {
+        interFileDependencies = false,
+        workspaceDiagnostics = false,
+      }
+
+      -- Enable hoverProvider
+      client.server_capabilities.hoverProvider = true
     end,
   }
 
