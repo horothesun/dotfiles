@@ -48,5 +48,5 @@ vim.keymap.set("n", "<leader>fe", function() builtin.symbols({ sources = { "emoj
   { desc = "Telescope emoji picker" })
 vim.keymap.set("n", "<leader>fn", function() builtin.symbols({ sources = { "nerd" } }) end,
   { desc = "Telescope nerd symbol picker" })
-vim.keymap.set("n", "<leader>fs", function() builtin.symbols({ sources = { "math" } }) end,
+vim.keymap.set("n", "<leader>fm", function() builtin.symbols({ sources = { "math" } }) end,
   { desc = "Telescope math symbol picker" })
