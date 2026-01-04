@@ -30,6 +30,34 @@ function M.setup()
 
   ls.add_snippets("scala", {
     s(
+      { trig = "for-comprehension", name = "Scala for-comprehension" },
+      fmt(
+        [[
+          for {{
+            {} <- {}
+          }} yield ()
+        ]],
+        {
+          i(1, "_"),
+          i(2, "..."),
+        }
+      ),
+      {}
+    ),
+    s(
+      { trig = "for-entry", name = "Scala for-comprehension entry" },
+      fmt(
+        [[
+          {} <- {}
+        ]],
+        {
+          i(1, "_"),
+          i(2, "..."),
+        }
+      ),
+      {}
+    ),
+    s(
       { trig = "munit-suite-scala3", name = "munit Scala 3 test suite" },
       fmt(
         [[
