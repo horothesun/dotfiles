@@ -20,7 +20,10 @@ set encoding=utf-8 nobomb
 " Show invisible characters and set indentation preferences
 set list
 set lcs=tab:▸\ ,trail:·,nbsp:_
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smartindent
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+
+" stop the indent jump while typing, but still indents new lines correctly
+autocmd FileType scala setlocal indentkeys=0{,0},0),!^F,o,O,e,=case,<CR>
 
 " show encoding in statusbar, if/when statusbar is enabled
 if has("statusline")
