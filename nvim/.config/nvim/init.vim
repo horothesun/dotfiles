@@ -22,7 +22,7 @@ set list
 set lcs=tab:▸\ ,trail:·,nbsp:_
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
-" stop the indent jump while typing, but still indents new lines correctly
+" stop the indent jump while typing `>` in scala buffers
 autocmd FileType scala setlocal indentkeys=0{,0},0),!^F,o,O,e,=case,<CR>
 
 " show encoding in statusbar, if/when statusbar is enabled

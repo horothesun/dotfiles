@@ -35,6 +35,34 @@ function M.setup()
   if vim.bo.filetype == "scala" or vim.bo.filetype == "sbt" then
     metals.initialize_or_attach(cfg)
   end
+
+  -- Check if a file exists in the root directory
+  local function has_scalafmt()
+    local root_files = vim.lsp.buf.list_workspace_folders()
+    for _, folder in ipairs(root_files) do
+      local path = folder .. "/.scalafmt.conf"
+      if vim.loop.fs_stat(path) then
+        return true
+      end
+    end
+    return false
+  end
+
+  -- Autoformat Scala files on save if .scalafmt.conf exists
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.scala",
+    callback = function()
+      if has_scalafmt() then
+        local clients = vim.lsp.get_clients()
+        for _, client in pairs(clients) do
+          if client.name == "metals" and client.server_capabilities.documentFormattingProvider then
+            vim.lsp.buf.format({ async = false })
+            return
+          end
+        end
+      end
+    end
+  })
 end
 
 return M
