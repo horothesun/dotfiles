@@ -13,6 +13,8 @@
     ],
     "modules-right": [
         "systemd-failed-units",
+        "temperature#gpu",
+        "custom/gpu-usage",
         "temperature#cpu",
         "cpu",
         "memory",
@@ -86,6 +88,18 @@
         "format": " {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
+    },
+    "temperature#gpu": {
+        "interval": 2,
+        "format": "󰢮 {temperatureC}°C",
+        "tooltip": false,
+        "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/hwmon/hwmon1/temp1_input"
+    },
+    "custom/gpu-usage": {
+        "interval": 2,
+        "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
+        "format": "{}%",
+        "return-type": ""
     },
     "temperature#nvme": {
         "interval": 5,

@@ -106,6 +106,7 @@ button:hover {
 #disk,
 #temperature,
 #cpu,
+#custom-gpu-usage,
 #wireplumber,
 #bluetooth,
 #memory {
@@ -128,6 +129,11 @@ button:hover {
 #temperature.nvme,
 #disk {
     background-color: #076678;
+}
+
+#temperature.gpu,
+#custom-gpu-usage {
+    background-color: #d65d0e;
 }
 
 #temperature.cpu,
