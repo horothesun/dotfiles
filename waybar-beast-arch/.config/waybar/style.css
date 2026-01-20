@@ -107,6 +107,7 @@ button:hover {
 #temperature,
 #cpu,
 #custom-gpu-usage,
+#custom-gpu-memory,
 #wireplumber,
 #bluetooth,
 #memory {
@@ -132,7 +133,8 @@ button:hover {
 }
 
 #temperature.gpu,
-#custom-gpu-usage {
+#custom-gpu-usage,
+#custom-gpu-memory {
     background-color: #d65d0e;
 }
 
