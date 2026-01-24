@@ -31,11 +31,11 @@ if has("statusline")
   set statusline=
   " set statusline+=%#PmenuSel#
   " set statusline+=%{mode()}
-  set statusline+=%#LineNr#
+  set statusline+=%#StatusLineNC#
   set statusline+=\ %f
   set statusline+=%m
   set statusline+=\ %=
-  set statusline+=%#CursorColumn#
+  "set statusline+=%#CursorColumn#
   set statusline+=\ %l:%c\ (%p%%)\ \|
   set statusline+=\ %y\ \|
   set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
