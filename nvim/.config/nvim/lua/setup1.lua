@@ -7,11 +7,11 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.keymap.set("n", "<leader>dq", function()
   vim.diagnostic.setqflist { open = false }
   vim.cmd("cfirst")
-end, { silent = true })
+end, { silent = true, desc = "Diagnostics: workspace (quickfix)" })
 vim.keymap.set("n", "<leader>dl", function()
   vim.diagnostic.setloclist { open = false }
   vim.cmd("lfirst")
-end, { silent = true })
+end, { silent = true, desc = "Diagnostics: buffer (loclist)" })
 
 vim.diagnostic.config {
   underline = true,
@@ -28,7 +28,7 @@ vim.diagnostic.config {
 }
 
 -- same as Ctrl-W d , but with autofocus on the floating box
-vim.keymap.set("n", "gl", function()
+vim.keymap.set("n", "<leader>df", function()
   local _, winid = vim.diagnostic.open_float(nil, {})
   if winid and vim.api.nvim_win_is_valid(winid) then
     vim.api.nvim_set_current_win(winid)
