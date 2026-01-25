@@ -19,7 +19,7 @@ set encoding=utf-8 nobomb
 
 " Show invisible characters and set indentation preferences
 set list
-set lcs=tab:▸\ ,trail:·,nbsp:_
+set lcs=tab:▸\ ,trail:␣,nbsp:¬
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
 " stop the indent jump while typing `>` in scala buffers
@@ -64,7 +64,7 @@ set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Display end of buffer lines as blank
-"set fillchars+=eob:\
+set fillchars+=eob:\  " eob fillchar is a space; keep the escaped space before this comment
 
 " Disable unsafe commands and the ruler display
 set secure
@@ -124,7 +124,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'lewis6991/spaceless.nvim'
+Plug 'axelf4/vim-strip-trailing-whitespace'
+Plug 'windwp/nvim-autopairs'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'scalameta/nvim-metals'
 Plug 'nvim-telescope/telescope.nvim'
