@@ -42,7 +42,7 @@ if has("statusline")
   set statusline+=\[%{&fileformat}\]\ |
 endif
 
-" no statusbar by default (0 = never, 2 = always)
+" no statusbar by default (0 = never, 2 = always, 3 = global for all windows)
 set laststatus=2
 
 " Do not add empty newline at EOF

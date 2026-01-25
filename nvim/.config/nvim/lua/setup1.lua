@@ -2,18 +2,16 @@
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Diagnostic
-local diag_opts = { noremap = true, silent = true }
 
 -- Diagnostic to QuickFix/LocalFix lists
 vim.keymap.set("n", "<leader>dq", function()
   vim.diagnostic.setqflist { open = false }
   vim.cmd("cfirst")
-end, diag_opts)
+end, { silent = true })
 vim.keymap.set("n", "<leader>dl", function()
   vim.diagnostic.setloclist { open = false }
   vim.cmd("lfirst")
-end, diag_opts)
-
+end, { silent = true })
 
 vim.diagnostic.config {
   underline = true,

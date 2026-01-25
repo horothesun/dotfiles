@@ -23,6 +23,11 @@ telescope.setup {
       additional_args = function(_)
         return { "--hidden" }
       end
+    },
+    grep_string = {
+      additional_args = function(_)
+        return { "--hidden" }
+      end
     }
   },
   extensions = {
@@ -40,6 +45,9 @@ telescope.load_extension("fzf")
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<C-p>", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<C-M-p>", function()
+  builtin.grep_string { default_text = vim.fn.expand("<cword>") }
+end, { desc = "Telescope grep string under cursor" })
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix" })
