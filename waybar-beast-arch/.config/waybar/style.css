@@ -45,13 +45,6 @@ button {
     border: none;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-/*
-button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ebdbb2;
-} */
-
 #workspaces {
     background-color: #282828;
 }
@@ -70,9 +63,10 @@ button:hover {
 }
 
 #workspaces button:hover {
-    /* transition-duration: .1s; */
     color: #eceff4;
-    box-shadow: inset 0 -2px #ffffff;
+    /* background-color: #eeeeee; */
+    /* box-shadow: inset 0 -2px #ffffff; */
+    box-shadow: inset 0 -2px #555555;
     /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
     text-shadow: inherit;
 }
