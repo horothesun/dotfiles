@@ -71,7 +71,7 @@ export PATH="${HOMEBREW_OPT_DIR}/curl/bin:${PATH}"
 alias cl=clear
 
 
-alias rg="rg --hidden"
+alias rg="rg --hidden --glob !**/.git/**"
 
 
 alias vi=nvim
