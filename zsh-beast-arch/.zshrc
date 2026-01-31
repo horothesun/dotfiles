@@ -60,7 +60,7 @@ function gdiff() {
 #alias xcopy="xclip -rmlastnl -selection clipboard"
 #alias xpaste="xsel --clipboard"
 
-alias rg="rg --hidden"
+alias rg="rg --hidden --glob !**/.git/**"
 
 
 # preferred editor for local and remote sessions
