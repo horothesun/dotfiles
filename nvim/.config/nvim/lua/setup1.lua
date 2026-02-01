@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>df", function()
 end, { silent = true, desc = "Diagnostics float (enter)" })
 
 -- Highlight on yank for visual feedback
-local group = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+local group = vim.api.nvim_create_augroup("UserYankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = group,
   callback = function() vim.highlight.on_yank({ timeout = 200 }) end,
