@@ -82,14 +82,26 @@ function pull_all_repos() {
 }
 
 
-function clean_timeline_snapshots() {
-  snapper --machine-readable json list |\
-    jq --compact-output --monochrome-output '
-        .root[]
-      | select((.type == "single") and (.cleanup == "timeline") and (.description == "timeline"))
-      | .number
-    ' |\
-    xargs snapper --config "root" delete
+function clean_root_timeline_snapshots() {
+  SNAPPER_CONFIG="root"
+  SNAPSHOT_IDS=$(
+    snapper --machine-readable json list |\
+      jq --compact-output --monochrome-output '
+          .root
+        | map(select(
+                (.type == "single")
+            and (.cleanup == "timeline")
+            and (.description == "timeline")
+          ) | .number)
+      '
+  )
+  SNAPSHOT_COUNT=$(echo "${SNAPSHOT_IDS}" | jq 'length')
+  if [[ "${SNAPSHOT_COUNT}" -le 0 ]] then
+    echo "[INFO] No 'timeline' snapshots found."
+  else
+    echo "${SNAPSHOT_IDS}" | jq '.[]' | xargs snapper --config "${SNAPPER_CONFIG}" delete
+    echo "[INFO] #${SNAPSHOT_COUNT} 'timeline' snapshots deleted."
+  fi
 }
 
 
