@@ -57,8 +57,6 @@ function gdiff() {
   git diff $@ --name-only | fzf -m --ansi --preview-window 'top,85%,wrap' --preview "${GDIFF_PREVIEW}"
 }
 
-#alias xcopy="xclip -rmlastnl -selection clipboard"
-#alias xpaste="xsel --clipboard"
 
 alias rg="rg --hidden --glob !**/.git/**"
 
@@ -81,6 +79,17 @@ function pull_all_repos() {
     ls -d */ | xargs -P 0 -I ^ \
       /bin/bash -c 'echo "⏳ Processing ^..." && cd ^ && git status && git fetch --all --prune --jobs=10 && git pull && echo' \
   )
+}
+
+
+function clean_timeline_snapshots() {
+  snapper --machine-readable json list |\
+    jq --compact-output --monochrome-output '
+        .root[]
+      | select((.type == "single") and (.cleanup == "timeline") and (.description == "timeline"))
+      | .number
+    ' |\
+    xargs snapper --config "root" delete
 }
 
 
