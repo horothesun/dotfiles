@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     if content ~= "" then
       vim.fn.setreg('"', content)
     end
-  end,
+  end
 })
 
 -- appearance of popup menu for autocomplete
@@ -50,7 +50,7 @@ end, { silent = true, desc = "Diagnostics float (enter)" })
 local group = vim.api.nvim_create_augroup("UserYankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = group,
-  callback = function() vim.highlight.on_yank({ timeout = 200 }) end,
+  callback = function() vim.highlight.on_yank { timeout = 200 } end,
   desc = "highlight yanked text"
 })
 
