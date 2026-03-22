@@ -1,3 +1,14 @@
+-- Neovim clipboard integration:
+-- Pull system clipboard into Neovim on startup
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local content = vim.fn.getreg("+")
+    if content ~= "" then
+      vim.fn.setreg('"', content)
+    end
+  end,
+})
+
 -- appearance of popup menu for autocomplete
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 

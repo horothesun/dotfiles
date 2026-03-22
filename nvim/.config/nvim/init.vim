@@ -8,9 +8,6 @@ filetype plugin indent on
 " Switch syntax highlighting on (requires filetype detection on)
 syntax on
 
-" Neovim clipboard integration
-set clipboard=unnamedplus
-
 " Optimize for fast terminal connections
 set ttyfast
 
