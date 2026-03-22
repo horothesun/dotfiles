@@ -1,9 +1,8 @@
--- Neovim clipboard integration:
--- Pull system clipboard into Neovim on startup
+-- System clipboard integration: pull system clipboard into Neovim on startup
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    local content = vim.fn.getreg("+")
-    if content ~= "" then
+    local ok, content = pcall(vim.fn.getreg, "+")
+    if ok and content and content ~= "" then
       vim.fn.setreg('"', content)
     end
   end
