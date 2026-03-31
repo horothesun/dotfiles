@@ -31,9 +31,9 @@
     "memory",
     "swap",
     "disk",
+    "display",
     // "battery",
     "poweradapter",
-    "display",
     "uptime"
   ]
 }
