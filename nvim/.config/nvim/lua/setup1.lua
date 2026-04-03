@@ -1,12 +1,5 @@
--- System clipboard integration: pull system clipboard into Neovim on startup
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local ok, content = pcall(vim.fn.getreg, "+")
-    if ok and content and content ~= "" then
-      vim.fn.setreg('"', content)
-    end
-  end
-})
+-- System clipboard integration: prevent Neovim from initializing the clipboard before it's been loaded
+vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
 -- appearance of popup menu for autocomplete
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
