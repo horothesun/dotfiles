@@ -22,7 +22,7 @@
         "temperature#nvme",
         "disk",
         "wireplumber",
-        "clock",
+        "custom/clock",
         "bluetooth",
         "tray"
     ],
@@ -30,6 +30,12 @@
     "clock": {
         "interval": 1,
         "format": "{:%a %d %h, %H:%M:%S}",
+        "tooltip": false
+    },
+    "custom/clock": {
+        "interval": 1,
+        "exec": "date +'%a %-d %b, %H:%M:%S'",
+        "return-type": "",
         "tooltip": false
     },
     "cpu": {
