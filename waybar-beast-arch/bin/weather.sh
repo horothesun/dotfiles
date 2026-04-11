@@ -12,7 +12,7 @@ OUTPUT_TEXT='"🌤️ ⁉️"'
 OUTPUT_TOOLTIP='"⚠️ Service unreachable"'
 if [[ "$HTTP_CODE" == "200" ]]; then
   OUTPUT_TEXT=$(echo "${RESPONSE_BODY}" | jq '"\(.condition_icon)\(.temp_actual | gsub("[+C]"; "")) (\(.temp_feels | gsub("[+C]"; "")))"')
-  OUTPUT_TOOLTIP=$(echo "${RESPONSE_BODY}" | jq '"Weather: \(.condition_icon)\(.condition_name)\nTemperature: \(.temp_actual | gsub("[+]"; ""))\nFeels like: \(.temp_feels | gsub("[+]"; ""))\nWind: \(.wind)\nHumidity: \(.humidity)\nPrecipitation: \(.precipitation)\nPressure: \(.pressure)\nUV index: \(.uv_index)\nSunrise: \(.sunrise)\nSunset: \(.sunset)\nMoon Phase: \(.moon_phase)\nMoon Day: \(.moon_day)"')
+  OUTPUT_TOOLTIP=$(echo "${RESPONSE_BODY}" | jq '"Condition: \(.condition_icon)\(.condition_name)\nTemperature: \(.temp_actual | gsub("[+]"; ""))\nFeels like: \(.temp_feels | gsub("[+]"; ""))\nWind: \(.wind)\nHumidity: \(.humidity)\nPrecipitation: \(.precipitation)\nPressure: \(.pressure)\nUV index: \(.uv_index)\nSunrise: \(.sunrise)\nSunset: \(.sunset)\nMoon phase: \(.moon_phase)\nMoon day: \(.moon_day)"')
 fi
 
 echo "{
