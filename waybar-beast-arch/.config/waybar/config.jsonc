@@ -127,6 +127,7 @@
         "interval": 480, // 8 min
         "exec": "~/bin/weather.sh",
         "format": "{text}",
+        "on-click": "uwsm app -- alacritty --title Weather --command bash -c 'curl wttr.in; read -n1 -r -p \"Press any key to close...\"'",
         "return-type": "json",
         "tooltip": true
     },
