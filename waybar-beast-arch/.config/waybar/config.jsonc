@@ -6,10 +6,10 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/submap"
+        "hyprland/submap",
+        "hyprland/window"
     ],
     "modules-center": [
-        "hyprland/window"
     ],
     "modules-right": [
         "systemd-failed-units",
@@ -22,6 +22,7 @@
         "temperature#nvme",
         "disk",
         "wireplumber",
+        "custom/weather",
         "custom/clock",
         "bluetooth",
         "tray"
@@ -121,6 +122,13 @@
         "format": " {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:04:00.0/nvme/nvme0/hwmon0/temp1_input"
+    },
+    "custom/weather": {
+        "interval": 480, // 8 min
+        "exec": "~/bin/weather.sh",
+        "format": "{text}",
+        "return-type": "json",
+        "tooltip": true
     },
     "bluetooth": {
         "format": "",
