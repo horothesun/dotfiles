@@ -20,7 +20,7 @@ if [[ "$HTTP_CODE" == "200" ]]; then
   OUTPUT_TOOLTIP=$(
     echo "${RESPONSE_BODY}" |\
       jq '
-          "Condition: \(.condition_icon)\(.condition_name)\n"
+          "\(.condition_icon)\(.condition_name)\n"
         + "Temperature: \(.temp_actual | gsub("[+]"; ""))\n"
         + "Feels like: \(.temp_feels | gsub("[+]"; ""))\n"
         + "Wind: \(.wind)\n"
