@@ -23,13 +23,14 @@ set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 autocmd FileType scala setlocal indentkeys=0{,0},0),!^F,o,O,e,=case,<CR>
 
 " show encoding in statusbar, if/when statusbar is enabled
+set laststatus=3 " 0 = never, 2 = always, 3 = global for all windows
 if has("statusline")
   " https://shapeshed.com/vim-statuslines/
   set statusline=
   " set statusline+=%#PmenuSel#
   " set statusline+=%{mode()}
   set statusline+=%#StatusLineNC#
-  set statusline+=\ %f
+  "set statusline+=\ %f
   set statusline+=%m
   set statusline+=\ %=
   "set statusline+=%#CursorColumn#
@@ -38,9 +39,6 @@ if has("statusline")
   set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
   set statusline+=\[%{&fileformat}\]\ |
 endif
-
-" no statusbar by default (0 = never, 2 = always, 3 = global for all windows)
-set laststatus=2
 
 " Do not add empty newline at EOF
 set noeol
