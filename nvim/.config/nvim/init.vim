@@ -81,15 +81,6 @@ set scrolloff=8
 set sidescrolloff=5
 set sidescroll=1
 
-" It seems to fix the issue with nvim-metals which requires to "Press ENTER..." to continue after indexing.
-" E.g. similar issue here: https://neovim.discourse.group/t/how-to-hide-press-enter-or-type-to-continue/3147
-"
-" N.B.: nvim 0.12.0 will include a solution to this: https://github.com/neovim/neovim/pull/27855
-" TODO: remove after installing nvim >= 0.12.0 🔥🔥🔥
-"
-" Give more space for displaying messages.
-set cmdheight=2
-
 " Do not keep backup files (some LSPs are sensitive to backup files)
 set nobackup
 set nowritebackup
@@ -105,51 +96,6 @@ nnoremap <C-w>v :vnew<CR>
 
 " Do not change the cursor shape in insert mode
 set guicursor=
-
-"" ==========================
-"" Vim-Plug Setup
-"" ==========================
-"" https://github.com/junegunn/vim-plug
-"" Installation of vim-plug is described in the readme (curl command)
-"" curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"" Restart and run :PlugInstall to install plugins.
-"" To uninstall, remove it from this file and run :PlugClean
-"
-"call plug#begin('~/.config/nvim/plugged')
-"
-"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-"Plug 'lewis6991/gitsigns.nvim'
-"Plug 'axelf4/vim-strip-trailing-whitespace'
-"Plug 'windwp/nvim-autopairs'
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'scalameta/nvim-metals'
-"Plug 'nvim-telescope/telescope.nvim'
-"Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-"Plug 'nvim-telescope/telescope-symbols.nvim'
-"Plug 'hrsh7th/nvim-cmp'         " Core completion framework
-"Plug 'hrsh7th/cmp-nvim-lsp'     " LSP completion source
-"Plug 'L3MON4D3/LuaSnip'         " Lua-based snippet engine
-"Plug 'saadparwaiz1/cmp_luasnip' " LuaSnip completion source
-"Plug 'tpope/vim-projectionist'  " Go-to-tests
-"Plug 'Mrcjkb/haskell-tools.nvim', { 'version': 6, 'for': ['haskell'] }
-"" Plug 'kana/vim-textobj-user', { 'for': ['agda'] }
-"" Plug 'neovimhaskell/nvim-hs.vim', { 'for': ['agda'] }
-"" Plug 'agda/cornelis', { 'for': ['agda'], 'do': 'stack build' }
-"Plug 'j-hui/fidget.nvim' " Neovim notifications and LSP progress messages
-"
-"" Color schemes
-"" Plug 'gruvbox-community/gruvbox'
-"Plug 'sainnhe/gruvbox-material'
-"
-"call plug#end()
-"
-"" Default colorscheme (has to be installed, see vim-plug above)
-"" Place this code AFTER the vim-plug section, otherwise you need to generate symb links in the colors folder
-"set termguicolors " enable true colors support
-"set background=dark
-"let g:gruvbox_material_background = 'hard'
-"let g:gruvbox_material_better_performance = 1
-"colorscheme gruvbox-material
 
 if executable('rg')
   let g:rg_derive_root='true'
