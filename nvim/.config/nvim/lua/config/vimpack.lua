@@ -51,8 +51,10 @@ local function postProcessingAfterInstallation(ev)
   if kind == "install" or kind == "update" then
     if name == "cornelis" then
       runPostInstallationHook({ "stack", "build" }, { cwd = path })
-    elseif name == "telescope-fzf-native.nvim" then
-      vim.system({ "make" }, { cwd = path }):wait()
+    elseif name == "telescope-fzf-native" then
+      runPostInstallationHook({ "make" }, { cwd = path })
+    elseif name == "markdown-preview" then
+      runPostInstallationHook({ "cd app && yarn install" }, { cwd = path })
     end
   end
 end
@@ -72,7 +74,7 @@ function M.setup()
 
     gh("nvim-lua/plenary.nvim"),
     gh("nvim-telescope/telescope.nvim"),
-    { src = gh("nvim-telescope/telescope-fzf-native.nvim"), build = "make" },
+    { src = gh("nvim-telescope/telescope-fzf-native.nvim"), name = "telescope-fzf-native" },
     gh("nvim-telescope/telescope-symbols.nvim"),
 
     gh("hrsh7th/nvim-cmp"),         -- Core completion framework
@@ -92,11 +94,11 @@ function M.setup()
   -- Optional plugins (they are loaded on specific buffers in ftplugin)
   vim.pack.add({
     gh("scalameta/nvim-metals"),
-    { src = gh("Mrcjkb/haskell-tools.nvim"),    ft = { "haskell" } },
-    { src = gh("iamcco/markdown-preview.nvim"), build = "cd app && yarn install", ft = { "markdown" } },
+    { src = gh("Mrcjkb/haskell-tools.nvim"), ft = { "haskell" } },
+    -- { src = gh("iamcco/markdown-preview.nvim"), ft = { "markdown" }, name = "markdown-preview" },
     -- { src = gh("kana/vim-textobj-user"),     ft = { "agda" } },
     -- { src = gh("neovimhaskell/nvim-hs.vim"), ft = { "agda" } },
-    -- { src = gh("agda/cornelis"),             ft = { "agda" }, build = "stack build" },
+    -- { src = gh("agda/cornelis"),             ft = { "agda" } },
   }, { load = false })
 end
 

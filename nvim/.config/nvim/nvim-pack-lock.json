@@ -28,7 +28,7 @@
       "rev": "e0bd60e726f5113741c5789f4f78c3fa83dec95a",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
-    "markdown-preview.nvim": {
+    "markdown-preview": {
       "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
@@ -48,7 +48,7 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
-    "telescope-fzf-native.nvim": {
+    "telescope-fzf-native": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
