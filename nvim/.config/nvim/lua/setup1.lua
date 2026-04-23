@@ -1,3 +1,17 @@
+-- Plugin bootstrap via vim.pack (Neovim 0.12+)
+require("config.vimpack").setup()
+
+-- Colorscheme (must come AFTER plugins are loaded)
+vim.opt.termguicolors = true
+vim.opt.background    = "dark"
+vim.g.gruvbox_material_background         = "hard"
+vim.g.gruvbox_material_better_performance = 1
+vim.cmd.colorscheme("gruvbox-material")
+
+
+-- System clipboard integration: prevent Neovim from initializing the clipboard before it's been loaded
+vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
+
 -- appearance of popup menu for autocomplete
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
@@ -39,7 +53,7 @@ end, { silent = true, desc = "Diagnostics float (enter)" })
 local group = vim.api.nvim_create_augroup("UserYankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = group,
-  callback = function() vim.highlight.on_yank({ timeout = 200 }) end,
+  callback = function() vim.highlight.on_yank { timeout = 200 } end,
   desc = "highlight yanked text"
 })
 

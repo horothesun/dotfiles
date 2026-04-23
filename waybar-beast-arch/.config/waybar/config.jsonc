@@ -1,15 +1,16 @@
 // -*- mode: jsonc -*-
 [{
-    "output": ["HDMI-A-1"],
+    "output": ["DP-1"],
     //"height": 24, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
+    "include": [ "~/.config/waybar/default-modules.jsonc" ],
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/submap"
+        "hyprland/submap",
+        "hyprland/window"
     ],
     "modules-center": [
-        "hyprland/window"
     ],
     "modules-right": [
         "systemd-failed-units",
@@ -22,27 +23,12 @@
         "temperature#nvme",
         "disk",
         "wireplumber",
-        "clock",
+        "custom/weather",
+        "custom/clock",
         "bluetooth",
         "tray"
     ],
     // Modules configuration
-    "clock": {
-        "interval": 1,
-        "format": "{:%a %d %h, %H:%M:%S}",
-        "tooltip": false
-    },
-    "cpu": {
-        "interval": 2,
-        "format": "󰊚 {usage}%",
-        "tooltip": false
-    },
-    "disk": {
-        "interval": 5,
-        "format": "{percentage_used}%",
-        "unit": "GB",
-        "tooltip-format": "{specific_used:0.0f} / {specific_total:0.0f} GB"
-    },
     "hyprland/submap": {
         "format": "{}"
     },
@@ -63,72 +49,57 @@
         "warp-on-scroll": false,
         "enable-bar-scroll": true,
         "disable-scroll-wraparound": true
+    }
+  },
+  {
+    "output": ["HDMI-A-1"],
+    //"height": 24, // Waybar height (to be removed for auto height)
+    "spacing": 4, // Gaps between modules (4px)
+    "include": [ "~/.config/waybar/default-modules.jsonc" ],
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap",
+        "hyprland/window"
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+        // "systemd-failed-units",
+        // "temperature#gpu",
+        // "custom/gpu-usage",
+        // "custom/gpu-memory",
+        // "temperature#cpu",
+        // "cpu",
+        // "memory",
+        // "temperature#nvme",
+        // "disk",
+        "wireplumber",
+        "custom/weather",
+        "custom/clock",
+        "bluetooth",
+        "tray"
+    ],
+    // Modules configuration
+    "hyprland/submap": {
+        "format": "{}"
     },
-    "memory": {
-        "interval": 2,
-        "format": " {percentage}%",
-        "tooltip-format" : "{used:0.1f} / {total:0.1f} GiB"
-    },
-    "wireplumber": {
-        "format": "{icon} {volume}%",
-        "format-muted": "",
-        "format-icons": ["", ""],
-        "on-click": "uwsm app -- pavucontrol",
-        "max-volume": 100,
-        "scroll-step": 1.0
-    },
-    "systemd-failed-units": {
-        "hide-on-ok": false,
-        "format": " sys {nr_failed_system}, user {nr_failed_system}",
-        "format-ok": "✓",
-        "system": true, // Monitor failed systemwide units
-        "user": true // Ignore failed user units
-    },
-    "temperature#cpu": {
-        "interval": 2,
-        "format": " {temperatureC}°C",
-        "tooltip": false,
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
-    },
-    "temperature#gpu": {
-        "interval": 2,
-        "format": "󰢮 {temperatureC}°C",
-        "tooltip": false,
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/hwmon/hwmon1/temp1_input"
-    },
-    "custom/gpu-usage": {
-        "interval": 2,
-        "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
-        "format": "󰊚 {}%",
-        "return-type": "",
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 100,
+        "all-outputs": true,
         "tooltip": false
     },
-    "custom/gpu-memory": {
-        "interval": 2,
-        "exec": "~/bin/waybar_gpu_memory.sh",
-        "format": " {text}%",
-        "return-type": "json",
-        "tooltip": true
-    },
-    "temperature#nvme": {
-        "interval": 5,
-        "format": " {temperatureC}°C",
-        "tooltip": false,
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:04:00.0/nvme/nvme0/hwmon0/temp1_input"
-    },
-    "bluetooth": {
-        "format": "",
-        "format-on": "",
-       	"format-off": "󰂲",
-       	"format-disabled": "󰂲",
-       	"format-connected": "󰂱 {num_connections}",
-        "on-click": "uwsm app -- alacritty --title bluetui --command bluetui",
-       	"tooltip-format": "{controller_alias}",
-       	"tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
-       	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}% 󰥈"
-    },
-    "tray": {
-        "icon-size": 14,
-        "spacing": 10
+    "hyprland/workspaces": {
+        "persistent-workspaces": {
+          "6": [],
+          "7": [],
+          "8": [],
+          "9": [],
+          "10": []
+        },
+        "warp-on-scroll": false,
+        "enable-bar-scroll": true,
+        "disable-scroll-wraparound": true
     }
 }]
