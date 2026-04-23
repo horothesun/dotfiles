@@ -53,8 +53,6 @@ local function postProcessingAfterInstallation(ev)
       runPostInstallationHook({ "stack", "build" }, { cwd = path })
     elseif name == "telescope-fzf-native" then
       runPostInstallationHook({ "make" }, { cwd = path })
-    elseif name == "markdown-preview" then
-      runPostInstallationHook({ "cd app && yarn install" }, { cwd = path })
     end
   end
 end
@@ -94,8 +92,8 @@ function M.setup()
   -- Optional plugins (they are loaded on specific buffers in ftplugin)
   vim.pack.add({
     gh("scalameta/nvim-metals"),
-    { src = gh("Mrcjkb/haskell-tools.nvim"), ft = { "haskell" } },
-    -- { src = gh("iamcco/markdown-preview.nvim"), ft = { "markdown" }, name = "markdown-preview" },
+    { src = gh("Mrcjkb/haskell-tools.nvim"),     ft = { "haskell" } },
+    { src = gh("brianhuster/live-preview.nvim"), ft = { "markdown", "html" } },
     -- { src = gh("kana/vim-textobj-user"),     ft = { "agda" } },
     -- { src = gh("neovimhaskell/nvim-hs.vim"), ft = { "agda" } },
     -- { src = gh("agda/cornelis"),             ft = { "agda" } },

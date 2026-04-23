@@ -28,6 +28,10 @@
       "rev": "e0bd60e726f5113741c5789f4f78c3fa83dec95a",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
+    "live-preview.nvim": {
+      "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",
+      "src": "https://github.com/brianhuster/live-preview.nvim"
+    },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
