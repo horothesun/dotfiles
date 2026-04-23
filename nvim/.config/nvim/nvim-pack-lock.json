@@ -1,0 +1,72 @@
+{
+  "plugins": {
+    "LuaSnip": {
+      "rev": "a62e1083a3cfe8b6b206e7d3d33a51091df25357",
+      "src": "https://github.com/L3MON4D3/LuaSnip"
+    },
+    "cmp-nvim-lsp": {
+      "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
+      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
+    },
+    "cmp_luasnip": {
+      "rev": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90",
+      "src": "https://github.com/saadparwaiz1/cmp_luasnip"
+    },
+    "fidget.nvim": {
+      "rev": "889e2e96edef4e144965571d46f7a77bcc4d0ddf",
+      "src": "https://github.com/j-hui/fidget.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "6d808f99bd63303646794406e270bd553ad7792e",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "gruvbox-material": {
+      "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
+      "src": "https://github.com/sainnhe/gruvbox-material"
+    },
+    "haskell-tools.nvim": {
+      "rev": "042b4c25be1996035a1e3a322e6c1094f1a9058b",
+      "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
+    },
+    "live-preview.nvim": {
+      "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",
+      "src": "https://github.com/brianhuster/live-preview.nvim"
+    },
+    "nvim-autopairs": {
+      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "src": "https://github.com/windwp/nvim-autopairs"
+    },
+    "nvim-cmp": {
+      "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
+      "src": "https://github.com/hrsh7th/nvim-cmp"
+    },
+    "nvim-metals": {
+      "rev": "3c6ef5114fd46127c517e58d7e8e4dfc1f78dac3",
+      "src": "https://github.com/scalameta/nvim-metals"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "telescope-fzf-native": {
+      "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
+      "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+    },
+    "telescope-symbols.nvim": {
+      "rev": "a6d0127a53d39b9fc2af75bd169d288166118aec",
+      "src": "https://github.com/nvim-telescope/telescope-symbols.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "vim-projectionist": {
+      "rev": "5ff7bf79a6ef741036d2038a226bcb5f8b1cd296",
+      "src": "https://github.com/tpope/vim-projectionist"
+    },
+    "vim-strip-trailing-whitespace": {
+      "rev": "59385775cbe416b2797ec5e2c7eb445a3398dd46",
+      "src": "https://github.com/axelf4/vim-strip-trailing-whitespace"
+    }
+  }
+}

@@ -1,3 +1,14 @@
+-- Plugin bootstrap via vim.pack (Neovim 0.12+)
+require("config.vimpack").setup()
+
+-- Colorscheme (must come AFTER plugins are loaded)
+vim.opt.termguicolors = true
+vim.opt.background    = "dark"
+vim.g.gruvbox_material_background         = "hard"
+vim.g.gruvbox_material_better_performance = 1
+vim.cmd.colorscheme("gruvbox-material")
+
+
 -- System clipboard integration: prevent Neovim from initializing the clipboard before it's been loaded
 vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
