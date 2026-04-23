@@ -74,7 +74,7 @@
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:04:00.0/nvme/nvme0/hwmon0/temp1_input"
     },
     "custom/weather": {
-        "interval": 480, // 8 min
+        "interval": 600, // 10 min
         "exec": "~/bin/weather.sh",
         "format": "{text}",
         "on-click": "uwsm app -- alacritty --title Weather --command bash -c 'curl wttr.in; read -n1 -r -p \"Press any key to close...\"'",
