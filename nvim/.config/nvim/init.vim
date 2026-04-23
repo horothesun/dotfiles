@@ -155,12 +155,6 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" iamcco/markdown-preview
-" CSS: https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css
-let g:mkdp_auto_close=0
-let g:mkdp_refresh_slow=1
-" let g:mkdp_markdown_css=expand('~/github-markdown.css')
-
 " Persist Undo in an XDG-Compliant Location
 if !isdirectory($HOME."/.local/share/nvim/undo")
     call mkdir($HOME."/.local/share/nvim/undo", "p", 0700)
