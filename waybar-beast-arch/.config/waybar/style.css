@@ -102,8 +102,10 @@ button {
 #disk,
 #temperature,
 #cpu,
+#custom-cpu-power,
 #custom-gpu-usage,
 #custom-gpu-memory,
+#custom-gpu-power,
 #wireplumber,
 #bluetooth,
 #memory {
@@ -130,11 +132,13 @@ button {
 
 #temperature.gpu,
 #custom-gpu-usage,
+#custom-gpu-power,
 #custom-gpu-memory {
     background-color: #d65d0e;
 }
 
 #temperature.cpu,
+#custom-cpu-power,
 #cpu {
     background-color: #8f3f71;
 }

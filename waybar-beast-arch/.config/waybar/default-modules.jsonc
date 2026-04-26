@@ -12,7 +12,16 @@
     },
     "cpu": {
         "interval": 2,
-        "format": "󰊚 {usage}%",
+        // "format": "󰊚 {usage}%",
+        "format": "{usage}%",
+        "tooltip": false
+    },
+    "custom/cpu-power": {
+        "interval": 2,
+        "exec": "~/bin/waybar_cpu_power.sh",
+        // "format": "󰈸 {text}W",
+        "format": "{text}W",
+        "return-type": "json",
         "tooltip": false
     },
     "disk": {
@@ -41,12 +50,14 @@
         "system": true, // Monitor failed systemwide units
         "user": true // Ignore failed user units
     },
+    // find /sys/devices/pci0000:00/ -name '*temp*_input'
     "temperature#cpu": {
         "interval": 2,
         "format": " {temperatureC}°C",
         "tooltip": false,
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input"
+        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon6/temp4_input"
     },
+    // find /sys/devices/pci0000:00/ -name '*temp*_input'
     "temperature#gpu": {
         "interval": 2,
         "format": "󰢮 {temperatureC}°C",
@@ -56,8 +67,17 @@
     "custom/gpu-usage": {
         "interval": 2,
         "exec": "cat /sys/class/hwmon/hwmon1/device/gpu_busy_percent",
-        "format": "󰊚 {}%",
+        // "format": "󰊚 {}%",
+        "format": "{}%",
         "return-type": "",
+        "tooltip": false
+    },
+    "custom/gpu-power": {
+        "interval": 2,
+        "exec": "~/bin/waybar_gpu_power.sh",
+        // "format": "󰈸 {text}W",
+        "format": "{text}W",
+        "return-type": "json",
         "tooltip": false
     },
     "custom/gpu-memory": {
@@ -67,6 +87,7 @@
         "return-type": "json",
         "tooltip": true
     },
+    // find /sys/devices/pci0000:00/ -name '*temp*_input'
     "temperature#nvme": {
         "interval": 5,
         "format": " {temperatureC}°C",
