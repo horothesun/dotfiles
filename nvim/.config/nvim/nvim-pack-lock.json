@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "9ea030aa67f3875753e70e1eb59701f7020479a0",
+      "rev": "720f0ed3f4fc1446c3c35c9291365c980d6925de",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-metals": {
-      "rev": "3c6ef5114fd46127c517e58d7e8e4dfc1f78dac3",
+      "rev": "b914d3b963582109371d0949424c3cc6758d99b8",
       "src": "https://github.com/scalameta/nvim-metals"
     },
     "plenary.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/tpope/vim-projectionist"
     },
     "vim-strip-trailing-whitespace": {
-      "rev": "59385775cbe416b2797ec5e2c7eb445a3398dd46",
+      "rev": "4da5f5ab7cedf43345f9b540580babb48322a7ed",
       "src": "https://github.com/axelf4/vim-strip-trailing-whitespace"
     }
   }
