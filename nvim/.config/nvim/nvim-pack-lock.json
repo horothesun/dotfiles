@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "c85116b4375d5613e243e62e98c85ca6750c5aa3",
+      "rev": "10cfae62148c90fb6d8a99a1c1ec334821ee3b42",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-metals": {
-      "rev": "b914d3b963582109371d0949424c3cc6758d99b8",
+      "rev": "4cc98f07ec96bb748a8796831767538e0e4f9be4",
       "src": "https://github.com/scalameta/nvim-metals"
     },
     "plenary.nvim": {
