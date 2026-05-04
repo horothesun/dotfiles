@@ -130,58 +130,61 @@ hl.config {
 
 hl.config {
 
-  general = {
-    gaps_in     = 2,
-    gaps_out    = 4,
+  general    = {
+    gaps_in          = 2,
+    gaps_out         = 4,
 
-    border_size = 1,
+    border_size      = 1,
 
-    col         = {
+    col              = {
       -- active_border = "rgba(306315ff)",
-      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)", angle = 45 },
-
-        inactive_border = "rgba(595959aa)"
+      active_border = {
+        colors = { "rgba(33ccffee)", "rgba(00ff99ee)", angle = 45 }
       },
 
-      -- Set to true enable resizing windows by clicking and dragging on borders and gaps
-      resize_on_border = false,
-
-      -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-      allow_tearing = false,
-
-      layout = "master"
+      -- inactive_border = "rgba(595959aa)"
+      inactive_border = "rgba(ff0000aa)"
     },
 
-    decoration  = {
-      rounding = 4,
-      rounding_power = 2,
+    -- Set to true enable resizing windows by clicking and dragging on borders and gaps
+    resize_on_border = false,
 
-      -- Change transparency of focused and unfocused windows
-      active_opacity = 1.0,
-      inactive_opacity = 1.0,
+    -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+    allow_tearing    = false,
 
-      shadow = {
-        enabled = false,
-        range = 4,
-        render_power = 3,
-        color = "rgba(1a1a1aee)",
-      },
+    layout           = "master"
+  },
 
-      blur = {
-        enabled = false,
-        size = 3,
-        passes = 1,
+  decoration = {
+    rounding = 4,
+    rounding_power = 2,
 
-        vibrancy = 0.1696
-      }
+    -- Change transparency of focused and unfocused windows
+    active_opacity = 1.0,
+    inactive_opacity = 1.0,
+
+    shadow = {
+      enabled = false,
+      range = 4,
+      render_power = 3,
+      color = "rgba(1a1a1aee)",
     },
 
-    animations  = {
-      enabled = true
+    blur = {
+      enabled = false,
+      size = 3,
+      passes = 1,
+
+      vibrancy = 0.1696
     }
+  },
+
+  animations = {
+    enabled = true
   }
 
 }
+
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
