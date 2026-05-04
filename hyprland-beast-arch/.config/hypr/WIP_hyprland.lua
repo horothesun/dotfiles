@@ -1,29 +1,8 @@
--- xx = require("hl")
-
 ------------------
 ---- MONITORS ----
 ------------------
 
--- source = ~/.config/hypr/monitors_work.conf
-
--- 4k x1.5, multi
-hl.monitor {
-  output = "DP-1",
-  mode = "3840x2160@120",
-  position = "0x0", -- impacted by scale!
-  scale = "1.5",
-  vrr = 3,          -- 0: off, 1: on, 2: fullscreen only, 3: fullscreen with video or game content type
-  bitdepth = 8
-}
-hl.monitor {
-  output = "HDMI-A-1",
-  mode = "3840x2160@60",
-  position = "-1440x-560", -- impacted by scale!
-  scale = "1.5",
-  vrr = 0,                 -- 0: off, 1: on, 2: fullscreen only, 3: fullscreen with video or game content type
-  transform = 1,           -- 90 degrees, no flip
-  bitdepth = 8
-}
+require("~/.config/hypr/monitors_work.lua")
 
 -- Fallback rule
 hl.monitor {
@@ -82,11 +61,6 @@ local screenshotSelectionToClipboard = "hyprshot --mode region --clipboard-only"
 ---- AUTOSTART ----
 -------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- or execute your favorite apps at launch like this:
-
 hl.on("hyprland.start", function()
   for command in {
     statusBar,
@@ -136,7 +110,6 @@ hl.env("QT_QPA_PLATFORMTHEME", "Adwaita:dark")
 ----- PERMISSIONS -----
 -----------------------
 
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
 -- Please note permission changes here require a Hyprland restart and are not applied on-the-fly for security reasons
 
 hl.config {
@@ -155,7 +128,6 @@ hl.config {
 ---- LOOK AND FEEL ----
 -----------------------
 
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config {
 
   general = {
@@ -164,7 +136,6 @@ hl.config {
 
     border_size = 1,
 
-    -- https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
     col         = {
       -- active_border = "rgba(306315ff)",
       active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)", angle = 45 },
@@ -181,7 +152,6 @@ hl.config {
       layout = "master"
     },
 
-    -- https://wiki.hyprland.org/Configuring/Variables/#decoration
     decoration  = {
       rounding = 4,
       rounding_power = 2,
@@ -197,7 +167,6 @@ hl.config {
         color = "rgba(1a1a1aee)",
       },
 
-      -- https://wiki.hyprland.org/Configuring/Variables/#blur
       blur = {
         enabled = false,
         size = 3,
@@ -207,7 +176,6 @@ hl.config {
       }
     },
 
-    -- https://wiki.hyprland.org/Configuring/Variables/#animations
     animations  = {
       enabled = true
     }
@@ -243,7 +211,6 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" }) -- new
 
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config {
   dwindle = {
     pseudotile = true,    -- Master switch for pseudotiling. Enabling is bound to mainMod + R in the keybinds section below
@@ -251,7 +218,6 @@ hl.config {
   }
 }
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config {
   master = {
     new_status = "slave",
@@ -259,12 +225,6 @@ hl.config {
   }
 }
 
--- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
--- hl.config {
---   scrolling = {
---     fullscreen_on_one_column = true,
---   }
--- }
 
 ----------------
 ----  MISC  ----
@@ -312,118 +272,142 @@ hl.config {
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+local mainMod = "SUPER"
+local shiftMod = "SHIFT"
+local controlMod = "CONTROL"
+local altMod = "ALT"
+local altGrMod = "Mod5"
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd(monitorsMenu))
+local function super(key) return mainMod .. " + " .. key end
+local function shift(key) return shiftMod .. " + " .. key end
+local function superShift(key) return mainMod .. " + " .. shiftMod .. " + " .. key end
+local function superControl(key) return mainMod .. " + " .. controlMod .. " + " .. key end
+local function superAlt(key) return mainMod .. " + " .. altMod .. " + " .. key end
+local function superAltGr(key) return mainMod .. " + " .. altGrMod .. " + " .. key end
+local function superShiftControl(key) return mainMod .. " + " .. shiftMod .. " + " .. controlMod .. " + " .. key end
+local function superShiftAlt(key) return mainMod .. " + " .. shiftMod .. " + " .. altMod .. " + " .. key end
+local function superShiftAltGr(key) return mainMod .. " + " .. shiftMod .. " + " .. altGrMod .. " + " .. key end
+
+hl.bind(superShift("M"), hl.dsp.exec_cmd(monitorsMenu))
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(decreaseMonitorBrightness))
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(increaseMonitorBrightness))
-hl.bind("SHIFT + XF86MonBrightnessDown", hl.dsp.exec_cmd(decreaseMonitorContrast))
-hl.bind("SHIFT + XF86MonBrightnessUp", hl.dsp.exec_cmd(increaseMonitorContrast))
-hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd(decreaseMonitorBrightness))
-hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd(increaseMonitorBrightness))
-hl.bind(mainMod .. " + SHIFT + F1", hl.dsp.exec_cmd(decreaseMonitorContrast))
-hl.bind(mainMod .. " + SHIFT + F2", hl.dsp.exec_cmd(increaseMonitorContrast))
-hl.bind(mainMod .. " + F10", hl.dsp.exec_cmd(masterToggle))
-hl.bind(mainMod .. " + F11", hl.dsp.exec_cmd(masterVolumeDown))
-hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd(masterVolumeUp))
+hl.bind(shift("XF86MonBrightnessDown"), hl.dsp.exec_cmd(decreaseMonitorContrast))
+hl.bind(shift("XF86MonBrightnessUp"), hl.dsp.exec_cmd(increaseMonitorContrast))
+hl.bind(super("F1"), hl.dsp.exec_cmd(decreaseMonitorBrightness))
+hl.bind(super("F2"), hl.dsp.exec_cmd(increaseMonitorBrightness))
+hl.bind(superShift("F1"), hl.dsp.exec_cmd(decreaseMonitorContrast))
+hl.bind(superShift("F2"), hl.dsp.exec_cmd(increaseMonitorContrast))
+hl.bind(super("F10"), hl.dsp.exec_cmd(masterToggle))
+hl.bind(super("F11"), hl.dsp.exec_cmd(masterVolumeDown))
+hl.bind(super("F12"), hl.dsp.exec_cmd(masterVolumeUp))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(masterToggle))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(masterVolumeDown))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(masterVolumeUp))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(restartStatuBar))
-hl.bind(mainMod .. " + SHIFT + DELETE", hl.dsp.exec_cmd(powerMenu))
-hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.window.kill(hl.get_active_window)) -- killallactive
--- hl.bind($mainMod SHIFT        , W                    , exec          , $browser
--- hl.bind($mainMod CONTROL      , Q                    , exec          , $hyprlock
--- hl.bind($mainMod SHIFT        , Q                    , exit          ,
--- hl.bind($mainMod              , E                    , exec          , $fileManager
--- hl.bind($mainMod              , V                    , togglefloating,
--- hl.bind($mainMod              , P                    , exec          , $menu
--- hl.bind($mainMod CONTROL      , SPACE                , exec          , $emojis
--- hl.bind($mainMod SHIFT CONTROL, V                    , exec          , $clipboardManager
--- hl.bind($mainMod              , RETURN               , layoutmsg     , swapwithmaster master # master layout
--- hl.bind($mainMod CONTROL      , 2                    , exec          , $screenshotActiveWindowToFile
--- hl.bind($mainMod SHIFT CONTROL, 2                    , exec          , $screenshotActiveWindowToClipboard
--- hl.bind($mainMod CONTROL      , 3                    , exec          , $screenshotActiveFullScreenToFile
--- hl.bind($mainMod SHIFT CONTROL, 3                    , exec          , $screenshotActiveFullScreenToClipboard
--- hl.bind($mainMod CONTROL      , 4                    , exec          , $screenshotSelectionToFile
--- hl.bind($mainMod SHIFT CONTROL, 4                    , exec          , $screenshotSelectionToClipboard
--- #bind = $mainMod              , R                   , pseudo        , # dwindle layout
--- #bind = $mainMod              , J                   , togglesplit   , # dwindle layout
+hl.bind(super("B"), hl.dsp.exec_cmd(restartStatuBar))
+hl.bind(superShift("DELETE"), hl.dsp.exec_cmd(powerMenu))
+hl.bind(superShift("RETURN"), hl.dsp.exec_cmd(terminal))
+hl.bind(superShift("C"), hl.dsp.window.close())
+hl.bind(superShift("W"), hl.dsp.exec_cmd(browser))
+hl.bind(superControl("Q"), hl.dsp.exec_cmd(hyprlock))
+hl.bind(superShift("Q"), hl.dsp.exit())
+hl.bind(super("E"), hl.dsp.exec_cmd(fileManager))
+hl.bind(super("V"), hl.dsp.window.float { action = "toggle" })
+hl.bind(super("P"), hl.dsp.exec_cmd(menu))
+hl.bind(superControl("SPACE"), hl.dsp.exec_cmd(emojis))
+hl.bind(superShiftControl("V"), hl.dsp.exec_cmd(clipboardManager))
+hl.bind(super("RETURN"), hl.dsp.layout("swapwithmaster master"))
+hl.bind(superControl("2"), hl.dsp.exec_cmd(screenshotActiveWindowToFile))
+hl.bind(superShiftControl("2"), hl.dsp.exec_cmd(screenshotActiveWindowToClipboard))
+hl.bind(superControl("3"), hl.dsp.exec_cmd(screenshotActiveFullScreenToFile))
+hl.bind(superShiftControl("3"), hl.dsp.exec_cmd(screenshotActiveFullScreenToClipboard))
+hl.bind(superControl("4"), hl.dsp.exec_cmd(screenshotSelectionToFile))
+hl.bind(superShiftControl("4"), hl.dsp.exec_cmd(screenshotSelectionToClipboard))
+-- hl.bind(super("R"), hl.dsp.window.pseudo()) -- dwindle layout
+-- hl.bind(super("J"), hl.dsp.layout("togglesplit")) -- dwindle layout
 
 -- Cycle through windows in current workspace
---bind = $mainMod, K, layoutmsg, cycleprev
---bind = $mainMod, J, layoutmsg, cyclenext
+hl.bind(super("K"), hl.dsp.layout("cycleprev"))
+hl.bind(super("J"), hl.dsp.layout("cyclenext"))
 
--- Switch workspaces with mainMod + [0-9]
---bind = $mainMod, 1, workspace, 1
---bind = $mainMod, 2, workspace, 2
---bind = $mainMod, 3, workspace, 3
---bind = $mainMod, 4, workspace, 4
---bind = $mainMod, 5, workspace, 5
+for i = 1, 10 do
+  local key = i % 10 -- 10 maps to key 0
+  hl.bind(super(key), hl.dsp.focus { workspace = i })
+  hl.bind(superShift(key), hl.dsp.window.move { workspace = i, follow = false })
+end
 
---bind = $mainMod, 6, workspace, 6
---bind = $mainMod, 7, workspace, 7
---bind = $mainMod, 8, workspace, 8
---bind = $mainMod, 9, workspace, 9
---bind = $mainMod, 0, workspace, 10
-
---bind = $mainMod ALT, 1, workspace, 6
---bind = $mainMod ALT, 2, workspace, 7
---bind = $mainMod ALT, 3, workspace, 8
---bind = $mainMod ALT, 4, workspace, 9
---bind = $mainMod ALT, 5, workspace, 10
-
--- AltGr = Mod5
---bind = $mainMod Mod5, 1, workspace, 6
---bind = $mainMod Mod5, 2, workspace, 7
---bind = $mainMod Mod5, 3, workspace, 8
---bind = $mainMod Mod5, 4, workspace, 9
---bind = $mainMod Mod5, 5, workspace, 10
-
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
---bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
---bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
---bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
---bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
---bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
-
---bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
---bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
---bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
---bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
---bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
-
---bind = $mainMod ALT SHIFT, 1, movetoworkspacesilent, 6
---bind = $mainMod ALT SHIFT, 2, movetoworkspacesilent, 7
---bind = $mainMod ALT SHIFT, 3, movetoworkspacesilent, 8
---bind = $mainMod ALT SHIFT, 4, movetoworkspacesilent, 9
---bind = $mainMod ALT SHIFT, 5, movetoworkspacesilent, 10
-
--- AltGr = Mod5
---bind = $mainMod Mod5 SHIFT, 1, movetoworkspacesilent, 6
---bind = $mainMod Mod5 SHIFT, 2, movetoworkspacesilent, 7
---bind = $mainMod Mod5 SHIFT, 3, movetoworkspacesilent, 8
---bind = $mainMod Mod5 SHIFT, 4, movetoworkspacesilent, 9
---bind = $mainMod Mod5 SHIFT, 5, movetoworkspacesilent, 10
-
--- Example special workspace (scratchpad)
---#bind = $mainMod, S, togglespecialworkspace, magic
---#bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+for key = 1, 5 do
+  local workspace = (key + 5) % 10
+  hl.bind(superAlt(key), hl.dsp.focus { workspace = workspace })
+  hl.bind(superAltGr(key), hl.dsp.focus { workspace = workspace })
+  hl.bind(superShiftAlt(key), hl.dsp.window.move { workspace = workspace, follow = false })
+  hl.bind(superShiftAltGr(key), hl.dsp.window.move { workspace = workspace, follow = false })
+end
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
---bindm = $mainMod, mouse:272, movewindow
---bindm = $mainMod, mouse:273, resizewindow
+hl.bind(super("mouse:272"), hl.dsp.window.drag(), { mouse = true })
+hl.bind(super("mouse:273"), hl.dsp.window.resize(), { mouse = true })
 
 -- Resize active window with keyboard
---bindel = $mainMod SHIFT, L, resizeactive,  125   0
---bindel = $mainMod SHIFT, H, resizeactive, -125   0
---bindel = $mainMod SHIFT, K, resizeactive,   0 -125
---bindel = $mainMod SHIFT, J, resizeactive,   0  125
+hl.bind(superShift("L"), hl.dsp.window.resize { x = 125, y = 0 }, { repeating = true })
+hl.bind(superShift("H"), hl.dsp.window.resize { x = -125, y = 0 }, { repeating = true })
+hl.bind(superShift("K"), hl.dsp.window.resize { x = 0, y = -125 }, { repeating = true })
+hl.bind(superShift("J"), hl.dsp.window.resize { x = 0, y = 125 }, { repeating = true })
 
 -- Move active window with keyboard
---bindel = $mainMod, L, moveactive,  100    0
---bindel = $mainMod, H, moveactive, -100    0
---bindel = $mainMod, K, moveactive,    0 -100
---bindel = $mainMod, J, moveactive,    0  100
+hl.bind(super("L"), hl.dsp.window.move { x = 100, y = 0 }, { repeating = true })  -- moveactive
+hl.bind(super("H"), hl.dsp.window.move { x = -100, y = 0 }, { repeating = true }) -- moveactive
+hl.bind(super("K"), hl.dsp.window.move { x = 0, y = -100 }, { repeating = true }) -- moveactive
+hl.bind(super("J"), hl.dsp.window.move { x = 0, y = 100 }, { repeating = true })  -- moveactive
+
+
+--------------------------------
+---- WINDOWS AND WORKSPACES ----
+--------------------------------
+
+-- Ignore maximize requests from all apps. You'll probably like this.
+local suppressMaximizeRule = hl.window_rule {
+  name           = "suppress-maximize-events",
+  match          = { class = ".*" },
+  suppress_event = "maximize"
+}
+--suppressMaximizeRule:set_enabled(false)
+
+-- Fix some dragging issues with XWayland
+hl.window_rule {
+  name     = "fix-xwayland-drags",
+  match    = {
+    class      = "^$",
+    title      = "^$",
+    xwayland   = true,
+    float      = true,
+    fullscreen = false,
+    pin        = false
+  },
+  no_focus = true
+}
+
+-- unscale XWayland (e.g. Steam, VLC, etc.)
+hl.config {
+  xwayland = {
+    force_zero_scaling = true
+  }
+}
+
+-- hyprshot black border: https://github.com/Gustash/Hyprshot/issues/60#issuecomment-2725250782
+local noHyprshotBlackBorderLayerRule = hl.layer_rule {
+  name    = "no-hyprshot-black-border",
+  match   = { namespace = "selection" },
+  no_anim = true
+}
+--noHyprshotBlackBorderLayerRule:set_enabled(false)
+
+-- workspace / monitor / layout association
+local primaryMonitor                 = "DP-1"
+local secondaryMonitor               = "HDMI-A-1"
+
+for workspace = 1, 5 do
+  hl.workspace_rule { workspace = "" .. workspace, monitor = primaryMonitor }
+end
+for workspace = 6, 10 do
+  hl.workspace_rule { workspace = "" .. workspace, monitor = secondaryMonitor, layout = "layoutopt:orientation:top" }
+end
