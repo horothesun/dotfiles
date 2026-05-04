@@ -27,24 +27,24 @@ local hyprlock = uwsmApp("hyprlock")
 local browser = uwsmApp("brave")
 local menu = uwsmApp("rofi -show drun")
 local statusBar = uwsmApp("waybar")
-local restartStatuBar = "pkill waybar || " .. statusBar
+local restartStatusBar = "pkill waybar || " .. statusBar
 local emojis = uwsmApp("rofi -modi emoji -show emoji")
 local clipboardManager = uwsmApp("cliphist list | rofi -dmenu | cliphist decode | wl-copy")
-local powerMenu = uwsmApp("${HOME}/.config/rofi/power_menu.sh")
+local powerMenu = uwsmApp('"${HOME}/.config/rofi/power_menu.sh"')
 
-local monitorsMenu = uwsmApp("${HOME}/.config/rofi/monitors_menu.sh")
-local getFocusedMonitorBus = "${HOME}/bin/get_focused_monitor_i2c_bus.sh"
-local increaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 + 5' -- +5%
-local decreaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 - 5' -- +5%
-local increaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 + 5'   -- +5%
-local decreaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 - 5'   -- +5%
+local monitorsMenu = uwsmApp('"${HOME}/.config/rofi/monitors_menu.sh"')
+local getFocusedMonitorBus = '"${HOME}/bin/get_focused_monitor_i2c_bus.sh"'
+local increaseMonitorBrightness = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 10 + 5" -- +5%
+local decreaseMonitorBrightness = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 10 - 5" -- +5%
+local increaseMonitorContrast = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 12 + 5"   -- +5%
+local decreaseMonitorContrast = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 12 - 5"   -- +5%
 
 local masterToggle = "amixer set Master toggle"
 local masterVolumeDown = "amixer set Master playback 5%-"
 local masterVolumeUp = "amixer set Master playback 5%+"
 
-local screenshotFolder = "${HOME}/Downloads"
-local screenshotFileName = "Screenshot $(date -u '+%Y-%m-%d at %H.%M.%S').png"
+local screenshotFolder = '"${HOME}/Downloads"'
+local screenshotFileName = '"Screenshot $(date -u \'+%Y-%m-%d at %H.%M.%S\').png"'
 local screenshotActiveWindowToFile =
     "hyprshot --mode window --mode active --output-folder " .. screenshotFolder .. " --filename " .. screenshotFileName
 local screenshotActiveWindowToClipboard = "hyprshot --mode window --mode active --clipboard-only"
@@ -61,7 +61,7 @@ local screenshotSelectionToClipboard = "hyprshot --mode region --clipboard-only"
 -------------------
 
 hl.on("hyprland.start", function()
-  for command in {
+  for _, command in ipairs {
     statusBar,
 
     -- requires hyprpolkitagent package (https://wiki.archlinux.org/title/Polkit#Authentication_agents)
@@ -134,7 +134,7 @@ hl.config {
     border_size      = 1,
     col              = {
       -- active_border = "rgba(306315ff)",
-      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)", angle = 45 } },
+      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
       -- inactive_border = "rgba(595959aa)"
       inactive_border = "rgba(ff0000aa)"
     },
@@ -284,7 +284,7 @@ hl.bind(super("F12"), hl.dsp.exec_cmd(masterVolumeUp))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(masterToggle))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(masterVolumeDown))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(masterVolumeUp))
-hl.bind(super("B"), hl.dsp.exec_cmd(restartStatuBar))
+hl.bind(super("B"), hl.dsp.exec_cmd(restartStatusBar))
 hl.bind(superShift("DELETE"), hl.dsp.exec_cmd(powerMenu))
 hl.bind(superShift("RETURN"), hl.dsp.exec_cmd(terminal))
 hl.bind(superShift("C"), hl.dsp.window.close())
@@ -375,12 +375,17 @@ local noHyprshotBlackBorderLayerRule = hl.layer_rule {
 }
 --noHyprshotBlackBorderLayerRule:set_enabled(false)
 
--- primary monitor workspaces
+-- primary monitor's workspaces
 for workspace = 1, 5 do
-  hl.workspace_rule { workspace = "" .. workspace, monitor = "DP-1" }
+  hl.workspace_rule { workspace = "" .. workspace, monitor = "DP-1", layout = "master" }
 end
 
--- secondary monitor workspaces
+-- secondary monitor's workspaces
 for workspace = 6, 10 do
-  hl.workspace_rule { workspace = "" .. workspace, monitor = "HDMI-A-1", layout = "layoutopt:orientation:top" }
+  hl.workspace_rule {
+    workspace = "" .. workspace,
+    monitor = "HDMI-A-1",
+    layout = "master",
+    layout_opts = { orientation = "top" }
+  }
 end
