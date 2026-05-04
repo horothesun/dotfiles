@@ -2,7 +2,7 @@
 
 RELATIVE_CONFIG_DIR=".config/hypr"
 CONFIG_DIR="${HOME}/${RELATIVE_CONFIG_DIR}"
-HYPRLAND_CONF="${CONFIG_DIR}/hyprland.conf"
+HYPRLAND_CONF="${CONFIG_DIR}/hyprland.lua"
 
 MONITORS_OPTIONS=(
   work
@@ -54,5 +54,5 @@ echo "SELECTED: ${SELECTED}"
 
 echo "Update ${HYPRLAND_CONF}..."
 sed --follow-symlinks \
-  --in-place "s|^source = ~/${RELATIVE_CONFIG_DIR}/monitors_.*|source = ~/${RELATIVE_CONFIG_DIR}/monitors_${SELECTED}.conf|" \
+  --in-place "s|^require(\"~/${RELATIVE_CONFIG_DIR}/monitors_.*|require(\"~/${RELATIVE_CONFIG_DIR}/monitors_${SELECTED}.lua\")|" \
   "${HYPRLAND_CONF}"
