@@ -29,7 +29,6 @@ local menu = uwsmApp("rofi -show drun")
 local statusBar = uwsmApp("waybar")
 local restartStatuBar = "pkill waybar || " .. statusBar
 local emojis = uwsmApp("rofi -modi emoji -show emoji")
-
 local clipboardManager = uwsmApp("cliphist list | rofi -dmenu | cliphist decode | wl-copy")
 local powerMenu = uwsmApp("${HOME}/.config/rofi/power_menu.sh")
 
@@ -139,7 +138,6 @@ hl.config {
       -- inactive_border = "rgba(595959aa)"
       inactive_border = "rgba(ff0000aa)"
     },
-    -- Set to true enable resizing windows by clicking and dragging on borders and gaps
     resize_on_border = false,
     -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
     allow_tearing    = false,
@@ -171,7 +169,7 @@ hl.config {
 }
 
 
--- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+-- Default curves and animations
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
 hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
@@ -223,8 +221,7 @@ hl.config {
     force_default_wallpaper = -1,   -- Set to 0 or 1 to disable the anime mascot wallpapers
     disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
     enable_anr_dialog       = false,
-
-    --vfr = true -- lowers the amount of sent frames when nothing is happening on-screen
+    -- vfr                     = true  -- lowers the amount of sent frames when nothing is happening on-screen
   }
 }
 
@@ -243,15 +240,11 @@ hl.config {
     numlock_by_default = true,
     repeat_rate = 40,
     repeat_delay = 200,
-
     follow_mouse = true,
-
     sensitivity = -0.92, -- -1.0 - 1.0, 0 means no modification
-
     touchpad = {
       natural_scroll = false
     }
-
   }
 }
 
@@ -324,7 +317,7 @@ for i = 1, 10 do
 end
 
 for key = 1, 5 do
-  local workspace = (key + 5) % 10
+  local workspace = key + 5
   hl.bind(superAlt(key), hl.dsp.focus { workspace = workspace })
   hl.bind(superAltGr(key), hl.dsp.focus { workspace = workspace })
   hl.bind(superShiftAlt(key), hl.dsp.window.move { workspace = workspace, follow = false })
@@ -363,14 +356,7 @@ local suppressMaximizeRule = hl.window_rule {
 -- Fix some dragging issues with XWayland
 hl.window_rule {
   name     = "fix-xwayland-drags",
-  match    = {
-    class      = "^$",
-    title      = "^$",
-    xwayland   = true,
-    float      = true,
-    fullscreen = false,
-    pin        = false
-  },
+  match    = { class = "^$", title = "^$", xwayland = true, float = true, fullscreen = false, pin = false },
   no_focus = true
 }
 
@@ -389,13 +375,12 @@ local noHyprshotBlackBorderLayerRule = hl.layer_rule {
 }
 --noHyprshotBlackBorderLayerRule:set_enabled(false)
 
--- workspace / monitor / layout association
-local primaryMonitor                 = "DP-1"
-local secondaryMonitor               = "HDMI-A-1"
-
+-- primary monitor workspaces
 for workspace = 1, 5 do
-  hl.workspace_rule { workspace = "" .. workspace, monitor = primaryMonitor }
+  hl.workspace_rule { workspace = "" .. workspace, monitor = "DP-1" }
 end
+
+-- secondary monitor workspaces
 for workspace = 6, 10 do
-  hl.workspace_rule { workspace = "" .. workspace, monitor = secondaryMonitor, layout = "layoutopt:orientation:top" }
+  hl.workspace_rule { workspace = "" .. workspace, monitor = "HDMI-A-1", layout = "layoutopt:orientation:top" }
 end
