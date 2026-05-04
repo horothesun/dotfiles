@@ -35,10 +35,10 @@ local powerMenu = uwsmApp("${HOME}/.config/rofi/power_menu.sh")
 
 local monitorsMenu = uwsmApp("${HOME}/.config/rofi/monitors_menu.sh")
 local getFocusedMonitorBus = "${HOME}/bin/get_focused_monitor_i2c_bus.sh"
-local increaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 + 5 # +5%'
-local decreaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 - 5 # +5%'
-local increaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 + 5 # +5%'
-local decreaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 - 5 # +5%'
+local increaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 + 5' -- +5%
+local decreaseMonitorBrightness = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 10 - 5' -- +5%
+local increaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 + 5'   -- +5%
+local decreaseMonitorContrast = 'ddcutil --bus $("' .. getFocusedMonitorBus .. '") setvcp 12 - 5'   -- +5%
 
 local masterToggle = "amixer set Master toggle"
 local masterVolumeDown = "amixer set Master playback 5%-"
