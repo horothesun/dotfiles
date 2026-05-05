@@ -10,7 +10,7 @@ configuration {
 @theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
 
 window {
-  width: 300px;
+  width: 400px;
   border-radius: 8px;
 }
 

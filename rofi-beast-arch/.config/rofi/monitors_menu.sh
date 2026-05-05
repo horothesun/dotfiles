@@ -6,21 +6,25 @@ HYPRLAND_CONF="${CONFIG_DIR}/hyprland.conf"
 
 MONITORS_OPTIONS=(
   work
-  gaming
+  gaming_4k_x1_0
+  gaming_4k_x1_5
 )
 MONITORS_OPTIONS_LENGTH=${#MONITORS_OPTIONS[@]}
 
 declare -A ICONS
 ICONS[work]=""
-ICONS[gaming]=""
+ICONS[gaming_4k_x1_0]=""
+ICONS[gaming_4k_x1_5]=""
 
 declare -A ICON_COLORS
 ICON_COLORS[work]="#458588"
-ICON_COLORS[gaming]="#d65d0e"
+ICON_COLORS[gaming_4k_x1_0]="#d65d0e"
+ICON_COLORS[gaming_4k_x1_5]="#d65d0e"
 
 declare -A LABELS
 LABELS[work]="Work (dual)"
-LABELS[gaming]="Gaming (single)"
+LABELS[gaming_4k_x1_0]="Gaming 4k x1.0 (single)"
+LABELS[gaming_4k_x1_5]="Gaming 4k x1.5 (single)"
 
 SEP=""
 SELECTED_INDEX=$(
