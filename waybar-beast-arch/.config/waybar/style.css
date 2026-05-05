@@ -136,13 +136,13 @@ button {
 #custom-gpu-usage,
 #custom-gpu-power,
 #custom-gpu-memory {
-    background-color: #d65d0e;
+    background-color: #8f3f71;
 }
 
 #custom-cpu-temperature,
 #custom-cpu-power,
 #cpu {
-    background-color: #8f3f71;
+    background-color: #d65d0e;
 }
 
 /* #wireplumber {
