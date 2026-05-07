@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "ba4e248bb10e47e6295e928684970a783434e983",
+      "rev": "fe9ed6e6adfa6311e06c84569d8536190f172030",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
@@ -49,7 +49,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "telescope-fzf-native": {
-      "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
+      "rev": "b25b749b9db64d375d782094e2b9dce53ad53a40",
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "telescope-symbols.nvim": {
