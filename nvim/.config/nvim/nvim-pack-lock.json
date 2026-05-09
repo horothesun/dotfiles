@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "fe9ed6e6adfa6311e06c84569d8536190f172030",
+      "rev": "3507b085389af7bc81d784c48c4242b527b07f84",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
@@ -33,7 +33,7 @@
       "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "nvim-autopairs": {
-      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-cmp": {
