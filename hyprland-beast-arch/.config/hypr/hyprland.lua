@@ -1,3 +1,5 @@
+local const = require("modules.constants")
+
 ------------------
 ---- MONITORS ----
 ------------------
@@ -195,18 +197,9 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" }) -- new
 
-hl.config {
-  dwindle = {
-    preserve_split = true -- You probably want this
-  }
-}
+hl.config { dwindle = { preserve_split = true } }
 
-hl.config {
-  master = {
-    new_status = "slave",
-    mfact = 0.5
-  }
-}
+hl.config { master = { new_status = "slave", mfact = 0.5 } }
 
 
 ----------------
@@ -251,18 +244,18 @@ hl.config {
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER"
-local shiftMod = "SHIFT"
-local controlMod = "CONTROL"
-local altMod = "ALT"
+local function super(key) return const.MAIN_MOD .. " + " .. key end
+local function shift(key) return const.SHIFT_MOD .. " + " .. key end
+local function superShift(key) return const.MAIN_MOD .. " + " .. const.SHIFT_MOD .. " + " .. key end
+local function superControl(key) return const.MAIN_MOD .. " + " .. const.CONTROL_MOD .. " + " .. key end
+local function superAlt(key) return const.MAIN_MOD .. " + " .. const.ALT_MOD .. " + " .. key end
+local function superShiftControl(key)
+  return const.MAIN_MOD .. " + " .. const.SHIFT_MOD .. " + " .. const.CONTROL_MOD .. " + " .. key
+end
+local function superShiftAlt(key)
+  return const.MAIN_MOD .. " + " .. const.SHIFT_MOD .. " + " .. const.ALT_MOD .. " + " .. key
+end
 
-local function super(key) return mainMod .. " + " .. key end
-local function shift(key) return shiftMod .. " + " .. key end
-local function superShift(key) return mainMod .. " + " .. shiftMod .. " + " .. key end
-local function superControl(key) return mainMod .. " + " .. controlMod .. " + " .. key end
-local function superAlt(key) return mainMod .. " + " .. altMod .. " + " .. key end
-local function superShiftControl(key) return mainMod .. " + " .. shiftMod .. " + " .. controlMod .. " + " .. key end
-local function superShiftAlt(key) return mainMod .. " + " .. shiftMod .. " + " .. altMod .. " + " .. key end
 
 hl.bind(superShift("M"), hl.dsp.exec_cmd(monitorsMenu))
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(decreaseMonitorBrightness))
@@ -322,10 +315,13 @@ hl.bind(super("mouse:272"), hl.dsp.window.drag(), { mouse = true })
 hl.bind(super("mouse:273"), hl.dsp.window.resize(), { mouse = true })
 
 -- Resize active window with keyboard
-hl.bind(superShift("L"), hl.dsp.window.resize { x = 125, y = 0, relative = true }, { repeating = true })
-hl.bind(superShift("H"), hl.dsp.window.resize { x = -125, y = 0, relative = true }, { repeating = true })
-hl.bind(superShift("K"), hl.dsp.window.resize { x = 0, y = -125, relative = true }, { repeating = true })
-hl.bind(superShift("J"), hl.dsp.window.resize { x = 0, y = 125, relative = true }, { repeating = true })
+local function resizeActiveWindowBind(key, relativeX, relativeY)
+  hl.bind(key, hl.dsp.window.resize { x = relativeX, y = relativeY, relative = true }, { repeating = true })
+end
+resizeActiveWindowBind(superShift("L"), const.WINDOW_RESIZE_STEP, 0)
+resizeActiveWindowBind(superShift("H"), -const.WINDOW_RESIZE_STEP, 0)
+resizeActiveWindowBind(superShift("K"), 0, -const.WINDOW_RESIZE_STEP)
+resizeActiveWindowBind(superShift("J"), 0, const.WINDOW_RESIZE_STEP)
 
 
 --------------------------------
@@ -348,14 +344,11 @@ hl.window_rule {
 }
 
 -- unscale XWayland (e.g. Steam, VLC, etc.)
-hl.config {
-  xwayland = {
-    force_zero_scaling = true
-  }
-}
+hl.config { xwayland = { force_zero_scaling = true } }
 
 -- hyprshot black border: https://github.com/Gustash/Hyprshot/issues/60#issuecomment-2725250782
 local noHyprshotBlackBorderLayerRule = hl.layer_rule {
+
   name    = "no-hyprshot-black-border",
   match   = { namespace = "selection" },
   no_anim = true
@@ -364,14 +357,14 @@ local noHyprshotBlackBorderLayerRule = hl.layer_rule {
 
 -- primary monitor's workspaces
 for workspace = 1, 5 do
-  hl.workspace_rule { workspace = "" .. workspace, monitor = "DP-1", layout = "master" }
+  hl.workspace_rule { workspace = "" .. workspace, monitor = const.PRIMARY_MONITOR, layout = "master" }
 end
 
 -- secondary monitor's workspaces
 for workspace = 6, 10 do
   hl.workspace_rule {
     workspace = "" .. workspace,
-    monitor = "HDMI-A-1",
+    monitor = const.SECONDARY_MONITOR,
     layout = "master",
     layout_opts = { orientation = "top" }
   }

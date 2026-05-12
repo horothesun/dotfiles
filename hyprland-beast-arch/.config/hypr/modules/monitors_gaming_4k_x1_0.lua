@@ -1,5 +1,7 @@
+local const = require("modules.constants")
+
 hl.monitor {
-  output = "DP-1",
+  output = const.PRIMARY_MONITOR,
   mode = "3840x2160@120",
   position = "0x0",
   scale = "1",
@@ -7,6 +9,6 @@ hl.monitor {
   bitdepth = 8
 }
 hl.monitor {
-  output = "HDMI-A-1",
+  output = const.SECONDARY_MONITOR,
   disabled = true
 }

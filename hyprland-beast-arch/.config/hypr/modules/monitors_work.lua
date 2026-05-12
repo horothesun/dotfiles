@@ -1,6 +1,7 @@
--- 4k x1.5, multi
+local const = require("modules.constants")
+
 hl.monitor {
-  output = "DP-1",
+  output = const.PRIMARY_MONITOR,
   mode = "3840x2160@120",
   position = "0x0", -- impacted by scale!
   scale = "1.5",
@@ -8,7 +9,7 @@ hl.monitor {
   bitdepth = 8
 }
 hl.monitor {
-  output = "HDMI-A-1",
+  output = const.SECONDARY_MONITOR,
   mode = "3840x2160@60",
   position = "-1440x-560", -- impacted by scale!
   scale = "1.5",
