@@ -54,5 +54,5 @@ echo "SELECTED: ${SELECTED}"
 
 echo "Update ${HYPRLAND_CONF}..."
 sed --follow-symlinks \
-  --in-place "s|^require(\"~/${RELATIVE_CONFIG_DIR}/monitors_.*|require(\"~/${RELATIVE_CONFIG_DIR}/monitors_${SELECTED}.lua\")|" \
+  --in-place "s|^require(\"modules.monitors_.*|require(\"modules.monitors_${SELECTED}\")|" \
   "${HYPRLAND_CONF}"

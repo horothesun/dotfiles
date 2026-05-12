@@ -2,7 +2,7 @@
 ---- MONITORS ----
 ------------------
 
-require("~/.config/hypr/monitors_work.lua")
+require("modules.monitors_work")
 
 -- Fallback rule
 hl.monitor {
@@ -133,10 +133,8 @@ hl.config {
     gaps_out         = 4,
     border_size      = 1,
     col              = {
-      -- active_border = "rgba(306315ff)",
-      active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-      -- inactive_border = "rgba(595959aa)"
-      inactive_border = "rgba(ff0000aa)"
+      active_border = "rgba(306315ff)",
+      inactive_border = "rgba(595959aa)"
     },
     resize_on_border = false,
     -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
@@ -199,7 +197,6 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 hl.config {
   dwindle = {
-    pseudotile = true,    -- Master switch for pseudotiling. Enabling is bound to mainMod + R in the keybinds section below
     preserve_split = true -- You probably want this
   }
 }
@@ -218,9 +215,10 @@ hl.config {
 
 hl.config {
   misc = {
-    force_default_wallpaper = -1,   -- Set to 0 or 1 to disable the anime mascot wallpapers
-    disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
-    enable_anr_dialog       = false,
+    force_default_wallpaper  = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+    disable_hyprland_logo    = true,  -- If true disables the random hyprland logo / anime girl background. :(
+    disable_splash_rendering = true,  -- If true disables the Hyprland splash rendering
+    enable_anr_dialog        = false, -- ANR = "App Not Responding"
     -- vfr                     = true  -- lowers the amount of sent frames when nothing is happening on-screen
   }
 }
@@ -257,17 +255,14 @@ local mainMod = "SUPER"
 local shiftMod = "SHIFT"
 local controlMod = "CONTROL"
 local altMod = "ALT"
-local altGrMod = "Mod5"
 
 local function super(key) return mainMod .. " + " .. key end
 local function shift(key) return shiftMod .. " + " .. key end
 local function superShift(key) return mainMod .. " + " .. shiftMod .. " + " .. key end
 local function superControl(key) return mainMod .. " + " .. controlMod .. " + " .. key end
 local function superAlt(key) return mainMod .. " + " .. altMod .. " + " .. key end
-local function superAltGr(key) return mainMod .. " + " .. altGrMod .. " + " .. key end
 local function superShiftControl(key) return mainMod .. " + " .. shiftMod .. " + " .. controlMod .. " + " .. key end
 local function superShiftAlt(key) return mainMod .. " + " .. shiftMod .. " + " .. altMod .. " + " .. key end
-local function superShiftAltGr(key) return mainMod .. " + " .. shiftMod .. " + " .. altGrMod .. " + " .. key end
 
 hl.bind(superShift("M"), hl.dsp.exec_cmd(monitorsMenu))
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(decreaseMonitorBrightness))
@@ -319,9 +314,7 @@ end
 for key = 1, 5 do
   local workspace = key + 5
   hl.bind(superAlt(key), hl.dsp.focus { workspace = workspace })
-  hl.bind(superAltGr(key), hl.dsp.focus { workspace = workspace })
   hl.bind(superShiftAlt(key), hl.dsp.window.move { workspace = workspace, follow = false })
-  hl.bind(superShiftAltGr(key), hl.dsp.window.move { workspace = workspace, follow = false })
 end
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
@@ -329,16 +322,10 @@ hl.bind(super("mouse:272"), hl.dsp.window.drag(), { mouse = true })
 hl.bind(super("mouse:273"), hl.dsp.window.resize(), { mouse = true })
 
 -- Resize active window with keyboard
-hl.bind(superShift("L"), hl.dsp.window.resize { x = 125, y = 0 }, { repeating = true })
-hl.bind(superShift("H"), hl.dsp.window.resize { x = -125, y = 0 }, { repeating = true })
-hl.bind(superShift("K"), hl.dsp.window.resize { x = 0, y = -125 }, { repeating = true })
-hl.bind(superShift("J"), hl.dsp.window.resize { x = 0, y = 125 }, { repeating = true })
-
--- Move active window with keyboard
-hl.bind(super("L"), hl.dsp.window.move { x = 100, y = 0 }, { repeating = true })  -- moveactive
-hl.bind(super("H"), hl.dsp.window.move { x = -100, y = 0 }, { repeating = true }) -- moveactive
-hl.bind(super("K"), hl.dsp.window.move { x = 0, y = -100 }, { repeating = true }) -- moveactive
-hl.bind(super("J"), hl.dsp.window.move { x = 0, y = 100 }, { repeating = true })  -- moveactive
+hl.bind(superShift("L"), hl.dsp.window.resize { x = 125, y = 0, relative = true }, { repeating = true })
+hl.bind(superShift("H"), hl.dsp.window.resize { x = -125, y = 0, relative = true }, { repeating = true })
+hl.bind(superShift("K"), hl.dsp.window.resize { x = 0, y = -125, relative = true }, { repeating = true })
+hl.bind(superShift("J"), hl.dsp.window.resize { x = 0, y = 125, relative = true }, { repeating = true })
 
 
 --------------------------------
