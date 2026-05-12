@@ -8,6 +8,8 @@ local constants = {
   CONTROL_MOD        = "CONTROL",
   ALT_MOD            = "ALT",
 
+  CURSOR_SIZE        = 24,
+
   WINDOW_RESIZE_STEP = 125
 
 }

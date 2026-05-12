@@ -84,10 +84,8 @@ end)
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
-
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_SIZE", const.CURSOR_SIZE)
+hl.env("HYPRCURSOR_SIZE", const.CURSOR_SIZE)
 
 -- toolkit-specific scale
 --hl.env("GCK_SCALE", "2")
