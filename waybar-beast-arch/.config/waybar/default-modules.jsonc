@@ -45,7 +45,7 @@
     },
     "systemd-failed-units": {
         "hide-on-ok": false,
-        "format": " sys {nr_failed_system}, user {nr_failed_system}",
+        "format": " sys {nr_failed_system}, user {nr_failed_user}",
         "format-ok": "✓",
         "system": true, // Monitor failed systemwide units
         "user": true // Ignore failed user units
