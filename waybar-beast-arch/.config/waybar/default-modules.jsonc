@@ -48,7 +48,8 @@
         "format": " sys {nr_failed_system}, user {nr_failed_user}",
         "format-ok": "✓",
         "system": true, // Monitor failed systemwide units
-        "user": true // Ignore failed user units
+        "user": true, // Ignore failed user units
+        "on-click": "uwsm app -- alacritty --title 'Failed units' --command bash -c 'bin/waybar_failed_systemd_units.sh; read -n1 -r -p \"Press any key to close...\"'"
     },
     "custom/cpu-temperature": {
         "interval": 2,
