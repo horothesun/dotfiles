@@ -13,13 +13,13 @@ import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Renamed
 import XMonad.Layout.ThreeColumns
+import XMonad.Operations (unGrab)
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Hacks qualified as Hacks
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
-import XMonad.Util.Ungrab
 
 myTerminal = "alacritty"
 
@@ -130,6 +130,7 @@ myXmobarPP :: PP
 myXmobarPP =
   def
     { ppSep = magenta " | "
+    , ppTitle = ppWindow
     , ppTitleSanitize = xmobarStrip
     , ppCurrent = wrap (blue "[") (blue "]")
     , ppVisible = wrap (lowWhite "(") (lowWhite ")")
