@@ -17,7 +17,6 @@ import XMonad.Operations (unGrab)
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Hacks qualified as Hacks
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 
@@ -42,7 +41,13 @@ internalMonitorSetResolutionCommand = "xinternal_only.sh"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
 
-launchSystemTray = "stalonetray &"
+launchSystemTray =
+  "stalonetray "
+    ++ "--geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE --icon-size 20 "
+    ++ "--slot-size 24 --background '#202020' --transparent true "
+    ++ "--window-type dock --window-strut top --window-layer top "
+    ++ "--sticky true --skip-taskbar true --dockapp-mode none "
+    ++ "--kludges force_icons_size --padding 5 &"
 
 -- "trayer -l --edge top --align right --widthtype request --padding 5 "
 --   ++ "--SetDockType true --SetPartialStrut true --expand true --monitor primary "
@@ -183,7 +188,7 @@ myConfig =
     , layoutHook = myLayout
     , startupHook = myStartupHook
     , manageHook = myManageHook -- Match on certain windows
-    , handleEventHook = handleEventHook def <+> Hacks.trayerAboveXmobarEventHook
+    , handleEventHook = handleEventHook def
     , mouseBindings = myMouseBindings
     }
     `additionalKeysP` myKeys
