@@ -42,12 +42,8 @@ setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
 
 launchSystemTray =
-  "stalonetray "
-    ++ "--geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE --icon-size 20 "
-    ++ "--slot-size 24 --background '#202020' --transparent true "
-    ++ "--window-type dock --window-strut top --window-layer top "
-    ++ "--sticky true --skip-taskbar true --dockapp-mode none "
-    ++ "--kludges force_icons_size --padding 5 &"
+  "stalonetray --geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE "
+    ++ "--slot-size 24 --background '#202020' --sticky true --dockapp-mode none &"
 
 -- "trayer -l --edge top --align right --widthtype request --padding 5 "
 --   ++ "--SetDockType true --SetPartialStrut true --expand true --monitor primary "
