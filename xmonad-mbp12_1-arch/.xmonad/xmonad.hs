@@ -40,15 +40,8 @@ setExternalDisplay1ContrastCommandPrefix = setExternalDisplay1CommandPrefix ++ "
 internalMonitorSetResolutionCommand = "xinternal_only.sh"
 setKeyboardRepeatDelayAndRateCommand = "xset r rate 280 40"
 disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
-
 launchSystemTray =
-  "stalonetray --geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE "
-    ++ "--slot-size 24 --background '#202020' --sticky true --dockapp-mode none &"
-
--- "trayer -l --edge top --align right --widthtype request --padding 5 "
---   ++ "--SetDockType true --SetPartialStrut true --expand true --monitor primary "
---   ++ "--transparent true --alpha 0 --tint 0x202020 --height 26 --iconspacing 4 &"
-
+  "stalonetray --geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE --slot-size 24 --background '#202020' &"
 launchNetworkApplet = "nm-applet &"
 launchVolumeApplet = "volumeicon &"
 launchClipboardManager = "copyq &"
