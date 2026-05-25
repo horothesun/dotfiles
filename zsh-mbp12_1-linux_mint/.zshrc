@@ -22,6 +22,10 @@ unsetopt nomatch
 PATH="${PATH}:${HOME}/.cargo/bin"
 
 
+# lua_ls
+PATH="${PATH}:${HOME}/lua-language-server-3.16.4-linux-x64/bin"
+
+
 # npm
 NPM_PACKAGES="${HOME}/.npm-packages"
 export PATH="$PATH:$NPM_PACKAGES/bin"

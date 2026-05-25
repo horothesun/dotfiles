@@ -1,7 +1,7 @@
 {
   "plugins": {
     "LuaSnip": {
-      "rev": "a62e1083a3cfe8b6b206e7d3d33a51091df25357",
+      "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "cmp-nvim-lsp": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/saadparwaiz1/cmp_luasnip"
     },
     "fidget.nvim": {
-      "rev": "889e2e96edef4e144965571d46f7a77bcc4d0ddf",
+      "rev": "82404b196e73a00b1727a91903beef5ddc319d22",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "3507b085389af7bc81d784c48c4242b527b07f84",
+      "rev": "f37350b20d7a1cbb80b21c304d45c8b0d392ed2a",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/nvim-telescope/telescope-symbols.nvim"
     },
     "telescope.nvim": {
-      "rev": "f04ab730b8f9c6bf3f54a206d0dcddfd70c52d59",
+      "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "vim-projectionist": {

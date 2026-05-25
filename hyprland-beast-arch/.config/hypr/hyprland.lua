@@ -27,11 +27,12 @@ local terminal = uwsmApp("alacritty")
 local fileManager = uwsmApp("thunar")
 local hyprlock = uwsmApp("hyprlock")
 local browser = uwsmApp("brave")
-local menu = uwsmApp("rofi -show drun")
+local menu = uwsmApp("rofi -show drun -matching prefix")
 local statusBar = uwsmApp("waybar")
 local restartStatusBar = "pkill waybar || " .. statusBar
 local emojis = uwsmApp("rofi -modi emoji -show emoji")
 local clipboardManager = uwsmApp("cliphist list | rofi -dmenu | cliphist decode | wl-copy")
+local wipeClipboardManagerHistory = "cliphist wipe"
 local powerMenu = uwsmApp('"${HOME}/.config/rofi/power_menu.sh"')
 
 local monitorsMenu = uwsmApp('"${HOME}/.config/rofi/monitors_menu.sh"')
@@ -64,6 +65,7 @@ local screenshotSelectionToClipboard = "hyprshot --mode region --clipboard-only"
 
 hl.on("hyprland.start", function()
   for _, command in ipairs {
+    wipeClipboardManagerHistory,
     statusBar,
 
     -- requires hyprpolkitagent package (https://wiki.archlinux.org/title/Polkit#Authentication_agents)
