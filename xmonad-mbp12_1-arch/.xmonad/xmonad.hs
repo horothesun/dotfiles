@@ -1,8 +1,10 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 import XMonad
 
-import Data.Map qualified as M
+import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
-import XMonad.Actions.FlexibleResize qualified as Flex
+import qualified XMonad.Actions.FlexibleResize as Flex
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
@@ -15,7 +17,6 @@ import XMonad.Layout.Renamed
 import XMonad.Layout.ThreeColumns
 import XMonad.Operations (unGrab)
 import XMonad.Util.Cursor
-import XMonad.Util.EZConfig
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
@@ -89,11 +90,12 @@ myKeys =
   , ("C-S-<XF86MonBrightnessDown>", spawn $ setExternalDisplay1ContrastCommandPrefix ++ " - 5")
   , ("<XF86KbdBrightnessUp>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%+")
   , ("<XF86KbdBrightnessDown>", spawn $ "brightnessctl --quiet --device " ++ internalKeyboardBacklightDeviceName ++ " set 2%-")
-  , ("<XF86AudioMute>", spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-  , ("<XF86AudioRaiseVolume>", spawn $ "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-  , ("<XF86AudioLowerVolume>", spawn $ "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-  , ("<XF86PowerOff>", spawn $ "systemctl suspend")
-  , ("M-<XF86PowerOff>", spawn $ "systemctl poweroff")
+  , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+  , ("<XF86PowerOff>", spawn "systemctl suspend")
+  , ("M-<XF86PowerOff>", spawn "systemctl poweroff")
+  , ("M-S-r", spawn "xmonad --recompile" >> spawn "xmonad --restart")
   , ("M-b", sendMessage ToggleStruts) -- toggle status bar for dynamic setup
   -- custom dmenu
   , ("M-p", spawn dmenuCommand)
