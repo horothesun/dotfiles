@@ -1,4 +1,4 @@
-cabal-version: 2.4
+cabal-version: 3.0
 name:          xmonad-config
 version:       0.1.0.0
 
@@ -9,7 +9,13 @@ executable xmonad-config
       base >= 4.14
     , xmonad >= 0.18
     , xmonad-contrib >= 0.18
-    , containers >= 0.6.8
-    , X11 >= 1.10.3
+    , containers >= 0.6
+    , X11 >= 1.10
   default-language: Haskell2010
-  ghc-options:      -Wall
+  default-extensions: OverloadedStrings
+  ghc-options: -Wall
+               -Wincomplete-record-updates
+               -Wincomplete-uni-patterns
+               -Wredundant-constraints
+               -Wunused-packages
+               -O2
