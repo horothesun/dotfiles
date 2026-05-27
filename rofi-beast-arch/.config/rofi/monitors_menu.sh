@@ -6,6 +6,7 @@ HYPRLAND_CONF="${CONFIG_DIR}/hyprland.lua"
 
 MONITORS_OPTIONS=(
   work
+  secondary_only
   gaming_4k_x1_0
   gaming_4k_x1_5
 )
@@ -13,16 +14,19 @@ MONITORS_OPTIONS_LENGTH=${#MONITORS_OPTIONS[@]}
 
 declare -A ICONS
 ICONS[work]=""
+ICONS[secondary_only]="󰘓"
 ICONS[gaming_4k_x1_0]=""
 ICONS[gaming_4k_x1_5]=""
 
 declare -A ICON_COLORS
 ICON_COLORS[work]="#458588"
+ICON_COLORS[secondary_only]="#458588"
 ICON_COLORS[gaming_4k_x1_0]="#d65d0e"
 ICON_COLORS[gaming_4k_x1_5]="#d65d0e"
 
 declare -A LABELS
 LABELS[work]="Work (dual)"
+LABELS[secondary_only]="Secondary only"
 LABELS[gaming_4k_x1_0]="Gaming 4k x1.0 (single)"
 LABELS[gaming_4k_x1_5]="Gaming 4k x1.5 (single)"
 
