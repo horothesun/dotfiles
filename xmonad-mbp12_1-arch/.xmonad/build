@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Force execution from the real directory to keep Stack happy
+cd "$(dirname "$0")"
+
+# Build the project and copy the binary to the destination path provided by XMonad ($1)
+exec stack install --local-bin-path "$(dirname "$1")" --output-ghc-file-suffix=""
+mv "$(dirname "$1")/xmonad-config" "$1" 2>/dev/null || exec stack install --local-bin-path "$(dirname "$1")"
