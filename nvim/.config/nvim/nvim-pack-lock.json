@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "f37350b20d7a1cbb80b21c304d45c8b0d392ed2a",
+      "rev": "67cf48f2b2c9e5d3a89ccd9f2289bc582d5c5b83",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
