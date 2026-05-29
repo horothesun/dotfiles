@@ -1,7 +1,0 @@
-build
-.gitignore
-hie.yaml
-.stack-work/
-stack.yaml
-stack.yaml.lock
-xmonad-config.cabal
