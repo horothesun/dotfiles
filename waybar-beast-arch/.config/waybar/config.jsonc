@@ -37,6 +37,7 @@
     "hyprland/window": {
         "format": "{title}",
         "max-length": 100,
+        "separate-outputs": true,
         "all-outputs": true,
         "tooltip": false
     },
@@ -91,6 +92,7 @@
     "hyprland/window": {
         "format": "{title}",
         "max-length": 100,
+        "separate-outputs": true,
         "all-outputs": true,
         "tooltip": false
     },
