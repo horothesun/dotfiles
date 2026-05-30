@@ -10,32 +10,6 @@
         "return-type": "",
         "tooltip": false
     },
-    "cpu": {
-        "interval": 2,
-        "format": "{usage}%",
-        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
-        "tooltip": false
-    },
-    "custom/cpu-power": {
-        "interval": 2,
-        "exec": "~/bin/waybar_cpu_power.sh",
-        "format": "{text}W",
-        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
-        "return-type": "json",
-        "tooltip": false
-    },
-    "disk": {
-        "interval": 5,
-        "format": "{percentage_used}%",
-        "unit": "GB",
-        "tooltip-format": "{specific_used:0.0f} / {specific_total:0.0f} GB"
-    },
-    "memory": {
-        "interval": 2,
-        "format": " {percentage}%",
-        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
-        "tooltip-format" : "{used:0.1f} / {total:0.1f} GiB"
-    },
     "wireplumber": {
         "format": "{icon} {volume}%",
         "format-muted": "",
@@ -59,6 +33,35 @@
         "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
         "return-type": "json",
         "tooltip": false
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "{usage}%",
+        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
+        "tooltip": false
+    },
+    "custom/cpu-power": {
+        "interval": 2,
+        "exec": "~/bin/waybar_cpu_power.sh",
+        "format": "{text}W",
+        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
+        "return-type": "json",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 2,
+        "format": " {percentage}%",
+        "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
+        "tooltip-format" : "{used:0.1f} / {total:0.1f} GiB"
+    },
+    "group/cpu-info": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/cpu-temperature",
+            "cpu",
+            "custom/cpu-power",
+            "memory"
+        ]
     },
     "custom/gpu-temperature": {
         "interval": 2,
@@ -92,12 +95,34 @@
         "return-type": "json",
         "tooltip": true
     },
+    "group/gpu-info": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/gpu-temperature",
+            "custom/gpu-usage",
+            "custom/gpu-power",
+            "custom/gpu-memory"
+        ]
+    },
     // find /sys/devices/pci0000:00/ -name '*temp*_input'
     "temperature#nvme": {
         "interval": 5,
         "format": " {temperatureC}°C",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:04:00.0/nvme/nvme0/hwmon0/temp1_input"
+    },
+    "disk": {
+        "interval": 5,
+        "format": "{percentage_used}%",
+        "unit": "GB",
+        "tooltip-format": "{specific_used:0.0f} / {specific_total:0.0f} GB"
+    },
+    "group/disk-info": {
+        "orientation": "horizontal",
+        "modules": [
+            "temperature#nvme",
+            "disk"
+        ]
     },
     "custom/weather": {
         "interval": 600, // 10 min
