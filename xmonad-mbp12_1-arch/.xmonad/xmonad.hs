@@ -23,6 +23,8 @@ import XMonad.Util.SpawnOnce
 
 myTerminal = "alacritty"
 
+setRootWindowBackgroundColor = "xsetroot -solid '#111111'"
+
 internalMonitorBacklightDeviceName = "intel_backlight"
 internalKeyboardBacklightDeviceName = "smc::kbd_backlight"
 
@@ -64,6 +66,7 @@ myLayout = tall ||| wide ||| full
 myStartupHook :: X ()
 myStartupHook = do
   setDefaultCursor xC_arrow
+  spawnOnce setRootWindowBackgroundColor
   spawnOnce internalMonitorSetResolutionCommand
   spawnOnce setKeyboardRepeatDelayAndRateCommand
   spawnOnce disableTouchpadTapToClick
