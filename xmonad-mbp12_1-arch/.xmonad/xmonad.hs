@@ -44,7 +44,7 @@ disableTouchpadTapToClick = "synclient MaxTapTime=0 &"
 launchSystemTray =
   "stalonetray --geometry 5x1-0+0 --grow-gravity NE --icon-gravity NE --slot-size 24 --background '#202020' &"
 launchNetworkApplet = "nm-applet &"
-launchVolumeApplet = "volumeicon &"
+launchVolumeApplet = "pasystray &"
 launchClipboardManager = "copyq &"
 dmenuCommand =
   "dmenu_run -i -fn \"JetBrainsMono Nerd Font:pixelsize=16:antialias=true:hinting=true\""
