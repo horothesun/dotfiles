@@ -2,7 +2,7 @@ local const = require("modules.constants")
 
 hl.monitor {
   output = const.PRIMARY_MONITOR,
-  -- mode = "3840x2160@120",
+  -- 🔥🔥🔥 mode = "3840x2160@120",
   mode = "3840x2160@60",
   position = "0x0", -- impacted by scale!
   scale = "1.5",
