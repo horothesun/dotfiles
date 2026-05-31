@@ -1,3 +1,14 @@
+/* https://github.com/morhetz/gruvbox#palette */
+@define-color faded-purple #8f3f71;
+@define-color faded-blue #076678;
+@define-color faded-acqua #427b58;
+@define-color neutral-orange #d65d0e;
+@define-color dark0 #282828;
+@define-color dark2 #504945;
+@define-color dark3 #665c54;
+@define-color dark4 #7c6f64;
+@define-color light1 #ebdbb2;
+
 * {
     font-size: 13px;
 }
@@ -6,7 +17,7 @@ window#waybar {
     font-family: JetBrainsMono Nerd Font Propo;
     background-color: transparent;
     border-bottom: 0px;
-    color: #ebdbb2;
+    color: @light1;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -45,16 +56,16 @@ button {
 }
 
 #workspaces {
-    background-color: #282828;
+    background-color: @dark0;
 }
 
 /* non-empty workspaces */
 #workspaces button {
-    background-color: #665c54;
+    background-color: @dark3;
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
 
-    color: #ebdbb2;
+    color: @light1;
     transition: all 0.1s ease;
 
     border: none;
@@ -72,23 +83,23 @@ button {
 
 /* non-empty non-visible persistent workspaces */
 #workspaces button.persistent {
-    background-color: #504945;
+    background-color: @dark2;
 }
 
 /* empty non-visible persistent workspaces */
 #workspaces button.empty {
-    background-color: #282828;
+    background-color: @dark0;
 }
 
 /* active or visible workspaces */
 #workspaces button.active,
 #workspaces button.visible {
-    background-color: #7c6f64;
+    background-color: @dark4;
     /* box-shadow: inset 0 -4px #d5c4a1; */
 }
 
 #workspaces button.urgent {
-    color: #bf616a;
+    color: @neutral-orange;
 }
 
 #mode,
@@ -102,21 +113,21 @@ button {
 #bluetooth {
     border-radius: 4px;
     padding: 0 10px;
-    background-color: #282828;
-    color: #ebdbb2;
+    background-color: @dark0;
+    color: @light1;
 }
 
 #mode {
     border-radius: 4px;
     background-color: #689d6a;
-    color: #282828;
+    color: @dark0;
     /* box-shadow: inset 0 -3px #ffffff; */
 }
 
 #window {
     border-radius: 4px;
     padding: 0 10px;
-    background-color: #282828;
+    background-color: @dark0;
 }
 
 #custom-gpu-temperature,
@@ -128,8 +139,8 @@ button {
 #gpu-info {
     border-radius: 4px;
     padding: 0 4px;
-    background-color: #8f3f71;
-    color: #ebdbb2;
+    background-color: @faded-purple;
+    color: @light1;
 }
 
 #custom-cpu-temperature,
@@ -141,9 +152,8 @@ button {
 #cpu-info {
     border-radius: 4px;
     padding: 0 4px;
-    /* background-color: #d65d0e; */
-    background-color: #076678;
-    color: #ebdbb2;
+    background-color: @faded-blue;
+    color: @light1;
 }
 
 #temperature.nvme,
@@ -153,17 +163,9 @@ button {
 #disk-info {
     border-radius: 4px;
     padding: 0 4px;
-    background-color: #427b58;
-    color: #ebdbb2;
+    background-color: @faded-acqua;
+    color: @light1;
 }
-
-/* #wireplumber {
-    background-color: #79740e;
-} */
-
-/* #memory {
-    background-color: #427b58;
-} */
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
@@ -177,8 +179,8 @@ button {
 
 @keyframes blink {
     to {
-        background-color: #282828;
-        color: #ebdbb2;
+        background-color: @dark0;
+        color: @light1;
     }
 }
 
