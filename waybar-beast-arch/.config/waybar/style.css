@@ -1,7 +1,7 @@
 /* https://github.com/morhetz/gruvbox#palette */
 @define-color faded-purple #8f3f71;
 @define-color faded-blue #076678;
-@define-color faded-acqua #427b58;
+@define-color faded-aqua #427b58;
 @define-color neutral-orange #d65d0e;
 @define-color dark0 #282828;
 @define-color dark2 #504945;
@@ -152,7 +152,7 @@ button {
 #cpu-info {
     border-radius: 4px;
     padding: 0 4px;
-    background-color: @faded-blue;
+    background-color: @faded-aqua;
     color: @light1;
 }
 
@@ -163,7 +163,7 @@ button {
 #disk-info {
     border-radius: 4px;
     padding: 0 4px;
-    background-color: @faded-acqua;
+    background-color: @faded-blue;
     color: @light1;
 }
 
