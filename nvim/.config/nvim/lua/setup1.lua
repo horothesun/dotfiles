@@ -2,11 +2,21 @@
 require("config.vimpack").setup()
 
 -- Colorscheme (must come AFTER plugins are loaded)
-vim.opt.termguicolors = true
-vim.opt.background    = "dark"
+vim.opt.termguicolors                     = true
+vim.opt.background                        = "dark"
 vim.g.gruvbox_material_background         = "hard"
 vim.g.gruvbox_material_better_performance = 1
 vim.cmd.colorscheme("gruvbox-material")
+
+-- Fix the grey background by linking the float background to your normal background
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+
+-- Make the new rounded border a subtle grey so it isn't too distracting
+local gruvboxGray = "#928374"
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = gruvboxGray, bg = "none" })
+
+-- Global window border
+vim.o.winborder = "rounded"
 
 
 -- System clipboard integration: prevent Neovim from initializing the clipboard before it's been loaded

@@ -60,20 +60,6 @@ function M.setup()
 
   require("fidget").setup()
 
-  -- Force a default border for all LSP floating previews (hover, signature, etc.)
-  if not vim.g._user_lsp_float_border then
-    vim.g._user_lsp_float_border = true
-
-    local orig = vim.lsp.util.open_floating_preview
-    vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-      opts = opts or {}
-      if opts.border == nil then
-        opts.border = "rounded"
-      end
-      return orig(contents, syntax, opts, ...)
-    end
-  end
-
   --------------------------------------------------------
   -- Capabilities (nvim-cmp + LSP)
   --------------------------------------------------------
