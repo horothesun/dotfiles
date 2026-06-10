@@ -8,22 +8,26 @@ vim.g.gruvbox_material_background         = "hard"
 vim.g.gruvbox_material_better_performance = 1
 vim.cmd.colorscheme("gruvbox-material")
 
--- Fix the grey background by linking the float background to your normal background
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 
--- Make the new rounded border a subtle grey so it isn't too distracting
-local gruvboxGray = "#928374"
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = gruvboxGray, bg = "none" })
+-- Global float windows config
+
+local floatsBorderColor = "#928374"     -- gruvbox gray
+local floatsBackgroundColor = "#040505" -- gruvbox dark0 hard @15% brightness (near black)
+
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = floatsBackgroundColor })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = floatsBorderColor, bg = floatsBackgroundColor })
 
 -- Global window border
-vim.o.winborder = "rounded"
+vim.o.winborder = "solid"
+
+
+-- appearance of popup menu for autocomplete
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 
 -- System clipboard integration: prevent Neovim from initializing the clipboard before it's been loaded
 vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
--- appearance of popup menu for autocomplete
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Diagnostic
 

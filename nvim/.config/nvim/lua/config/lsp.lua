@@ -70,14 +70,14 @@ function M.setup()
   --------------------------------------------------------
   local cmp = require("cmp")
 
-  cmp.setup({
+  cmp.setup {
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<CR>"]      = cmp.mapping.confirm({ select = true }),
+    mapping = cmp.mapping.preset.insert {
+      ["<CR>"]      = cmp.mapping.confirm { select = true },
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<Tab>"]     = function(fallback)
         if cmp.visible() then
@@ -93,12 +93,22 @@ function M.setup()
           fallback()
         end
       end,
-    }),
+    },
     sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
     },
-  })
+    window = {
+      completion = cmp.config.window.bordered {
+        -- Links the cmp window to your standard float highlights
+        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+      },
+      documentation = cmp.config.window.bordered {
+        -- Links the cmp window to your standard float highlights
+        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+      },
+    },
+  }
 
 
   local ls = require("luasnip")
