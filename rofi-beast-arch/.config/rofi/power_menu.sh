@@ -1,7 +1,6 @@
 #!/bin/bash
 
-BROWSER=brave
-BROWSER_TERMINATION_WAIT_SECONDS=1.5
+BROWSER_GRACEFUL_SHUTDOWN_COMMAND="pkill -TERM brave; sleep 1.5"
 
 POWER_MENU_OPTIONS=(
   shutdown
@@ -38,24 +37,12 @@ LABELS[logout]="Logout"
 LABELS[lockscreen]="Lock screen"
 
 declare -A ACTIONS
-if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
-  # WAYLAND (HYPRLAND + UWSM) ACTIONS
-  # We send SIGTERM to the browser and wait to let it save its session properly
-  ACTIONS[shutdown]="systemd-run --user --no-block bash -c 'pkill -TERM ${BROWSER}; sleep ${BROWSER_TERMINATION_WAIT_SECONDS}; uwsm stop; systemctl poweroff'"
-  ACTIONS[reboot]="systemd-run --user --no-block bash -c 'pkill -TERM ${BROWSER}; sleep ${BROWSER_TERMINATION_WAIT_SECONDS}; uwsm stop; systemctl reboot'"
-  ACTIONS[suspend]="systemctl suspend"
-  ACTIONS[hibernate]="systemctl hibernate"
-  ACTIONS[logout]="systemd-run --user --no-block bash -c 'pkill -TERM ${BROWSER}; sleep ${BROWSER_TERMINATION_WAIT_SECONDS}; uwsm stop'"
-  ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID}"
-else
-  # X11 (XMONAD) / STANDARD ACTIONS
-  ACTIONS[shutdown]="systemctl poweroff"
-  ACTIONS[reboot]="systemctl reboot"
-  ACTIONS[suspend]="systemctl suspend"
-  ACTIONS[hibernate]="systemctl hibernate"
-  ACTIONS[logout]="loginctl kill-session ${XDG_SESSION_ID}"
-  ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID}"
-fi
+ACTIONS[shutdown]="${BROWSER_GRACEFUL_SHUTDOWN_COMMAND}; systemctl poweroff"
+ACTIONS[reboot]="${BROWSER_GRACEFUL_SHUTDOWN_COMMAND}; systemctl reboot"
+ACTIONS[suspend]="systemctl suspend"
+ACTIONS[hibernate]="systemctl hibernate"
+ACTIONS[logout]="${BROWSER_GRACEFUL_SHUTDOWN_COMMAND}; loginctl kill-session ${XDG_SESSION_ID}"
+ACTIONS[lockscreen]="loginctl lock-session ${XDG_SESSION_ID}"
 
 SEP=""
 SELECTED_INDEX=$(
