@@ -33,7 +33,7 @@ unsetopt NOMATCH
 
 
 # used by gh
-export BROWSER="brave"
+export BROWSER="brave-origin"
 
 
 function clean_java_instances() {

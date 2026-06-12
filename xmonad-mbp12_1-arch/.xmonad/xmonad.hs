@@ -103,7 +103,7 @@ myKeys =
   -- custom dmenu
   , ("M-p", spawn dmenuCommand)
   , -- launch browser
-    ("M-S-w", spawn "brave &")
+    ("M-S-w", spawn "brave-origin &")
   , -- screenshot from current window to file
     ("M-C-2", spawn $ "maim --hidecursor --window $(xdotool getactivewindow) " ++ bashScreenshotName ++ " &")
   , -- screenshot from current window to clipboard

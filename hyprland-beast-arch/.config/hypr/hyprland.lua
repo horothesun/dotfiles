@@ -26,7 +26,7 @@ local function uwsmApp(command) return "uwsm app -- " .. command end
 local terminal = uwsmApp("alacritty")
 local fileManager = uwsmApp("thunar")
 local hyprlock = uwsmApp("hyprlock")
-local browser = uwsmApp("brave")
+local browser = uwsmApp("brave-origin")
 local menu = uwsmApp("rofi -show drun -matching prefix")
 local statusBar = uwsmApp("waybar")
 local restartStatusBar = "pkill waybar || " .. statusBar
