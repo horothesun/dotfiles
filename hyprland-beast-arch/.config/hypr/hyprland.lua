@@ -278,7 +278,7 @@ hl.bind(superShift("RETURN"), hl.dsp.exec_cmd(terminal))
 hl.bind(superShift("C"), hl.dsp.window.close())
 hl.bind(superShift("W"), hl.dsp.exec_cmd(browser))
 hl.bind(superControl("Q"), hl.dsp.exec_cmd(hyprlock))
-hl.bind(superShift("Q"), hl.dsp.exit())
+-- hl.bind(superShift("Q"), hl.dsp.exit()) -- use rofi power menu "Logout" entry instead
 hl.bind(super("E"), hl.dsp.exec_cmd(fileManager))
 hl.bind(super("V"), hl.dsp.window.float { action = "toggle" })
 hl.bind(super("P"), hl.dsp.exec_cmd(menu))
