@@ -128,7 +128,7 @@ function aws() {
 
 function fastfetch() {
   FASTFETCH_ARGS="$@"
-  "${NIX_SHELL_COMMAND}" -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
+  "${NIX_SHELL_COMMAND}" --pure -I nixpkgs="channel:${NIX_SHELL_CHANNEL_UNSTABLE}" \
     -p fastfetch \
     --run "fastfetch ${FASTFETCH_ARGS}"
 }
