@@ -13,11 +13,11 @@
       "src": "https://github.com/saadparwaiz1/cmp_luasnip"
     },
     "fidget.nvim": {
-      "rev": "82404b196e73a00b1727a91903beef5ddc319d22",
+      "rev": "6f793b2bcd2d35e201c09520f698bb763220908a",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
+      "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruvbox-material": {
@@ -25,11 +25,11 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "c15991a20170dd1cc974f5910843fc4c97249dfc",
+      "rev": "d9d0f75d66fe4e14534dbdc1692d6611d33d7b5b",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
-      "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",
+      "rev": "a30e54e51e7480d7060c8c8185f2a963ad3518b4",
       "src": "https://github.com/brianhuster/live-preview.nvim"
     },
     "nvim-autopairs": {
@@ -37,11 +37,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-cmp": {
-      "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
+      "rev": "2ffe79f1f021def8dd1fcd81deb16f1bb0d989f3",
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-metals": {
-      "rev": "4cc98f07ec96bb748a8796831767538e0e4f9be4",
+      "rev": "a4b20656bf1014404dd63bf9fd5f22fcc50fee52",
       "src": "https://github.com/scalameta/nvim-metals"
     },
     "plenary.nvim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/nvim-telescope/telescope-symbols.nvim"
     },
     "telescope.nvim": {
-      "rev": "9377230aa5305d9e9aca4ed8dadf1070fb4aa9fc",
+      "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "vim-projectionist": {
