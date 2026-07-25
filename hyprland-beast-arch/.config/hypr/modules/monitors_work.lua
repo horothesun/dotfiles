@@ -12,9 +12,9 @@ hl.monitor {
 hl.monitor {
   output = const.SECONDARY_MONITOR,
   mode = "3840x2160@60",
-  position = "-1440x-560", -- impacted by scale!
+  position = "2560x-560", -- impacted by scale!
   scale = "1.5",
-  vrr = 0,                 -- 0: off, 1: on, 2: fullscreen only, 3: fullscreen with video or game content type
-  transform = 1,           -- 90 degrees, no flip
+  vrr = 0,                -- 0: off, 1: on, 2: fullscreen only, 3: fullscreen with video or game content type
+  transform = 3,          -- 270 degrees, no flip
   bitdepth = 8
 }
