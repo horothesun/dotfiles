@@ -24,24 +24,6 @@ for ((i=1; i <= CURL_MAXIMUM_ATTEMPTS; i++)); do
         '
     )
 
-    # OUTPUT_TOOLTIP=$(
-    #   echo "${RESPONSE_BODY}" | \
-    #     jq '
-    #         "\(.condition_icon)\(.condition_name)\n"
-    #       + "Temperature: \(.temp_actual | gsub("[+]"; ""))\n"
-    #       + "Feels like: \(.temp_feels | gsub("[+]"; ""))\n"
-    #       + "Wind: \(.wind)\n"
-    #       + "Humidity: \(.humidity)\n"
-    #       + "Precipitation: \(.precipitation)\n"
-    #       + "Pressure: \(.pressure)\n"
-    #       + "UV index: \(.uv_index)\n"
-    #       + "Sunrise: \(.sunrise)\n"
-    #       + "Sunset: \(.sunset)\n"
-    #       + "Moon phase: \(.moon_phase)\n"
-    #       + "Moon day: \(.moon_day)"
-    #     '
-    # )
-
     break
   fi
 
