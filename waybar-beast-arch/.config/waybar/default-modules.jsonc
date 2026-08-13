@@ -108,12 +108,14 @@
     "temperature#nvme": {
         "interval": 5,
         "format": " {temperatureC}°",
+        "on-click": "uwsm app -- alacritty --title 'lsblk' --command bash -c 'lsblk; read -n1 -r -p \"Press any key to close...\"'",
         "tooltip": false,
         "hwmon-path": "/sys/devices/pci0000:00/0000:00:01.2/0000:04:00.0/nvme/nvme0/hwmon0/temp1_input"
     },
     "disk": {
         "interval": 5,
         "format": "{percentage_used}%",
+        "on-click": "uwsm app -- alacritty --title 'lsblk' --command bash -c 'lsblk; read -n1 -r -p \"Press any key to close...\"'",
         "unit": "GB",
         "tooltip-format": "{specific_used:0.0f} / {specific_total:0.0f} GB"
     },
