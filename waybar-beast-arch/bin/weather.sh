@@ -21,7 +21,7 @@ for ((i=1; i <= CURL_MAXIMUM_ATTEMPTS; i++)); do
         jq '
             "\(.condition_icon)\(.temp_actual | gsub("[+C]"; "")) "
           + "(\(.temp_feels | gsub("[+C]"; "")))  "
-          + "🍃 \(.wind)"
+          + "\(.wind)"
         '
     )
 
