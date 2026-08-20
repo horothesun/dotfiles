@@ -28,7 +28,7 @@
     },
     "custom/cpu-temperature": {
         "interval": 2,
-        "exec": "~/bin/waybar_hwmon_temperature.sh k10temp Tctl",
+        "exec": "~/bin/waybar_hwmon_temperature.sh k10temp Tccd1",
         "format": " {text}°",
         "on-click": "uwsm app -- alacritty --title 'btop' --command bash -c btop",
         "return-type": "json",
