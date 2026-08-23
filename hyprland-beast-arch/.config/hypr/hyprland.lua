@@ -21,47 +21,15 @@ hl.monitor {
 ---- MY PROGRAMS ----
 ---------------------
 
--- local function infoNotify(text)
---   hl.notification.create {
---     text = text,
---     timeout = 2000,        -- milliseconds
---     icon = "info",         -- Optional: "info", "warning", "error", "hint", "ok"
---     color = "rgb(00ff00)", -- Optional: custom text color
---     font_size = 10         -- Optional
---   }
--- end
-
-local function get_script_output(script_path)
-  local handle = io.popen("bash " .. script_path)
-  if not handle then return nil end
-  local result = handle:read("*a")
-  handle:close()
-  return result:gsub("%s+", "")
-end
-
--- local function get_command_output(cmd)
---   local handle = io.popen('bash -c "' .. cmd .. '"')
---   if not handle then return nil end
---   local result = handle:read("*a")
---   handle:close()
---   return result:gsub("%s+", "")
--- end
-
-local function get_focused_monitor_i2c_bus(i2cBusBySerial)
-  local serial = hl.get_monitor_at_cursor().serial
-  local bus = serial and i2cBusBySerial and i2cBusBySerial[serial]
-  if bus then
-    return bus
-  end
+local function warnNotify(text)
   hl.notification.create {
-    text = "Failed to locate I2C bus!\n  Monitor serial: " .. tostring(serial) .. "\n  Serial to I2C bus mapping: " .. i2cBusBySerial,
+    text = text,
     timeout = 4000, -- milliseconds
-    icon = 3        -- Warning level
+    icon = "warning",
+    color = "rgb(00ff00)",
+    font_size = 10
   }
-  return nil
 end
-
-
 
 
 local function uwsmApp(command) return "uwsm app -- " .. command end
@@ -79,23 +47,42 @@ local wipeClipboardManagerHistory = "cliphist wipe"
 local powerMenu = uwsmApp('"${HOME}/.config/rofi/power_menu.sh"')
 
 local monitorsMenu = uwsmApp('"${HOME}/.config/rofi/monitors_menu.sh"')
-local monitorI2cBusBySerialNumberFunc, _ = load(tostring(get_script_output("~/bin/ddcutil_detect_lua_table.sh")))
-local monitorI2cBusBySerialNumber = monitorI2cBusBySerialNumberFunc()
-local function increaseMonitorBrightness()
-  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 10 + 5"
+
+local function get_script_output(script_path)
+  local handle = io.popen("bash " .. script_path)
+  if not handle then return nil end
+  local result = handle:read("*a")
+  handle:close()
+  return result:gsub("%s+", "")
 end
-local function decreaseMonitorBrightness()
-  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 10 - 5"
+local function get_focused_monitor_i2c_bus(i2cBusBySerial)
+  local serial = hl.get_monitor_at_cursor().serial
+  local bus = serial and i2cBusBySerial and i2cBusBySerial[serial]
+  if bus then
+    return bus
+  end
+  warnNotify("Failed to locate I2C bus!\n  Monitor serial: " .. tostring(serial) ..
+    "\n  Serial to I2C bus mapping: " .. i2cBusBySerial)
+  return nil
 end
-local function increaseMonitorContrast()
-  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 12 + 5"
+local monitorI2cBusBySerialNumberFunc, _ =
+    load(tostring(get_script_output("~/bin/ddcutil_detect_lua_table.sh")))
+local monitorI2cBusBySerialNumber = (
+  monitorI2cBusBySerialNumberFunc or
+  function()
+    warnNotify("Can't get `ddcutil detect` Lua table!")
+    return { ["fake"] = 1 }
+  end
+)()
+local function brightnessUpdate(action)
+  local focusedmonitorbus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedmonitorbus ..
+      " setvcp 10 " .. action .. " " .. const.BRIGHTNESS_INCREMENT
 end
-local function decreaseMonitorContrast()
-  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 12 - 5"
+local function contrastUpdate(action)
+  local focusedmonitorbus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedmonitorbus ..
+      " setvcp 12 " .. action .. " " .. const.CONTRAST_INCREMENT
 end
 
 local masterToggle = "amixer set Master toggle"
@@ -314,14 +301,14 @@ end
 
 
 hl.bind(superShift("M"), hl.dsp.exec_cmd(monitorsMenu))
-hl.bind("XF86MonBrightnessDown", function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorBrightness())) end)
-hl.bind("XF86MonBrightnessUp", function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorBrightness())) end)
-hl.bind(shift("XF86MonBrightnessDown"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorContrast())) end)
-hl.bind(shift("XF86MonBrightnessUp"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorContrast())) end)
-hl.bind(super("F1"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorBrightness())) end)
-hl.bind(super("F2"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorBrightness())) end)
-hl.bind(superShift("F1"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorContrast())) end)
-hl.bind(superShift("F2"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorContrast())) end)
+hl.bind("XF86MonBrightnessDown", function() hl.dispatch(hl.dsp.exec_cmd(brightnessUpdate("-"))) end)
+hl.bind("XF86MonBrightnessUp", function() hl.dispatch(hl.dsp.exec_cmd(brightnessUpdate("+"))) end)
+hl.bind(shift("XF86MonBrightnessDown"), function() hl.dispatch(hl.dsp.exec_cmd(contrastUpdate("-"))) end)
+hl.bind(shift("XF86MonBrightnessUp"), function() hl.dispatch(hl.dsp.exec_cmd(contrastUpdate("+"))) end)
+hl.bind(super("F1"), function() hl.dispatch(hl.dsp.exec_cmd(brightnessUpdate("-"))) end)
+hl.bind(super("F2"), function() hl.dispatch(hl.dsp.exec_cmd(brightnessUpdate("+"))) end)
+hl.bind(superShift("F1"), function() hl.dispatch(hl.dsp.exec_cmd(contrastUpdate("-"))) end)
+hl.bind(superShift("F2"), function() hl.dispatch(hl.dsp.exec_cmd(contrastUpdate("+"))) end)
 hl.bind(super("F10"), hl.dsp.exec_cmd(masterToggle))
 hl.bind(super("F11"), hl.dsp.exec_cmd(masterVolumeDown))
 hl.bind(super("F12"), hl.dsp.exec_cmd(masterVolumeUp))
