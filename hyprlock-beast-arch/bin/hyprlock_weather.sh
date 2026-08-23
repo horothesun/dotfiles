@@ -18,8 +18,8 @@ for ((i=1; i <= CURL_MAXIMUM_ATTEMPTS; i++)); do
     OUTPUT_TEXT=$(
       echo "${RESPONSE_BODY}" | \
         jq --raw-output '
-            "\(.condition_icon)\(.temp_actual | gsub("[+C]"; "")) "
-          + "(\(.temp_feels | gsub("[+C]"; "")))  "
+            "\(.condition_icon)\(.temp_actual | gsub("[+°C]"; ""))"
+          + "(\(.temp_feels | gsub("[+°C]"; "")))°  "
           + "\(.wind)"
         '
     )
