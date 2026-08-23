@@ -126,6 +126,20 @@
             "disk"
         ]
     },
+    "custom/monitor-brightness-primary": {
+      "interval": 2,
+      "exec": "~/bin/waybar_monitor_brightness.sh DP-1",
+      "format": " {text}%",
+      "return-type": "json",
+      "tooltip": true
+    },
+    "custom/monitor-brightness-secondary": {
+      "interval": 2,
+      "exec": "~/bin/waybar_monitor_brightness.sh HDMI-A-1",
+      "format": " {text}%",
+      "return-type": "json",
+      "tooltip": true
+    },
     "custom/weather": {
         "interval": 600, // 10 min
         "exec": "~/bin/weather.sh",
@@ -137,13 +151,27 @@
     "bluetooth": {
         "format": "",
         "format-on": "",
-       	"format-off": "󰂲",
-       	"format-disabled": "󰂲",
-       	"format-connected": "󰂱 {num_connections}",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱 {num_connections}",
         "on-click": "uwsm app -- alacritty --title bluetui --command bluetui",
-       	"tooltip-format": "{controller_alias}",
-       	"tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
-       	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}% 󰥈"
+        "tooltip-format": "{controller_alias}",
+        "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}% 󰥈"
+    },
+    "group/monitor-primary-audio": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/monitor-brightness-primary",
+            "wireplumber"
+        ]
+    },
+    "group/monitor-secondary-audio": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/monitor-brightness-secondary",
+            "wireplumber"
+        ]
     },
     "tray": {
         "icon-size": 14,
