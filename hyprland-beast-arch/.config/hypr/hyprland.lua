@@ -132,6 +132,9 @@ end)
 hl.env("XCURSOR_SIZE", const.CURSOR_SIZE)
 hl.env("HYPRCURSOR_SIZE", const.CURSOR_SIZE)
 
+-- e.g. VLC and iDescriptor
+hl.env("QT_SCALE_FACTOR", 1.5)
+
 -- toolkit-specific scale
 --hl.env("GCK_SCALE", "2")
 
