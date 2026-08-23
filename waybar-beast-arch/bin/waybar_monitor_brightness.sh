@@ -64,7 +64,7 @@ fi
 # ---------------------------------------------------------------------------
 
 brightness=$(
-    ddcutil --bus "$bus" getvcp 10 2>/dev/null |
+    ddcutil --skip-ddc-checks --bus "$bus" getvcp 10 2>/dev/null |
     sed -nE 's/.*current value = *([0-9]+).*/\1/p'
 )
 
@@ -73,7 +73,7 @@ brightness=$(
 # ---------------------------------------------------------------------------
 
 contrast=$(
-    ddcutil --bus "$bus" getvcp 12 2>/dev/null |
+    ddcutil --skip-ddc-checks --bus "$bus" getvcp 12 2>/dev/null |
     sed -nE 's/.*current value = *([0-9]+).*/\1/p'
 )
 
