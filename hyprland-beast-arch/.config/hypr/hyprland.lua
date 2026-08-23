@@ -21,6 +21,49 @@ hl.monitor {
 ---- MY PROGRAMS ----
 ---------------------
 
+-- local function infoNotify(text)
+--   hl.notification.create {
+--     text = text,
+--     timeout = 2000,        -- milliseconds
+--     icon = "info",         -- Optional: "info", "warning", "error", "hint", "ok"
+--     color = "rgb(00ff00)", -- Optional: custom text color
+--     font_size = 10         -- Optional
+--   }
+-- end
+
+local function get_script_output(script_path)
+  local handle = io.popen("bash " .. script_path)
+  if not handle then return nil end
+  local result = handle:read("*a")
+  handle:close()
+  return result:gsub("%s+", "")
+end
+
+-- local function get_command_output(cmd)
+--   local handle = io.popen('bash -c "' .. cmd .. '"')
+--   if not handle then return nil end
+--   local result = handle:read("*a")
+--   handle:close()
+--   return result:gsub("%s+", "")
+-- end
+
+local function get_focused_monitor_i2c_bus(i2cBusBySerial)
+  local serial = hl.get_monitor_at_cursor().serial
+  local bus = serial and i2cBusBySerial and i2cBusBySerial[serial]
+  if bus then
+    return bus
+  end
+  hl.notification.create {
+    text = "Failed to locate I2C bus!\n  Monitor serial: " .. tostring(serial) .. "\n  Serial to I2C bus mapping: " .. i2cBusBySerial,
+    timeout = 4000, -- milliseconds
+    icon = 3        -- Warning level
+  }
+  return nil
+end
+
+
+
+
 local function uwsmApp(command) return "uwsm app -- " .. command end
 
 local terminal = uwsmApp("alacritty")
@@ -36,11 +79,24 @@ local wipeClipboardManagerHistory = "cliphist wipe"
 local powerMenu = uwsmApp('"${HOME}/.config/rofi/power_menu.sh"')
 
 local monitorsMenu = uwsmApp('"${HOME}/.config/rofi/monitors_menu.sh"')
-local getFocusedMonitorBus = '"${HOME}/bin/get_focused_monitor_i2c_bus.sh"'
-local increaseMonitorBrightness = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 10 + 5" -- +5%
-local decreaseMonitorBrightness = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 10 - 5" -- +5%
-local increaseMonitorContrast = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 12 + 5"   -- +5%
-local decreaseMonitorContrast = "ddcutil --bus $(" .. getFocusedMonitorBus .. ") setvcp 12 - 5"   -- +5%
+local monitorI2cBusBySerialNumberFunc, _ = load(tostring(get_script_output("~/bin/ddcutil_detect_lua_table.sh")))
+local monitorI2cBusBySerialNumber = monitorI2cBusBySerialNumberFunc()
+local function increaseMonitorBrightness()
+  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 10 + 5"
+end
+local function decreaseMonitorBrightness()
+  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 10 - 5"
+end
+local function increaseMonitorContrast()
+  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 12 + 5"
+end
+local function decreaseMonitorContrast()
+  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus .. " setvcp 12 - 5"
+end
 
 local masterToggle = "amixer set Master toggle"
 local masterVolumeDown = "amixer set Master playback 5%-"
@@ -258,14 +314,14 @@ end
 
 
 hl.bind(superShift("M"), hl.dsp.exec_cmd(monitorsMenu))
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(decreaseMonitorBrightness))
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(increaseMonitorBrightness))
-hl.bind(shift("XF86MonBrightnessDown"), hl.dsp.exec_cmd(decreaseMonitorContrast))
-hl.bind(shift("XF86MonBrightnessUp"), hl.dsp.exec_cmd(increaseMonitorContrast))
-hl.bind(super("F1"), hl.dsp.exec_cmd(decreaseMonitorBrightness))
-hl.bind(super("F2"), hl.dsp.exec_cmd(increaseMonitorBrightness))
-hl.bind(superShift("F1"), hl.dsp.exec_cmd(decreaseMonitorContrast))
-hl.bind(superShift("F2"), hl.dsp.exec_cmd(increaseMonitorContrast))
+hl.bind("XF86MonBrightnessDown", function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorBrightness())) end)
+hl.bind("XF86MonBrightnessUp", function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorBrightness())) end)
+hl.bind(shift("XF86MonBrightnessDown"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorContrast())) end)
+hl.bind(shift("XF86MonBrightnessUp"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorContrast())) end)
+hl.bind(super("F1"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorBrightness())) end)
+hl.bind(super("F2"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorBrightness())) end)
+hl.bind(superShift("F1"), function() hl.dispatch(hl.dsp.exec_cmd(decreaseMonitorContrast())) end)
+hl.bind(superShift("F2"), function() hl.dispatch(hl.dsp.exec_cmd(increaseMonitorContrast())) end)
 hl.bind(super("F10"), hl.dsp.exec_cmd(masterToggle))
 hl.bind(super("F11"), hl.dsp.exec_cmd(masterVolumeDown))
 hl.bind(super("F12"), hl.dsp.exec_cmd(masterVolumeUp))
