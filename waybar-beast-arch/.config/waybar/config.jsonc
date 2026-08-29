@@ -2,7 +2,7 @@
 [{
     "output": ["DP-1"],
     //"height": 24, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
+    "spacing": 2, // Gaps between modules (2px)
     "include": [ "~/.config/waybar/default-modules.jsonc" ],
     // Choose the order of the modules
     "modules-left": [
@@ -17,7 +17,7 @@
         "group/gpu-info",
         "group/cpu-info",
         "group/disk-info",
-        "group/monitor-primary-audio",
+        "wireplumber",
         "custom/weather",
         "custom/clock",
         "bluetooth",
@@ -66,7 +66,7 @@
         "group/gpu-info",
         "group/cpu-info",
         "group/disk-info",
-        "group/monitor-secondary-audio",
+        "wireplumber",
         "custom/weather",
         "custom/clock",
         "bluetooth",

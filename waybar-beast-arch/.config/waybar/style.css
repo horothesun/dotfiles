@@ -109,6 +109,7 @@ button {
 #custom-clock,
 #tray,
 #systemd-failed-units,
+#wireplumber,
 #bluetooth {
     border-radius: 4px;
     padding: 0 10px;
@@ -116,9 +117,9 @@ button {
     color: @light1;
 }
 
+/* #wireplumber, */
 #custom-monitor-brightness-primary,
-#custom-monitor-brightness-secondary,
-#wireplumber {
+#custom-monitor-brightness-secondary {
     padding: 0 6px;
 }
 #monitor-primary-audio,
