@@ -61,28 +61,36 @@ local function get_focused_monitor_i2c_bus(i2cBusBySerial)
   if bus then
     return bus
   end
-  warnNotify("Failed to locate I2C bus!\n  Monitor serial: " .. tostring(serial) ..
-    "\n  Serial to I2C bus mapping: " .. i2cBusBySerial)
+  warnNotify("Failed to locate I2C bus!\n  Monitor serial: " .. tostring(serial))
   return nil
 end
-local monitorI2cBusBySerialNumberFunc, _ =
-    load(tostring(get_script_output("~/bin/ddcutil_detect_lua_table.sh")))
-local monitorI2cBusBySerialNumber = (
-  monitorI2cBusBySerialNumberFunc or
-  function()
-    warnNotify("Can't get `ddcutil detect` Lua table!")
-    return { ["fake"] = 1 }
+local function updateMonitorI2cBusBySerialNumber()
+  local monitorI2cBusBySerialNumberFunc, _ =
+      load(tostring(get_script_output("~/bin/ddcutil_detect_lua_table.sh")))
+  return (
+    monitorI2cBusBySerialNumberFunc or
+    function()
+      warnNotify("Can't get `ddcutil detect` Lua table!")
+      return { ["fake"] = 1 }
+    end
+  )()
+end
+local monitorI2cBusBySerialNumber = updateMonitorI2cBusBySerialNumber()
+local function monitorUpdate(ddcutilCode, action, increment)
+  local focusedMonitorBus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
+  if not focusedMonitorBus then
+    warnNotify("Reloading I2C bus by serial number data...")
+    -- no need to handle concurrent requests: Lua run-loop is single-threaded
+    monitorI2cBusBySerialNumber = updateMonitorI2cBusBySerialNumber()
   end
-)()
+  return "ddcutil --skip-ddc-checks --bus " .. focusedMonitorBus ..
+      " setvcp " .. ddcutilCode .. " " .. action .. " " .. increment
+end
 local function brightnessUpdate(action)
-  local focusedmonitorbus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedmonitorbus ..
-      " setvcp 10 " .. action .. " " .. const.BRIGHTNESS_INCREMENT
+  return monitorUpdate(10, action, const.BRIGHTNESS_INCREMENT)
 end
 local function contrastUpdate(action)
-  local focusedmonitorbus = get_focused_monitor_i2c_bus(monitorI2cBusBySerialNumber)
-  return "ddcutil --skip-ddc-checks --bus " .. focusedmonitorbus ..
-      " setvcp 12 " .. action .. " " .. const.CONTRAST_INCREMENT
+  return monitorUpdate(12, action, const.CONTRAST_INCREMENT)
 end
 
 local masterToggle = "amixer set Master toggle"
