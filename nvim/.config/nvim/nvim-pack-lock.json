@@ -13,7 +13,7 @@
       "src": "https://github.com/saadparwaiz1/cmp_luasnip"
     },
     "fidget.nvim": {
-      "rev": "6f793b2bcd2d35e201c09520f698bb763220908a",
+      "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
@@ -25,7 +25,7 @@
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "haskell-tools.nvim": {
-      "rev": "0cce9229db4cc2a712ab902e25f34808a7f31462",
+      "rev": "04db2a6dbb496f9bad1cc97a3ac9ae58aa3f6bd5",
       "src": "https://github.com/Mrcjkb/haskell-tools.nvim"
     },
     "live-preview.nvim": {
