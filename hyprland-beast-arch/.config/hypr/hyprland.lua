@@ -45,6 +45,7 @@ local emojis = uwsmApp("rofi -modi emoji -show emoji")
 local clipboardManager = uwsmApp("cliphist list | rofi -dmenu | cliphist decode | wl-copy")
 local wipeClipboardManagerHistory = "cliphist wipe"
 local powerMenu = uwsmApp('"${HOME}/.config/rofi/power_menu.sh"')
+local telegram = uwsmApp("Telegram")
 
 local monitorsMenu = uwsmApp('"${HOME}/.config/rofi/monitors_menu.sh"')
 
@@ -328,6 +329,7 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(masterVolumeDown))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(masterVolumeUp))
 hl.bind(super("B"), hl.dsp.exec_cmd(restartStatusBar))
 hl.bind(superShift("DELETE"), hl.dsp.exec_cmd(powerMenu))
+hl.bind(superShift("T"), hl.dsp.exec_cmd(telegram))
 hl.bind(superShift("RETURN"), hl.dsp.exec_cmd(terminal))
 hl.bind(superShift("C"), hl.dsp.window.close())
 hl.bind(superShift("W"), hl.dsp.exec_cmd(browser))
