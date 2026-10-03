@@ -24,7 +24,7 @@ hl.monitor {
 local function warnNotify(text)
   hl.notification.create {
     text = text,
-    timeout = 4000, -- milliseconds
+    timeout = 10000, -- milliseconds
     icon = "warning",
     color = "rgb(00ff00)",
     font_size = 10
