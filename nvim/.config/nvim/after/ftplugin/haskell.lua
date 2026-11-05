@@ -31,18 +31,20 @@ local function log(message)
   message = tostring(message)
 
   for line in (message .. "\n"):gmatch("(.-)\n") do
-    vim.fn.writefile({
-      "[" .. timestamp() .. "] " .. line
-    }, LOG_FILE, "a")
+    vim.fn.writefile({ "[" .. timestamp() .. "] " .. line }, LOG_FILE, "a")
   end
 end
 
 local function log_separator()
-  vim.fn.writefile({
-    "",
-    "============================================================",
-    "[" .. timestamp() .. "] New Hackage lookup",
-  }, LOG_FILE, "a")
+  vim.fn.writefile(
+    {
+      "",
+      "============================================================",
+      "[" .. timestamp() .. "] New Hackage lookup",
+    },
+    LOG_FILE,
+    "a"
+  )
 end
 
 local function notify(message, level)
@@ -105,9 +107,7 @@ local function get_module_from_hover()
   local hover_client = nil
 
   for _, client in ipairs(clients) do
-    if client.server_capabilities
-        and client.server_capabilities.hoverProvider
-    then
+    if client.server_capabilities and client.server_capabilities.hoverProvider then
       hover_client = client
       break
     end
@@ -118,17 +118,8 @@ local function get_module_from_hover()
     return nil
   end
 
-  local params = vim.lsp.util.make_position_params(
-    0,
-    hover_client.offset_encoding
-  )
-
-  local response = hover_client:request_sync(
-    "textDocument/hover",
-    params,
-    10000,
-    bufnr
-  )
+  local params = vim.lsp.util.make_position_params(0, hover_client.offset_encoding)
+  local response = hover_client:request_sync("textDocument/hover", params, 10000, bufnr)
 
   if not response then
     log("Hover request timed out or returned no response")
@@ -145,9 +136,7 @@ local function get_module_from_hover()
     return nil
   end
 
-  local hover_text = hover_contents_to_string(
-    response.result.contents
-  )
+  local hover_text = hover_contents_to_string(response.result.contents)
 
   log("Raw hover response: " .. vim.inspect(hover_text))
 
@@ -158,11 +147,7 @@ local function get_module_from_hover()
 
   -- Extract the symbol name from the signature, e.g.:
   --   Semigroup :: Type -> Constraint
-  local symbol_name = plain_text:match(
-    "[\n\r]%s*([%w_']+)%s*::"
-  ) or plain_text:match(
-    "^%s*([%w_']+)%s*::"
-  )
+  local symbol_name = plain_text:match("[\n\r]%s*([%w_']+)%s*::") or plain_text:match("^%s*([%w_']+)%s*::")
 
   if not symbol_name then
     log("Could not extract symbol name from hover signature")
@@ -177,28 +162,17 @@ local function get_module_from_hover()
     return nil
   end
 
-  local definition = plain_text:sub(
-    defined_pos + #"Defined in "
-  )
+  local definition = plain_text:sub(defined_pos + #"Defined in ")
 
   -- Parse the module or qualified symbol between quotation marks.
   -- HLS normally uses curly quotation marks, but support straight
   -- quotation marks as well.
-  local module_start, module_end = definition:find(
-    "‘",
-    1,
-    true
-  )
+  local module_start, module_end = definition:find("‘", 1, true)
 
   local closing_quote = "’"
 
   if not module_start then
-    module_start, module_end = definition:find(
-      "'",
-      1,
-      true
-    )
-
+    module_start, module_end = definition:find("'", 1, true)
     closing_quote = "'"
   end
 
@@ -207,48 +181,31 @@ local function get_module_from_hover()
     return nil
   end
 
-  local closing_start = definition:find(
-    closing_quote,
-    module_end + 1,
-    true
-  )
+  local closing_start = definition:find(closing_quote, module_end + 1, true)
 
   if not closing_start then
     log("Could not find closing quote in Defined in section")
     return nil
   end
 
-  local defined_name = definition:sub(
-    module_end + 1,
-    closing_start - 1
-  )
+  local defined_name = definition:sub(module_end + 1, closing_start - 1)
 
   -- Extract the package identifier from the parentheses.
-  local package_open = definition:find(
-    "(",
-    closing_start + #closing_quote,
-    true
-  )
+  local package_open = definition:find("(", closing_start + #closing_quote, true)
 
   if not package_open then
     log("Could not find package identifier in hover response")
     return nil
   end
 
-  local package_close = definition:find(
-    ")",
-    package_open + 1,
-    true
-  )
+  local package_close = definition:find(")", package_open + 1, true)
 
   if not package_close then
     log("Could not find closing package parenthesis")
     return nil
   end
 
-  local package_id = trim(
-    definition:sub(package_open + 1, package_close - 1)
-  )
+  local package_id = trim(definition:sub(package_open + 1, package_close - 1))
 
   if defined_name == "" or package_id == "" then
     log("Parsed module name or package identifier was empty")
@@ -261,9 +218,7 @@ local function get_module_from_hover()
   local actual_module = defined_name
   local entity_name = symbol_name
 
-  local possible_module, possible_entity = defined_name:match(
-    "^(.+)%.([^.]+)$"
-  )
+  local possible_module, possible_entity = defined_name:match("^(.+)%.([^.]+)$")
 
   if possible_entity and possible_entity == symbol_name then
     actual_module = possible_module
@@ -298,11 +253,7 @@ end
 local function get_package_for_module(module_name)
   local escaped_module = vim.fn.shellescape(module_name)
 
-  local output = run_command(
-    "stack exec -- ghc-pkg find-module "
-    .. escaped_module
-    .. " --simple-output"
-  )
+  local output = run_command("stack exec -- ghc-pkg find-module " .. escaped_module .. " --simple-output")
 
   if not output or output == "" then
     log("Could not find package for module: " .. module_name)
@@ -335,20 +286,13 @@ local function open_hackage(module_name, entity_name, package_id)
   end
 
   if not package_id then
-    notify(
-      "Could not resolve package for module " .. module_name,
-      vim.log.levels.WARN
-    )
+    notify("Could not resolve package for module " .. module_name, vim.log.levels.WARN)
     return
   end
 
   local module_path = module_to_hackage_path(module_name)
 
-  local url = string.format(
-    "https://hackage-content.haskell.org/package/%s/docs/%s.html",
-    package_id,
-    module_path
-  )
+  local url = string.format("https://hackage-content.haskell.org/package/%s/docs/%s.html", package_id, module_path)
 
   if entity_name and entity_name ~= "" then
     url = url .. "#t:" .. vim.uri_encode(entity_name)
@@ -369,15 +313,10 @@ local function open_hackage_documentation(identifier)
     --   Data.Aeson.Types.ToJSON
     --
     -- Split the final segment into module and entity.
-    local module_name, entity_name = identifier:match(
-      "^([%w_%.']+)%.([%w_']+)$"
-    )
+    local module_name, entity_name = identifier:match("^([%w_%.']+)%.([%w_']+)$")
 
     if not module_name or not entity_name then
-      notify(
-        "Expected a qualified name such as Data.Aeson.Types.ToJSON",
-        vim.log.levels.WARN
-      )
+      notify("Expected a qualified name such as Data.Aeson.Types.ToJSON", vim.log.levels.WARN)
       return
     end
 
@@ -386,14 +325,10 @@ local function open_hackage_documentation(identifier)
   end
 
   -- Resolve the symbol under the cursor using HLS hover information.
-  local module_name, package_id, entity_name =
-      get_module_from_hover()
+  local module_name, package_id, entity_name = get_module_from_hover()
 
   if not module_name then
-    notify(
-      "Could not resolve symbol from HLS hover. See :OpenHackageLog",
-      vim.log.levels.WARN
-    )
+    notify("Could not resolve symbol from HLS hover. See :OpenHackageLog", vim.log.levels.WARN)
     return
   end
 
