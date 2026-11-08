@@ -368,3 +368,112 @@ vim.api.nvim_create_user_command(
   end,
   { desc = "Clear Hackage lookup log" }
 )
+
+
+
+-- ---------------------------------------------------------------------------
+-- Local documentation lookup
+-- ---------------------------------------------------------------------------
+
+-- Open local Stack Haddock documentation for a module and entity.
+local function open_local_haddock(module_name, entity_name, package_id)
+  -- Use the package identifier obtained from HLS hover,
+  -- just as open_hackage() does.
+  if not package_id or package_id == "" then
+    package_id = get_package_for_module(module_name)
+  end
+
+  if not package_id then
+    notify("Could not resolve package for " .. module_name, vim.log.levels.WARN)
+    return
+  end
+
+  log("Local Haddock package: " .. package_id)
+
+  -- Haddock converts module dots into hyphens.
+  local module_file = module_name:gsub("%.", "-") .. ".html"
+
+  -- Search both Stack documentation roots.
+  local roots = {
+    run_command("stack path --local-doc-root"),
+    run_command("stack path --snapshot-doc-root"),
+  }
+
+  local page = nil
+
+  for _, root in ipairs(roots) do
+    if root and root ~= "" then
+      local candidate = root .. "/" .. package_id .. "/" .. module_file
+
+      log("Checking Haddock page: " .. candidate)
+
+      if vim.fn.filereadable(candidate) == 1 then
+        page = candidate
+        break
+      end
+    end
+  end
+
+  if not page then
+    notify("Local Haddock page not found for " .. module_name .. " (" .. package_id .. ")", vim.log.levels.WARN)
+    log("Could not find local Haddock page: " .. module_file)
+    return
+  end
+
+  -- Type/class anchor.
+  local url = vim.uri_from_fname(page)
+
+  if entity_name and entity_name ~= "" then
+    url = url .. "#t:" .. vim.uri_encode(entity_name)
+  end
+
+  log("Opening local Haddock URL: " .. url)
+
+  vim.ui.open(url)
+end
+
+-- Open local documentation either for an explicit qualified name
+-- or for the symbol under the cursor.
+local function open_local_documentation(identifier)
+  log_separator()
+
+  if identifier and identifier ~= "" then
+    -- Example: Data.Aeson.Types.FromJSON
+    local module_name, entity_name = identifier:match("^([%w_%.']+)%.([%w_']+)$")
+
+    if not module_name or not entity_name then
+      notify("Expected a qualified name such as Data.Aeson.Types.FromJSON", vim.log.levels.WARN)
+      return
+    end
+
+    open_local_haddock(module_name, entity_name, nil)
+    return
+  end
+
+  -- Reuse the existing HLS hover resolver.
+  local module_name, package_id, entity_name = get_module_from_hover()
+
+  if not module_name then
+    notify("Could not resolve symbol from HLS hover. See :OpenHackageLog", vim.log.levels.WARN)
+    return
+  end
+
+  open_local_haddock(module_name, entity_name, package_id)
+end
+
+-- User command:
+--   :OpenLocalHaddock
+--   :OpenLocalHaddock Data.Aeson.Types.FromJSON
+vim.api.nvim_create_user_command(
+  "OpenLocalHaddock",
+  function(args) open_local_documentation(args.args) end,
+  { nargs = "?", desc = "Open local Haddock documentation for the symbol under the cursor" }
+)
+
+-- Open local Haddock documentation for the symbol under the cursor.
+vim.keymap.set(
+  "n",
+  "<leader>hl",
+  function() open_local_documentation() end,
+  { noremap = true, silent = true, buffer = bufnr, desc = "Open local Haddock documentation" }
+)
