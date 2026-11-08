@@ -18,10 +18,10 @@ vim.keymap.set("n", "<leader>ea", ht.lsp.buf_eval_all, opts)
 
 
 -- ---------------------------------------------------------------------------
--- Hackage documentation lookup
+-- Online documentation lookup
 -- ---------------------------------------------------------------------------
 
-local LOG_FILE = vim.fn.stdpath("state") .. "/open_hackage.log"
+local LOG_FILE = vim.fn.stdpath("state") .. "/haskell_open_docs.log"
 
 local function timestamp()
   return os.date("%Y-%m-%d %H:%M:%S")
@@ -35,12 +35,12 @@ local function log(message)
   end
 end
 
-local function log_separator()
+local function log_separator(lookup_type)
   vim.fn.writefile(
     {
       "",
       "============================================================",
-      "[" .. timestamp() .. "] New Hackage lookup",
+      "[" .. timestamp() .. "] New " .. lookup_type .. " documentation lookup",
     },
     LOG_FILE,
     "a"
@@ -85,6 +85,33 @@ local function hover_contents_to_string(contents)
   end
 
   return ""
+end
+
+-- Determine the Haddock anchor type for a symbol.
+local function get_haddock_anchor(entity_name, hover_text)
+  if not entity_name or entity_name == "" then
+    return nil
+  end
+
+  local plain_text = (hover_text or ""):gsub("[%*`_]", ""):gsub("\r", "")
+
+  -- Inspect the first Haskell signature/declaration.
+  local declaration = plain_text:match("^%s*```[%w]*%s*\n(.-)\n```")
+
+  if not declaration then
+    declaration = plain_text
+  end
+
+  -- Type and typeclass declarations.
+  if declaration:match("%f[%a]data%s+")
+      or declaration:match("%f[%a]newtype%s+")
+      or declaration:match("%f[%a]type%s+")
+      or declaration:match("%f[%a]class%s+") then
+    return "t"
+  end
+
+  -- Functions, values, and class methods.
+  return "v"
 end
 
 -- Get the module and package information from the HLS hover response.
@@ -229,7 +256,7 @@ local function get_module_from_hover()
   log("Hover entity: " .. tostring(entity_name))
   log("Hover package: " .. package_id)
 
-  return actual_module, package_id, entity_name
+  return actual_module, package_id, entity_name, plain_text
 end
 
 -- Run a shell command and return its trimmed standard output.
@@ -280,7 +307,7 @@ local function module_to_hackage_path(module_name)
 end
 
 -- Open the Hackage documentation page for a module and entity.
-local function open_hackage(module_name, entity_name, package_id)
+local function open_hackage(module_name, entity_name, package_id, anchor_type)
   if not package_id or package_id == "" then
     package_id = get_package_for_module(module_name)
   end
@@ -295,7 +322,8 @@ local function open_hackage(module_name, entity_name, package_id)
   local url = string.format("https://hackage-content.haskell.org/package/%s/docs/%s.html", package_id, module_path)
 
   if entity_name and entity_name ~= "" then
-    url = url .. "#t:" .. vim.uri_encode(entity_name)
+    anchor_type = anchor_type or "t"
+    url = url .. "#" .. anchor_type .. ":" .. vim.uri_encode(entity_name)
   end
 
   log("Opening Hackage URL: " .. url)
@@ -306,7 +334,7 @@ end
 -- Open documentation either for an explicitly supplied qualified name
 -- or for the symbol under the cursor.
 local function open_hackage_documentation(identifier)
-  log_separator()
+  log_separator("online")
 
   if identifier and identifier ~= "" then
     -- Expected format:
@@ -325,48 +353,50 @@ local function open_hackage_documentation(identifier)
   end
 
   -- Resolve the symbol under the cursor using HLS hover information.
-  local module_name, package_id, entity_name = get_module_from_hover()
+  local module_name, package_id, entity_name, hover_text = get_module_from_hover()
 
   if not module_name then
-    notify("Could not resolve symbol from HLS hover. See :OpenHackageLog", vim.log.levels.WARN)
+    notify("Could not resolve symbol from HLS hover. See :HaskellOpenDocsLog", vim.log.levels.WARN)
     return
   end
 
-  open_hackage(module_name, entity_name, package_id)
+  local anchor_type = get_haddock_anchor(entity_name, hover_text)
+
+  open_hackage(module_name, entity_name, package_id, anchor_type)
 end
 
 -- User command:
---   :OpenHackage
---   :OpenHackage Data.Aeson.Types.ToJSON
+--   :HaskellOpenOnlineDocs
+--   :HaskellOpenOnlineDocs Data.Aeson.Types.ToJSON
 vim.api.nvim_create_user_command(
-  "OpenHackage",
+  "HaskellOpenOnlineDocs",
   function(args) open_hackage_documentation(args.args) end,
-  { nargs = "?", desc = "Open Hackage documentation for the symbol under the cursor" }
+  { nargs = "?", desc = "Open online Hackage documentation for the symbol under the cursor" }
 )
 
--- Shortcut to open documentation for the symbol under the cursor.
+-- Shortcut to open online documentation for the symbol under the cursor.
 vim.keymap.set(
   "n",
   "<leader>hk",
   function() open_hackage_documentation() end,
-  { noremap = true, silent = true, buffer = bufnr, desc = "Open Hackage documentation" }
+  { noremap = true, silent = true, buffer = bufnr, desc = "Open online Hackage documentation" }
 )
 
--- View the Hackage lookup log.
+-- View the documentation lookup log.
 vim.api.nvim_create_user_command(
-  "OpenHackageLog",
+  "HaskellOpenDocsLog",
   function() vim.cmd("edit " .. vim.fn.fnameescape(LOG_FILE)) end,
-  { desc = "Open Hackage lookup log" }
+  { desc = "Open the Haskell documentation lookup log" }
 )
 
--- Clear the Hackage lookup log.
+-- Clear the documentation lookup log.
 vim.api.nvim_create_user_command(
-  "OpenHackageClearLog",
+  "HaskellOpenDocsClearLog",
   function()
     vim.fn.writefile({}, LOG_FILE)
-    notify("Hackage lookup log cleared")
+    notify("Documentation lookup log cleared")
   end,
-  { desc = "Clear Hackage lookup log" }
+  { desc = "Clear the Haskell documentation lookup log" }
 )
 
 
@@ -375,8 +405,53 @@ vim.api.nvim_create_user_command(
 -- Local documentation lookup
 -- ---------------------------------------------------------------------------
 
+local function find_haddock_module(root, package_id, module_name, module_file)
+  local source_file = module_name .. ".html"
+
+  local candidates = {
+    -- Root is the package documentation directory.
+    {
+      path = root .. "/" .. module_file,
+      source = false,
+    },
+    {
+      path = root .. "/src/" .. source_file,
+      source = true,
+    },
+    {
+      path = root .. "/src/" .. module_file,
+      source = true,
+    },
+
+    -- Root is the Stack documentation root.
+    {
+      path = root .. "/" .. package_id .. "/" .. module_file,
+      source = false,
+    },
+    {
+      path = root .. "/" .. package_id .. "/src/" .. source_file,
+      source = true,
+    },
+    {
+      path = root .. "/" .. package_id .. "/src/" .. module_file,
+      source = true,
+    },
+  }
+
+  for _, candidate in ipairs(candidates) do
+    log("Checking Haddock candidate: " .. candidate.path)
+
+    if vim.fn.filereadable(candidate.path) == 1 then
+      log("Found local documentation: " .. candidate.path)
+      return candidate.path, candidate.source
+    end
+  end
+
+  return nil, false
+end
+
 -- Open local Stack Haddock documentation for a module and entity.
-local function open_local_haddock(module_name, entity_name, package_id)
+local function open_local_haddock(module_name, entity_name, package_id, anchor_type)
   -- Use the package identifier obtained from HLS hover,
   -- just as open_hackage() does.
   if not package_id or package_id == "" then
@@ -393,17 +468,39 @@ local function open_local_haddock(module_name, entity_name, package_id)
   -- Haddock converts module dots into hyphens.
   local module_file = module_name:gsub("%.", "-") .. ".html"
 
-  -- Search both Stack documentation roots.
-  local roots = {
-    run_command("stack path --local-doc-root"),
-    run_command("stack path --snapshot-doc-root"),
-  }
+  -- Search Stack's documentation roots.
+  local roots = {}
 
+  for _, command in ipairs {
+    "stack path --local-doc-root",
+    "stack path --snapshot-doc-root",
+  } do
+    local root = run_command(command)
+
+    if root and root ~= "" then
+      log("Stack documentation root: " .. root)
+      table.insert(roots, root)
+    end
+  end
+
+  -- Also try the Haddock directory registered in GHC's package database.
+  local haddock_root = run_command(
+    "stack exec -- ghc-pkg field " .. vim.fn.shellescape(package_id) .. " haddock-html --simple-output"
+  )
+
+  if haddock_root and haddock_root ~= "" then
+    log("GHC Haddock documentation root: " .. haddock_root)
+    table.insert(roots, haddock_root)
+  end
+
+  -- Find the module page, including Stack's src/ documentation layout.
   local page = nil
+  local is_source = false
 
   for _, root in ipairs(roots) do
     if root and root ~= "" then
-      local candidate = root .. "/" .. package_id .. "/" .. module_file
+      -- First try the root directly.
+      local candidate = root .. "/" .. module_file
 
       log("Checking Haddock page: " .. candidate)
 
@@ -411,20 +508,37 @@ local function open_local_haddock(module_name, entity_name, package_id)
         page = candidate
         break
       end
+
+      -- Then try the package-specific layout, including src/.
+      is_source = false
+
+      page, is_source = find_haddock_module(root, package_id, module_name, module_file)
+
+      if page then
+        break
+      end
     end
   end
 
   if not page then
-    notify("Local Haddock page not found for " .. module_name .. " (" .. package_id .. ")", vim.log.levels.WARN)
+    notify(
+      "Local Haddock page not found for " .. module_name .. " (" .. package_id .. ")",
+      vim.log.levels.WARN
+    )
     log("Could not find local Haddock page: " .. module_file)
     return
   end
 
-  -- Type/class anchor.
+  -- Source pages and Haddock API pages use different anchors.
   local url = vim.uri_from_fname(page)
 
   if entity_name and entity_name ~= "" then
-    url = url .. "#t:" .. vim.uri_encode(entity_name)
+    if is_source then
+      url = url .. "#" .. vim.uri_encode(entity_name)
+    else
+      anchor_type = anchor_type or "t"
+      url = url .. "#" .. anchor_type .. ":" .. vim.uri_encode(entity_name)
+    end
   end
 
   log("Opening local Haddock URL: " .. url)
@@ -432,10 +546,10 @@ local function open_local_haddock(module_name, entity_name, package_id)
   vim.ui.open(url)
 end
 
--- Open local documentation either for an explicit qualified name
+-- Open local documentation either for an explicitly supplied qualified name
 -- or for the symbol under the cursor.
 local function open_local_documentation(identifier)
-  log_separator()
+  log_separator("local")
 
   if identifier and identifier ~= "" then
     -- Example: Data.Aeson.Types.FromJSON
@@ -451,21 +565,23 @@ local function open_local_documentation(identifier)
   end
 
   -- Reuse the existing HLS hover resolver.
-  local module_name, package_id, entity_name = get_module_from_hover()
+  local module_name, package_id, entity_name, hover_text = get_module_from_hover()
 
   if not module_name then
-    notify("Could not resolve symbol from HLS hover. See :OpenHackageLog", vim.log.levels.WARN)
+    notify("Could not resolve symbol from HLS hover. See :HaskellOpenDocsLog", vim.log.levels.WARN)
     return
   end
 
-  open_local_haddock(module_name, entity_name, package_id)
+  local anchor_type = get_haddock_anchor(entity_name, hover_text)
+
+  open_local_haddock(module_name, entity_name, package_id, anchor_type)
 end
 
 -- User command:
---   :OpenLocalHaddock
---   :OpenLocalHaddock Data.Aeson.Types.FromJSON
+--   :HaskellOpenLocalDocs
+--   :HaskellOpenLocalDocs Data.Aeson.Types.FromJSON
 vim.api.nvim_create_user_command(
-  "OpenLocalHaddock",
+  "HaskellOpenLocalDocs",
   function(args) open_local_documentation(args.args) end,
   { nargs = "?", desc = "Open local Haddock documentation for the symbol under the cursor" }
 )
