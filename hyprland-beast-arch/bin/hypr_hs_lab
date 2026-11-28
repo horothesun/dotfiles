@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Run a Hyprland dispatcher on both old and new Hyprland.
+#   $1: legacy syntax (Hyprland < 0.55)   $2: Lua syntax (Hyprland >= 0.55)
+function _hypr_hs_lab_dispatch() {
+  local out
+  if [[ -z $_HYPR_HS_LAB_LUA ]]; then
+    [[ $(hyprctl dispatch 'hl.dsp.no_op()' 2>&1) == ok ]] && _HYPR_HS_LAB_LUA=1 || _HYPR_HS_LAB_LUA=0
+  fi
+  if [[ $_HYPR_HS_LAB_LUA == 1 ]]; then
+    out=$(hyprctl dispatch "$2" 2>&1)
+  else
+    out=$(hyprctl dispatch $1 2>&1)   # unquoted on purpose: word splitting
+  fi
+  [[ $out == ok ]] || echo "hypr_hs_lab: dispatch failed: $out" >&2
+}
+
+# Helper: sorted list of all Hyprland window addresses
+function _hypr_hs_lab_windows() {
+  hyprctl clients -j | jq -r '.[].address' | sort
+}
+
+# Main
+
+master_width=0.25      # fraction of horizontal space for the left (tests) window
+nvim_keys='<Leader>ff' # keys typed into nvim at startup (Telescope)
+test_font_size=8       # absolute font size (pt) for the left (tests) window
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: hypr_hs_lab <haskell-project-dir>" >&2
+  exit 1
+fi
+
+dir
+dir=$(realpath -- "$1") && [[ -d $dir ]] || {
+  echo "hypr_hs_lab: '$1' is not a directory" >&2
+  exit 1
+}
+
+cd -- "$dir" || exit 1
+
+# left_addr before right_addr i attempt
+left_addr=$(hyprctl activewindow -j | jq -r '.address')   # this terminal = left/master
+before=$(_hypr_hs_lab_windows)
+
+# 1. Set this terminal's font size (absolute, so re-running doesn't shrink it further)
+alacritty msg config "font.size=$test_font_size" || echo "hypr_hs_lab: could not set font size" >&2
+
+# 2. Spawn the right terminal: nvim first, then an interactive shell once nvim exits
+nvim_lua='vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(vim.env.HYPR_HS_LAB_KEYS, true, false, true), "mt", false) end })'
+
+uwsm app -- alacritty --working-directory "$dir" \
+  -e env HYPR_HS_LAB_KEYS="$nvim_keys" HYPR_HS_LAB_LUA="$nvim_lua" \
+  bash -c 'nvim -c "lua $HYPR_HS_LAB_LUA" .; exec "${SHELL:-bash}"' \
+  >/dev/null 2>&1 &
+disown
+
+# 3. Wait for the new window to show up
+for attempt in {1..50}; do
+  right_addr=$(comm -13 <(printf '%s\n' "$before") <(_hypr_hs_lab_windows) | head -n1)
+  [[ -n $right_addr ]] && break
+  sleep 0.1
+done
+
+# 4. Fix the layout: this terminal as master, master width as configured
+if [[ -n $right_addr ]]; then
+  _hypr_hs_lab_dispatch \
+    "focuswindow address:$left_addr" \
+    "hl.dsp.focus({ window = \"address:$left_addr\" })"
+  _hypr_hs_lab_dispatch \
+    "layoutmsg swapwithmaster ignoremaster" \
+    'hl.dsp.layout("swapwithmaster ignoremaster")'
+  _hypr_hs_lab_dispatch \
+    "layoutmsg mfact exact $master_width" \
+    "hl.dsp.layout(\"mfact exact $master_width\")"
+  _hypr_hs_lab_dispatch \
+    "focuswindow address:$right_addr" \
+    "hl.dsp.focus({ window = \"address:$right_addr\" })"
+else
+  echo "hypr_hs_lab: nvim window did not appear, skipping layout" >&2
+fi
+
+# 5. This terminal becomes the test runner
+stack test --fast --file-watch
