@@ -1,11 +1,11 @@
 #!/bin/bash
 
-master_width=0.25                        # fraction of horizontal space for the left (tests) window
-nvim_keys='<Leader>ff'                   # keys typed into nvim at startup (Telescope find file)
-font_size_reduction=2                    # pt to subtract from the configured size (tests window)
-alacritty_config="$HOME/.alacritty.toml" # where [font] size is read from
+master_width=0.25                          # fraction of horizontal space for the left (tests) window
+nvim_keys="<Leader>ff"                     # keys typed into nvim at startup (Telescope find file)
+font_size_reduction=2                      # pt to subtract from the configured size (tests window)
+alacritty_config="${HOME}/.alacritty.toml" # where [font] size is read from
 
-# Helper: sorted list of all Hyprland window addresses
+# Sorted list of all Hyprland window addresses
 function _hypr_hs_lab_windows() {
   hyprctl clients -j | jq -r '.[].address' | sort
 }
@@ -97,4 +97,11 @@ fi
 
 # 5. This terminal becomes the test runner, with a smaller font while it runs
 alacritty msg config "font.size=$reduced_font_size" || echo "hypr_hs_lab: could not set font size" >&2
+
+trap ':' INT   # Ctrl-C stops stack only; the script continues to the shell below
 stack test --fast --file-watch
+
+# 6. Tests stopped: restore the font and leave an interactive shell in $dir
+restore_font
+trap - EXIT INT TERM   # exec skips the EXIT trap anyway; clear it so nothing runs twice
+exec "${SHELL:-bash}"
