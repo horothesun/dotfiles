@@ -10,7 +10,8 @@ function _hypr_hs_lab_dispatch() {
   if [[ $_HYPR_HS_LAB_LUA == 1 ]]; then
     out=$(hyprctl dispatch "$2" 2>&1)
   else
-    out=$(hyprctl dispatch $1 2>&1)   # unquoted on purpose: word splitting
+    # shellcheck disable=SC2086   # unquoted on purpose: word splitting
+    out=$(hyprctl dispatch $1 2>&1)
   fi
   [[ $out == ok ]] || echo "hypr_hs_lab: dispatch failed: $out" >&2
 }
@@ -20,18 +21,44 @@ function _hypr_hs_lab_windows() {
   hyprctl clients -j | jq -r '.[].address' | sort
 }
 
+# Print the size from the [font] section of an Alacritty TOML config (fails if not found)
+function _hypr_hs_lab_config_font_size() {
+  local line in_font=0
+  local re_section='^[[:space:]]*\[([^]]+)\][[:space:]]*$'
+  local re_size='^[[:space:]]*size[[:space:]]*=[[:space:]]*([0-9]+(\.[0-9]+)?)'
+
+  while IFS= read -r line || [[ -n $line ]]; do
+    line=${line%%#*}   # strip comments
+    if [[ $line =~ $re_section ]]; then
+      [[ ${BASH_REMATCH[1]} == font ]] && in_font=1 || in_font=0
+    elif (( in_font )) && [[ $line =~ $re_size ]]; then
+      echo "${BASH_REMATCH[1]}"
+      return 0
+    fi
+  done < "$1"
+  return 1
+}
+
+# "11.25" -> 1125 (hundredths of a point, for integer arithmetic)
+function _hypr_hs_lab_to_centi() {
+  local int=${1%%.*} frac=""
+  [[ $1 == *.* ]] && frac=${1#*.}
+  frac=${frac}00
+  echo $(( 10#${int:-0} * 100 + 10#${frac:0:2} ))
+}
+
 # Main
 
-master_width=0.25      # fraction of horizontal space for the left (tests) window
-nvim_keys='<Leader>ff' # keys typed into nvim at startup (Telescope)
-test_font_size=8       # absolute font size (pt) for the left (tests) window
+master_width=0.25                        # fraction of horizontal space for the left (tests) window
+nvim_keys='<Leader>ff'                   # keys typed into nvim at startup (Telescope)
+font_size_reduction=2                    # pt to subtract from the configured size (tests window)
+alacritty_config="$HOME/.alacritty.toml" # where [font] size is read from
 
 if [[ $# -ne 1 ]]; then
   echo "Usage: hypr_hs_lab <haskell-project-dir>" >&2
   exit 1
 fi
 
-dir
 dir=$(realpath -- "$1") && [[ -d $dir ]] || {
   echo "hypr_hs_lab: '$1' is not a directory" >&2
   exit 1
@@ -43,20 +70,32 @@ cd -- "$dir" || exit 1
 left_addr=$(hyprctl activewindow -j | jq -r '.address')   # this terminal = left/master
 before=$(_hypr_hs_lab_windows)
 
-# 1. Set this terminal's font size (absolute, so re-running doesn't shrink it further)
-alacritty msg config "font.size=$test_font_size" || echo "hypr_hs_lab: could not set font size" >&2
+# 1. Read the configured font size and compute the reduced one (applied right before the tests)
+base_font_size=$(_hypr_hs_lab_config_font_size "$alacritty_config" 2>/dev/null) \
+  || base_font_size=11.25   # Alacritty's default when the config doesn't set it
+
+reduced_centi=$(( $(_hypr_hs_lab_to_centi "$base_font_size") - $(_hypr_hs_lab_to_centi "$font_size_reduction") ))
+(( reduced_centi < 100 )) && reduced_centi=100   # never go below 1pt
+printf -v reduced_font_size '%d.%02d' $(( reduced_centi / 100 )) $(( reduced_centi % 100 ))
+
+restore_font() {
+  alacritty msg config "font.size=$base_font_size" \
+    || echo "hypr_hs_lab: could not restore font size" >&2
+}
+trap restore_font EXIT
+trap 'exit 130' INT TERM
 
 # 2. Spawn the right terminal: nvim first, then an interactive shell once nvim exits
 nvim_lua='vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(vim.env.HYPR_HS_LAB_KEYS, true, false, true), "mt", false) end })'
 
-uwsm app -- alacritty --working-directory "$dir" \
+# shellcheck disable=SC2016   # expansion is intentionally left to the inner bash
+setsid -f uwsm app -- alacritty --working-directory "$dir" \
   -e env HYPR_HS_LAB_KEYS="$nvim_keys" HYPR_HS_LAB_LUA="$nvim_lua" \
   bash -c 'nvim -c "lua $HYPR_HS_LAB_LUA" .; exec "${SHELL:-bash}"' \
-  >/dev/null 2>&1 &
-disown
+  </dev/null >/dev/null 2>&1
 
 # 3. Wait for the new window to show up
-for attempt in {1..50}; do
+for _ in {1..50}; do
   right_addr=$(comm -13 <(printf '%s\n' "$before") <(_hypr_hs_lab_windows) | head -n1)
   [[ -n $right_addr ]] && break
   sleep 0.1
@@ -64,21 +103,14 @@ done
 
 # 4. Fix the layout: this terminal as master, master width as configured
 if [[ -n $right_addr ]]; then
-  _hypr_hs_lab_dispatch \
-    "focuswindow address:$left_addr" \
-    "hl.dsp.focus({ window = \"address:$left_addr\" })"
-  _hypr_hs_lab_dispatch \
-    "layoutmsg swapwithmaster ignoremaster" \
-    'hl.dsp.layout("swapwithmaster ignoremaster")'
-  _hypr_hs_lab_dispatch \
-    "layoutmsg mfact exact $master_width" \
-    "hl.dsp.layout(\"mfact exact $master_width\")"
-  _hypr_hs_lab_dispatch \
-    "focuswindow address:$right_addr" \
-    "hl.dsp.focus({ window = \"address:$right_addr\" })"
+  _hypr_hs_lab_dispatch "focuswindow address:$left_addr" "hl.dsp.focus({ window = \"address:$left_addr\" })"
+  _hypr_hs_lab_dispatch "layoutmsg swapwithmaster ignoremaster" 'hl.dsp.layout("swapwithmaster ignoremaster")'
+  _hypr_hs_lab_dispatch "layoutmsg mfact exact $master_width" "hl.dsp.layout(\"mfact exact $master_width\")"
+  _hypr_hs_lab_dispatch "focuswindow address:$right_addr" "hl.dsp.focus({ window = \"address:$right_addr\" })"
 else
   echo "hypr_hs_lab: nvim window did not appear, skipping layout" >&2
 fi
 
-# 5. This terminal becomes the test runner
+# 5. This terminal becomes the test runner, with a smaller font while it runs
+alacritty msg config "font.size=$reduced_font_size" || echo "hypr_hs_lab: could not set font size" >&2
 stack test --fast --file-watch
