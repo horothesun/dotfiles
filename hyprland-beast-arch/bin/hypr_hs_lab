@@ -1,20 +1,9 @@
 #!/bin/bash
 
-# Run a Hyprland dispatcher on both old and new Hyprland.
-#   $1: legacy syntax (Hyprland < 0.55)   $2: Lua syntax (Hyprland >= 0.55)
-function _hypr_hs_lab_dispatch() {
-  local out
-  if [[ -z $_HYPR_HS_LAB_LUA ]]; then
-    [[ $(hyprctl dispatch 'hl.dsp.no_op()' 2>&1) == ok ]] && _HYPR_HS_LAB_LUA=1 || _HYPR_HS_LAB_LUA=0
-  fi
-  if [[ $_HYPR_HS_LAB_LUA == 1 ]]; then
-    out=$(hyprctl dispatch "$2" 2>&1)
-  else
-    # shellcheck disable=SC2086   # unquoted on purpose: word splitting
-    out=$(hyprctl dispatch $1 2>&1)
-  fi
-  [[ $out == ok ]] || echo "hypr_hs_lab: dispatch failed: $out" >&2
-}
+master_width=0.25                        # fraction of horizontal space for the left (tests) window
+nvim_keys='<Leader>ff'                   # keys typed into nvim at startup (Telescope find file)
+font_size_reduction=2                    # pt to subtract from the configured size (tests window)
+alacritty_config="$HOME/.alacritty.toml" # where [font] size is read from
 
 # Helper: sorted list of all Hyprland window addresses
 function _hypr_hs_lab_windows() {
@@ -48,11 +37,6 @@ function _hypr_hs_lab_to_centi() {
 }
 
 # Main
-
-master_width=0.25                        # fraction of horizontal space for the left (tests) window
-nvim_keys='<Leader>ff'                   # keys typed into nvim at startup (Telescope)
-font_size_reduction=2                    # pt to subtract from the configured size (tests window)
-alacritty_config="$HOME/.alacritty.toml" # where [font] size is read from
 
 if [[ $# -ne 1 ]]; then
   echo "Usage: hypr_hs_lab <haskell-project-dir>" >&2
@@ -103,10 +87,10 @@ done
 
 # 4. Fix the layout: this terminal as master, master width as configured
 if [[ -n $right_addr ]]; then
-  _hypr_hs_lab_dispatch "focuswindow address:$left_addr" "hl.dsp.focus({ window = \"address:$left_addr\" })"
-  _hypr_hs_lab_dispatch "layoutmsg swapwithmaster ignoremaster" 'hl.dsp.layout("swapwithmaster ignoremaster")'
-  _hypr_hs_lab_dispatch "layoutmsg mfact exact $master_width" "hl.dsp.layout(\"mfact exact $master_width\")"
-  _hypr_hs_lab_dispatch "focuswindow address:$right_addr" "hl.dsp.focus({ window = \"address:$right_addr\" })"
+  hyprctl dispatch "hl.dsp.focus({ window = \"address:$left_addr\" })" >/dev/null
+  hyprctl dispatch "hl.dsp.layout(\"swapwithmaster ignoremaster\")" >/dev/null
+  hyprctl dispatch "hl.dsp.layout(\"mfact exact $master_width\")" >/dev/null
+  hyprctl dispatch "hl.dsp.focus({ window = \"address:$right_addr\" })" >/dev/null
 else
   echo "hypr_hs_lab: nvim window did not appear, skipping layout" >&2
 fi
